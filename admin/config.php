@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL & !E_NOTICE);
 //error_reporting(E_ALL);
-$mysqli = new mysqli("localhost", "root", "56588965", "db_bodjob");
+$mysqli = new mysqli("localhost", "root", "56588965", "jobs");
 
 /* check connection */
 if ($mysqli->connect_errno) {

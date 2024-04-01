@@ -10,13 +10,13 @@ htmltage("Job Jao Website");
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>ຂໍ້ມູນ ໝວດໝູ່ສີນຄ້າ</h1>
+          <h1>ຂໍ້ມູນບໍລິສັດ</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">ໜ້າຫຼັກ</a></li>
-            <li class="breadcrumb-item active">ຈັດການຂໍ້ມູນ</li>
-            <li class="breadcrumb-item active">ຂໍ້ມູນ ໝວດໝູ່ສີນຄ້າ</li>
+            <li class="breadcrumb-item"><a href="index.php?d=index">ໜ້າຫຼັກ</a></li>
+            <li class="breadcrumb-item active">ຈັດການຂໍ້ມູນພື້ນຖານ</li>
+            <li class="breadcrumb-item active">ຂໍ້ມູນບໍລິສັດ</li>
           </ol>
         </div>
       </div>
@@ -39,18 +39,18 @@ htmltage("Job Jao Website");
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title">ຂໍ້ມູນໝວດໝູ່ສີນຄ້າໃໝ່</h4>
+                  <h4 class="modal-title">ເພີ່ມບໍລິສັດໃໝ່</h4>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form method="post" action="?d=master/category" enctype="multipart/form-data">
+                <form method="post" action="?d=master/company" enctype="multipart/form-data">
                   <div class="modal-body">
                     <div class="row">
-                      <div class="col-sm-12">
+                      <div class="col-sm-6">
                         <div class="form-group">
-                          <label>ຊື່ໝວດໝູ່</label>
-                          <input type="text" Name="txtcategoryName" class="form-control" required="">
+                          <label>ຊື່ບໍລິສັດ</label>
+                          <input type="text" Name="txtCompany" class="form-control" required="">
 
 
                         </div>
@@ -74,12 +74,18 @@ htmltage("Job Jao Website");
                 <div class="table-responsive">
                   <table id="example1" class="table table-bordered beautified_report">
 
-                    <thead>
+                    <thead class="text-center">
                       <tr>
                         <th>ລ/ດ</th>
-                        <th>ຊື່ໝວດໝູ່</th>
-                        <th>ແກ້ໄຂ</th>
-                        <th>ລົບ</th>
+                        <th>ຊື່ບໍລິສັດ</th>
+                        <th>ເບີໂທ</th>
+                        <th>ອີເມລ</th>
+                        <th>ທີ່ຢູ່</th>
+                        <th>ເວັບໄຊ້</th>
+                        <th>ລາຍລະອຽດ</th>
+                        <th>ໂລໂກ້</th>
+                        <th></th>
+                       
                       </tr>
                     </thead>
                     <tbody>
@@ -94,19 +100,19 @@ htmltage("Job Jao Website");
                             <div class="modal-dialog modal-lg">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h4 class="modal-title">ແກ້ໄຂໝວດໝູ່ສີນຄ້າ</h4>
+                                  <h4 class="modal-title">ແກ້ໄຂບໍລິສັດ</h4>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
-                                <form method="post" action="?d=master/category" enctype="multipart/form-data">
+                                <form method="post" action="?d=master/company" enctype="multipart/form-data">
                                   <div class="modal-body">
                                     <input type="text" hidden name="txtId" class="form-control" required="" value="<?= $row[0] ?>">
                                     <div class="row">
-                                      <div class="col-sm-12">
+                                      <div class="col-sm-6">
                                         <div class="form-group">
-                                          <label>ຊື່ໝວດໝູ່</label>
-                                          <input type="text" name="txtcategoryName1" class="form-control" required="" value="<?= $row[1] ?>">
+                                          <label>ຊື່ບໍລິສັດ</label>
+                                          <input type="text" name="txtCompany" class="form-control" required="" value="<?= $row[2] ?>">
 
                                         </div>
                                       </div>
@@ -126,14 +132,27 @@ htmltage("Job Jao Website");
 
 
 
-                          <tr>
-                            <td><?= $i ?></td>
-                            <td><?= $row[1] ?></td>
-
-                            <td align="center"><a href="#"><i class="fas fa-edit" data-toggle="modal" data-target="#modal-lg-Edit<?= $i ?>"></i></a></td>
-                            <td align="center">
-                              <a href="?d=master/category&del=<?= $row[0] ?>" onclick="return confirm('ທ່ານຕ້ອງການລຶບແທ້ບໍ...?')"><i class="far fa-trash-alt"></i></a>
-                            </td>
+                          <tr class="text-center">
+                            <td class="align-middle"><?= $i ?></td>
+                            <td class="align-middle"><?= $row[2] ?></td>
+                            <td class="align-middle"><?= $row[4] ?></td>
+                            <td class="align-middle"><?= $row[5] ?></td>
+                            <td class="align-middle"><?= $row[6] ?></td>
+                            <td class="align-middle"><a target="_blank" href="https://<?= $row[7] ?>"><?= $row[7] ?></a></td>
+                            <td class="align-middle"><?= $row[8] ?></td>
+                            <?php
+                      
+                                        $imagePath = "dist/img/company/" . $row[3];
+                                        if (!file_exists($imagePath) || $row[3] == '') {
+                                          $imagePath = "dist/img/default.png";
+                                        }
+                                        ?>
+                            <td class="align-middle"><img class="img-fluid img-thumbnail" width="70px" height="70px" src="<?=$imagePath?>"/></td>
+                            <td class="align-middle">
+                              <a href="#"><i class="fas fa-edit" data-toggle="modal" data-target="#modal-lg-Edit<?= $i ?>"></i></a>
+                              <a href="?d=master/company&del=<?= $row[0] ?>" onclick="return confirm('ທ່ານຕ້ອງການລຶບແທ້ບໍ...?')"><i class="far fa-trash-alt"></i></a>
+                          </td>
+                            
                           </tr>
                       <?php $i++;
                         }

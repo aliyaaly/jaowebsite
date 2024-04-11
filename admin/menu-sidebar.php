@@ -82,7 +82,7 @@ else if ($_GET['d'] == 'master/user') {
                         <li class="nav-item">
                             <a href="index.php?d=master/job" class="nav-link <?= $mn_job ?>">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>ຂໍ້ມູນຕໍາແໜ່ງວຽກ</p>
+                                <p>ຂໍ້ມູນປະເພດວຽກ</p>
                             </a>
                         </li>
                     </ul>

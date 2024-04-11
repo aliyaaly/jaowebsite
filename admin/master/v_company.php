@@ -120,7 +120,7 @@ htmltage("Job Jao Website");
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label>ລະຫັດຜ່ານ</label>
-                          <input type="password" name="txtPassword" class="form-control">
+                          <input readonly type="text" name="txtPassword" class="form-control" value="123456">
 
                         </div>
                       </div>

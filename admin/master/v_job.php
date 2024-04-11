@@ -10,13 +10,13 @@ htmltage("Job Jao Website");
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>ຂໍ້ມູນຕຳແໜ່ງວຽກ</h1>
+          <h1>ຂໍ້ມູນປະເພດວຽກ</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="index.php?d=index">ໜ້າຫຼັກ</a></li>
             <li class="breadcrumb-item active">ຈັດການຂໍ້ມູນພື້ນຖານ</li>
-            <li class="breadcrumb-item active">ຂໍ້ມູນຕຳແໜ່ງວຽກ</li>
+            <li class="breadcrumb-item active">ຂໍ້ມູນປະເພດວຽກ</li>
           </ol>
         </div>
       </div>
@@ -39,7 +39,7 @@ htmltage("Job Jao Website");
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title">ເພີ່ມຕຳແໜ່ງວຽກໃໝ່</h4>
+                  <h4 class="modal-title">ເພີ່ມປະເພດວຽກໃໝ່</h4>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -49,7 +49,7 @@ htmltage("Job Jao Website");
                     <div class="row">
                       <div class="col-sm-6">
                         <div class="form-group">
-                          <label>ຊື່ຕຳແໜ່ງວຽກ</label>
+                          <label>ຊື່ປະເພດວຽກ</label>
                           <input type="text" Name="txtJob" class="form-control" required="">
 
 
@@ -77,7 +77,7 @@ htmltage("Job Jao Website");
                     <thead class="text-center">
                       <tr>
                         <th>ລ/ດ</th>
-                        <th>ຊື່ຕຳແໜ່ງວຽກ</th>
+                        <th>ຊື່ປະເພດວຽກ</th>
                         <th></th>
                        
                       </tr>
@@ -94,7 +94,7 @@ htmltage("Job Jao Website");
                             <div class="modal-dialog modal-lg">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h4 class="modal-title">ແກ້ໄຂຕຳແໜ່ງວຽກ</h4>
+                                  <h4 class="modal-title">ແກ້ໄຂປະເພດວຽກ</h4>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
@@ -105,7 +105,7 @@ htmltage("Job Jao Website");
                                     <div class="row">
                                       <div class="col-sm-6">
                                         <div class="form-group">
-                                          <label>ຊື່ຕຳແໜ່ງວຽກ</label>
+                                          <label>ຊື່ປະເພດວຽກ</label>
                                           <input type="text" name="txtJob" class="form-control" required="" value="<?= $row[1] ?>">
 
                                         </div>

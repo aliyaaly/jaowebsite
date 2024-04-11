@@ -4,6 +4,7 @@ $mn_Mmain = "";
 $mn_Mmain1 = "";
 $mn_job = "";
 $mn_company = "";
+$mn_user = "";
 
 
 if ($_GET['d'] == 'index') {
@@ -18,6 +19,11 @@ else if ($_GET['d'] == 'master/company') {
   $mn_Mmain1 = "active";
   $mn_company = "active";
 }
+else if ($_GET['d'] == 'master/user') {
+    $mn_Mmain = "menu-open";
+    $mn_Mmain1 = "active";
+    $mn_user = "active";
+  }
 
 
 
@@ -77,6 +83,14 @@ else if ($_GET['d'] == 'master/company') {
                             <a href="index.php?d=master/job" class="nav-link <?= $mn_job ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>ຂໍ້ມູນຕໍາແໜ່ງວຽກ</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="index.php?d=master/user" class="nav-link <?= $mn_user ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ຂໍ້ມູນຜູ້ໃຊ້ລະບົບ</p>
                             </a>
                         </li>
                     </ul>

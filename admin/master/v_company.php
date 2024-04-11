@@ -50,8 +50,77 @@ htmltage("Job Jao Website");
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label>ຊື່ບໍລິສັດ</label>
-                          <input type="text" Name="txtCompany" class="form-control" required="">
+                          <input type="text" name="txtCompany" class="form-control" required>
 
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>ເບີໂທ</label>
+                          <input type="text" name="txtPhone" class="form-control" required>
+
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>ອີເມລ</label>
+                          <input type="text" name="txtEmail" class="form-control">
+
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>ທີ່ຢູ່</label>
+                          <input type="text" name="txtAddress" class="form-control">
+
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>ເວັບໄຊ້</label>
+                          <input type="text" name="txtWebsite" class="form-control">
+
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>ໂລໂກ້</label>
+                          <input name="edit_fileUpload" class="form-control" type="file" required>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>ວັນເດືອນປີກໍ່ຕັ້ງ</label>
+                          <input type="date" name="txtBorn" class="form-control" required>
+
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>ຄຳອະທິບາຍ</label>
+                          <textarea name="txtDes" class="form-control" style="height: 100px"></textarea>
+
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>ຊື່ຜູ້ໃຊ້</label>
+                          <input type="text" name="txtUserName" class="form-control">
+
+                        </div>
+                      </div>
+                      
+                    </div>
+                    <div class="row">
+                     
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>ລະຫັດຜ່ານ</label>
+                          <input type="password" name="txtPassword" class="form-control">
 
                         </div>
                       </div>
@@ -85,7 +154,7 @@ htmltage("Job Jao Website");
                         <th>ລາຍລະອຽດ</th>
                         <th>ໂລໂກ້</th>
                         <th></th>
-                       
+
                       </tr>
                     </thead>
                     <tbody>
@@ -95,7 +164,7 @@ htmltage("Job Jao Website");
                       if ($result = $mysqli->query($fetch)) {
                         while ($row = $result->fetch_row()) {
 
-                      ?>
+                          ?>
                           <div class="modal fade" id="modal-lg-Edit<?= $i ?>">
                             <div class="modal-dialog modal-lg">
                               <div class="modal-content">
@@ -107,12 +176,62 @@ htmltage("Job Jao Website");
                                 </div>
                                 <form method="post" action="?d=master/company" enctype="multipart/form-data">
                                   <div class="modal-body">
-                                    <input type="text" hidden name="txtId" class="form-control" required="" value="<?= $row[0] ?>">
+                                    <input type="text" hidden name="txtId" class="form-control" required=""
+                                      value="<?= $row[0] ?>">
                                     <div class="row">
                                       <div class="col-sm-6">
                                         <div class="form-group">
                                           <label>ຊື່ບໍລິສັດ</label>
-                                          <input type="text" name="txtCompany" class="form-control" required="" value="<?= $row[2] ?>">
+                                          <input type="text" name="txtCompany" class="form-control" required=""
+                                            value="<?= $row[2] ?>">
+
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-6">
+                                        <div class="form-group">
+                                          <label>ເບີໂທ</label>
+                                          <input type="text" name="txtPhone" class="form-control" required=""
+                                            value="<?= $row[2] ?>">
+
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-6">
+                                        <div class="form-group">
+                                          <label>ຊື່ບໍລິສັດ</label>
+                                          <input type="text" name="txtEmail" class="form-control" required=""
+                                            value="<?= $row[2] ?>">
+
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-6">
+                                        <div class="form-group">
+                                          <label>ຊື່ບໍລິສັດ</label>
+                                          <input type="text" name="txtAddress" class="form-control" required=""
+                                            value="<?= $row[2] ?>">
+
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-6">
+                                        <div class="form-group">
+                                          <label>ຊື່ບໍລິສັດ</label>
+                                          <input type="text" name="txtWebsite" class="form-control" required=""
+                                            value="<?= $row[2] ?>">
+
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-6">
+                                        <div class="form-group">
+                                          <label>ຊື່ບໍລິສັດ</label>
+                                          <input type="text" name="txtDescription" class="form-control" required=""
+                                            value="<?= $row[2] ?>">
+
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-6">
+                                        <div class="form-group">
+                                          <label>ຊື່ບໍລິສັດ</label>
+                                          <input type="text" name="txtLogo" class="form-control" required=""
+                                            value="<?= $row[2] ?>">
 
                                         </div>
                                       </div>
@@ -133,28 +252,45 @@ htmltage("Job Jao Website");
 
 
                           <tr class="text-center">
-                            <td class="align-middle"><?= $i ?></td>
-                            <td class="align-middle"><?= $row[2] ?></td>
-                            <td class="align-middle"><?= $row[4] ?></td>
-                            <td class="align-middle"><?= $row[5] ?></td>
-                            <td class="align-middle"><?= $row[6] ?></td>
-                            <td class="align-middle"><a target="_blank" href="https://<?= $row[7] ?>"><?= $row[7] ?></a></td>
-                            <td class="align-middle"><?= $row[8] ?></td>
-                            <?php
-                      
-                                        $imagePath = "dist/img/company/" . $row[3];
-                                        if (!file_exists($imagePath) || $row[3] == '') {
-                                          $imagePath = "dist/img/default.png";
-                                        }
-                                        ?>
-                            <td class="align-middle"><img class="img-fluid img-thumbnail" width="70px" height="70px" src="<?=$imagePath?>"/></td>
                             <td class="align-middle">
-                              <a href="#"><i class="fas fa-edit" data-toggle="modal" data-target="#modal-lg-Edit<?= $i ?>"></i></a>
-                              <a href="?d=master/company&del=<?= $row[0] ?>" onclick="return confirm('ທ່ານຕ້ອງການລຶບແທ້ບໍ...?')"><i class="far fa-trash-alt"></i></a>
-                          </td>
-                            
+                              <?= $i ?>
+                            </td>
+                            <td class="align-middle">
+                              <?= $row[2] ?>
+                            </td>
+                            <td class="align-middle">
+                              <?= $row[4] ?>
+                            </td>
+                            <td class="align-middle">
+                              <?= $row[5] ?>
+                            </td>
+                            <td class="align-middle">
+                              <?= $row[6] ?>
+                            </td>
+                            <td class="align-middle"><a target="_blank" href="https://<?= $row[7] ?>">
+                                <?= $row[7] ?>
+                              </a></td>
+                            <td class="align-middle">
+                              <?= $row[8] ?>
+                            </td>
+                            <?php
+
+                            $imagePath = "dist/img/company/" . $row[3];
+                            if (!file_exists($imagePath) || $row[3] == '') {
+                              $imagePath = "dist/img/default.png";
+                            }
+                            ?>
+                            <td class="align-middle"><img class="img-fluid img-thumbnail" width="70px" height="70px"
+                                src="<?= $imagePath ?>" /></td>
+                            <td class="align-middle">
+                              <a href="#"><i class="fas fa-edit" data-toggle="modal"
+                                  data-target="#modal-lg-Edit<?= $i ?>"></i></a>
+                              <a href="?d=master/company&del=<?= $row[0] ?>"
+                                onclick="return confirm('ທ່ານຕ້ອງການລຶບແທ້ບໍ...?')"><i class="far fa-trash-alt"></i></a>
+                            </td>
+
                           </tr>
-                      <?php $i++;
+                          <?php $i++;
                         }
                       } ?>
 

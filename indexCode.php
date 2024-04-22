@@ -6,7 +6,7 @@ require_once ("config.php");
 // $info_id = $_SESSION["EGTKCOINinfo_id"];
    
     if(!isset($_SESSION['user_id'])){
-        header("Location: login.php");
+        header("Location: register/index.php");
         exit();        
     }
 		

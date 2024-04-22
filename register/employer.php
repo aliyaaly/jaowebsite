@@ -1,3 +1,11 @@
+<?php
+error_reporting(E_ALL & ~E_NOTICE);
+session_start();
+
+//  echo '<script>alert("user_id:'.$_SESSION['username'].'")</script>';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +48,7 @@
       <a href="index.php" class="logo d-flex align-items-center me-auto me-lg-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="assets/img/logo_jobjao.png" alt="">
-        <h1>Job Assist<span>.</span></h1>
+        <h1>Job Assist <span>.</span></h1>
       </a>
 
       <nav id="navbar" class="navbar">
@@ -65,7 +73,7 @@
         </ul>
       </nav><!-- .navbar -->
 
-      <a class="btn-book-a-table" href="#book-a-table">ຜູ້ຈ້າງານ</a>
+      <a class="btn-book-a-table" href="#book-a-table"><?=$_SESSION['username']?></a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
@@ -73,54 +81,7 @@
   </header><!-- End Header -->
 
   <!-- ======= home Section ======= -->
-  <section id="home">
-
-
-    <!-- Carousel -->
-    <div id="demo" class="carousel slide" data-bs-ride="carousel">
-
-      <!-- Indicators/dots -->
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
-        <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
-        <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
-      </div>
-
-      <!-- The slideshow/carousel -->
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="assets/img/feed/feed.png" class="d-block w-100">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/img/feed/feed2.jpg" class="d-block w-100">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/img/feed/feed3.png" class="d-block w-100">
-        </div>
-      </div>
-
-      <!-- Left and right controls/icons -->
-      <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </button>
-    </div>
-    <!-- <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
-          <h2 data-aos="fade-up">Enjoy Your Healthy<br>Delicious Food</h2>
-          <p data-aos="fade-up" data-aos-delay="100">Sed autem laudantium dolores. Voluptatem itaque ea consequatur eveniet. Eum quas beatae cumque eum quaerat.</p>
-          <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-            <a href="#book-a-table" class="btn-book-a-table">Book a Table</a>
-            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
-          </div>
-        </div>
-        <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
-          <img src="assets/img/feed/feed.png" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
-        </div> -->
-
-
-  </section><!-- End home Section -->
+<br>
 
   <main id="main">
 

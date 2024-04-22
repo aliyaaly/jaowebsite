@@ -18,9 +18,14 @@ function checkLogin($getUsername, $getPass, $mysqli) {
 			$_SESSION['surname'] = $row[5];
 		
 
-		
-	        header("Location: index.php");
+		if( $_SESSION['role']=="employer"){
+			header("Location: ../register/index.php");
 	        exit();
+		}else{
+			header("Location: index.php");
+	        exit();
+		}
+	        
 	    }
 	     $result_auth->close();
     }

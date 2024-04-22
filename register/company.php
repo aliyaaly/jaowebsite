@@ -46,7 +46,7 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="#home">ໜ້າຫຼັກ</a></li>
-          <li><a href="sample.php">ຄົ້ນຫາວຽກ</a></li>
+          <li><a href="search.php">ຄົ້ນຫາວຽກ</a></li>
           <li><a href="#menu">ບໍລິສັດ</a></li>
           <!-- <li><a href="#events">Events</a></li>
           <li><a href="#chefs">Chefs</a></li>

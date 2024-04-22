@@ -1,3 +1,20 @@
+<?php
+session_start();
+include_once("../function_sel.php");
+if (isset($_SESSION['user_id'])) {
+  header("Location: ../register/employer.php");
+  exit();
+}
+
+if (isset($_POST['btnLogin'])) {
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+
+  $message = checkLogin($username, $password, $mysqli);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,14 +45,15 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
- 
+
 </head>
 
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center" style="background-color: #EC1D23;">
-    <div class="container d-flex align-items-center justify-content-center " >
+  <header id="header" class="header fixed-top d-flex align-items-center" style="background-color: #EC1D23;"
+    onclick="action()">
+    <div class="container d-flex align-items-center justify-content-center ">
 
       <a href="index.php" class="logo d-flex align-items-center me-auto me-lg-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
@@ -48,30 +66,59 @@
           <li><a href="#home" class="nav-item nav-link active" style="color: whitesmoke;">ໜ້າຫຼັກ</a></li>
           <li><a href="search.php " style="color: whitesmoke;">ຄົ້ນຫາວຽກ</a></li>
           <li><a href="company.php" style="color: whitesmoke;">ບໍລິສັດ</a></li>
-          <!-- <li><a href="#events">Events</a></li>
-          <li><a href="#chefs">Chefs</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          -->
+
           <li><a href="about.php #contact" style="color: whitesmoke;">ກ່ຽວກັບ</a></li>
-          <li class="dropdown" ><a href="#"><span style="color: whitesmoke;">ສະໝັກວຽກ</span> <i
+          <li class="dropdown"><a href="#"><span style="color: whitesmoke;">ສະໝັກວຽກ</span> <i
                 class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="#">ລົງທະບຽນ</a></li>
-           
+
               <li><a href="#">ເຂົ້າສູ່ລະບົບ</a></li>
-             
+
             </ul>
           </li>
         </ul>
       </nav><!-- .navbar -->
-
-      <a class="btn-book-a-table" href="#book-a-table">ຜູ້ຈ້າງງານ</a>
+      <button type="button" class="btn-book-a-table" data-bs-toggle="modal" data-bs-target="#myModal">
+        ຜູ້ຈ້າງງານ
+      </button>
+      <!-- <a class="btn-book-a-table" href="#"><i class="fas fa-edit" data-toggle="modal"
+          data-target="#modal-lg-login"></i>ຜູ້ຈ້າງງານ</a> -->
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
     </div>
   </header><!-- End Header -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
 
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">ເຂົ້າສູ່ລະບົບ</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form method="post">
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="mb-3 mt-3">
+              <label for="email" class="form-label">ຊື່ຜູ້ໃຊ້:</label>
+              <input type="text" class="form-control"  placeholder="ກະລຸນາປ້ອນຊື່ຜູ້ໃຊ້" name="username">
+            </div>
+            <div class="mb-3">
+              <label for="pwd" class="form-label">ລະຫັດຜ່ານ:</label>
+              <input type="password" class="form-control" id="pwd" placeholder="ກະລຸນາປ້ອນລະຫັດຜ່ານ" name="password">
+            </div>
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="submit" name="btnLogin" class="btn btn-primary">ເຂົ້າສູ່ລະບົບ</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ປິດ</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
   <!-- ======= home Section ======= -->
   <section id="home">
 
@@ -124,9 +171,9 @@
 
   <main id="main">
 
-    
 
-   
+
+
     <!-- ======= Chefs Section ======= -->
     <section id="chefs" class="chefs section-bg">
       <div class="container" data-aos="fade-up">
@@ -150,9 +197,12 @@
                 </div>
               </div>
               <div class="member-info">
-                <h4>   <img src="assets/img/company/company.jpeg" width="30" height="25" alt=""> ບໍລິສັດ ສາມັກຄີ ບໍລິຫານຈັດການ ອະສັງຫາລິມະຊັບ ຈໍາກັດ</h4>
+                <h4> <img src="assets/img/company/company.jpeg" width="30" height="25" alt=""> ບໍລິສັດ
+                  ສາມັກຄີ
+                  ບໍລິຫານຈັດການ ອະສັງຫາລິມະຊັບ ຈໍາກັດ</h4>
                 <span>Administrtive Assistant</span>
-                <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit corporis.
+                <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima
+                  suscipit corporis.
                   Voluptate sed quas reiciendis animi neque sapiente.</p>
               </div>
             </div>
@@ -172,7 +222,8 @@
               <div class="member-info">
                 <h4>Sarah Jhonson</h4>
                 <span>Patissier</span>
-                <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit corporis.
+                <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima
+                  suscipit corporis.
                   Voluptate sed quas reiciendis animi neque sapiente.</p>
               </div>
             </div>
@@ -181,7 +232,7 @@
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
             <div class="chef-member">
               <div class="member-img">
-              <img src="assets/img/job/administrative.jpeg" class="img-fluid" alt="">
+                <img src="assets/img/job/administrative.jpeg" class="img-fluid" alt="">
                 <div class="social">
                   <a href=""><i class="bi bi-twitter"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
@@ -192,7 +243,8 @@
               <div class="member-info">
                 <h4>William Anderson</h4>
                 <span>Cook</span>
-                <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt. Voluptates enim aut
+                <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt.
+                  Voluptates enim aut
                   architecto porro aspernatur molestiae modi.</p>
               </div>
             </div>
@@ -259,7 +311,8 @@
               <div class="mb-3">
                 <div class="loading">Loading</div>
                 <div class="error-message"></div>
-                <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm
+                <div class="sent-message">Your booking request was sent. We will call back or send an
+                  Email to confirm
                   your reservation. Thank you!</div>
               </div>
               <div class="text-center"><button type="submit">Book a Table</button></div>
@@ -395,7 +448,8 @@
             <div class="sent-message">Your message has been sent. Thank you!</div>
           </div>
           <div class="text-center"><button type="submit">Send Message</button></div>
-        </form><!--End Contact Form -->
+        </form>
+        <!--End Contact Form -->
 
       </div>
     </section><!-- End Contact Section -->
@@ -478,3 +532,19 @@
 </body>
 
 </html>
+<script type="text/javascript">
+  var numClicks = 0;
+  var x = 5;
+
+  function action() {
+    numClicks++;
+    if (numClicks == x) {
+      //do something here
+      //get hello div and make it visible
+      console.log(numClicks);
+      window.location.assign("http://localhost/jobhiring/admin/login.php");
+      // header("Location: http://localhost/jobhiring/admin/login.php");
+
+    }
+  }
+</script>

@@ -18,7 +18,7 @@ if (isset($_POST["btnSaveNew"])) {
 		$name1 = $_FILES["edit_fileUpload"]["name"];
 		$ext1 = end((explode(".", $name1))); # extra () to prevent notice
 		$file_name1 = date('YmdHis') . $user_id . "." . $ext1;
-		copy($_FILES["edit_fileUpload"]["tmp_name"], "dist/image/Company/" . $file_name1);
+		copy($_FILES["edit_fileUpload"]["tmp_name"], "dist/img/company/" . $file_name1);
 	}
 
 
@@ -50,40 +50,40 @@ if (isset($_POST["btnSaveNew"])) {
 	}
 }
 
-if (isset($_POST["btSaveEdit"])) {
-	$id = $mysqli->real_escape_string($_POST['txtId']);
-	$txtJob = $mysqli->real_escape_string($_POST['txtJob']);
+// if (isset($_POST["btSaveEdit"])) {
+// 	$id = $mysqli->real_escape_string($_POST['txtId']);
+// 	$txtJob = $mysqli->real_escape_string($_POST['txtJob']);
 
 
 
-	$sql = "UPDATE job SET name='$txtJob',updatedBy='$user_id',updatedAt=NOW() WHERE id = '$id' ";
+// 	$sql = "UPDATE job SET name='$txtJob',updatedBy='$user_id',updatedAt=NOW() WHERE id = '$id' ";
 
 
-	if ($mysqli->query($sql) === TRUE) {
-		header("Location: ?d=master/job");
-	} else {
-		echo "<center><h2>ERROR Update</h2></center>";
-	}
-}
+// 	if ($mysqli->query($sql) === TRUE) {
+// 		header("Location: ?d=master/job");
+// 	} else {
+// 		echo "<center><h2>ERROR Update</h2></center>";
+// 	}
+// }
 
 
 
 
-if (isset($_GET["del"])) {
+// if (isset($_GET["del"])) {
 
 
-	$id = $_GET["del"];
+// 	$id = $_GET["del"];
 
-	$sql = "UPDATE job SET isDelete = 1,updatedBy='$user_id',updatedAt=NOW() WHERE id = '$id' ";
-
-
-	if ($mysqli->query($sql) === TRUE) {
-		header("Location: ?d=master/job");
-	} else {
-		echo "<center><h2>ERROR Delete</h2></center>";
-	}
+// 	$sql = "UPDATE company SET isDelete = 1,updatedBy='$user_id',updatedAt=NOW() WHERE id = '$id' ";
 
 
-}
+// 	if ($mysqli->query($sql) === TRUE) {
+// 		header("Location: ?d=master/company");
+// 	} else {
+// 		echo "<center><h2>ERROR Delete</h2></center>";
+// 	}
+
+
+// }
 
 ?>

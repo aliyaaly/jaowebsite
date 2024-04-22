@@ -542,7 +542,7 @@ if (isset($_POST['btnLogin'])) {
       //do something here
       //get hello div and make it visible
       console.log(numClicks);
-      window.location.assign("http://localhost/jobhiring/admin/login.php");
+      window.location.assign("http://localhost/jobhiring/login.php");
       // header("Location: http://localhost/jobhiring/admin/login.php");
 
     }

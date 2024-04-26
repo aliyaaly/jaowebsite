@@ -6,25 +6,20 @@ include_once ("../config.php");
 $userId = $_SESSION['user_id'];
 $fetchHeader = "SELECT * FROM company WHERE userId = '$userId'";
 if ($result = $mysqli->query($fetchHeader)) {
-  while ($row = $result->fetch_row()) {
+    while ($row = $result->fetch_row()) {
 
-    $companyId = $row[0];
-    $name = $row[2];
-    $logo = $row[3];
-    $phone = $row[4];
-    $mail = $row[5];
-    $address = $row[6];
-    $website = $row[7];
-    $description = $row[8];
-  }
+        $companyId = $row[0];
+        $name = $row[2];
+        $logo = $row[3];
+        $phone = $row[4];
+        $mail = $row[5];
+        $address = $row[6];
+        $website = $row[7];
+        $description = $row[8];
+    }
 }
 
-$employList = "SELECT * FROM employ WHERE companyId = '$companyId'";
-if ($result = $mysqli->query($employList)) {
-  while ($row1 = $result->fetch_row()) {
 
-  }
-}
 ?>
 
 
@@ -84,7 +79,7 @@ if ($result = $mysqli->query($employList)) {
                 </ul>
             </nav><!-- .navbar -->
 
-            <a class="btn-book-a-table" href="#book-a-table"><?= $name ?></a>
+            <a class="btn-employ-add" href="#"><?= $name ?></a>
             <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
             <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
@@ -128,51 +123,75 @@ if ($result = $mysqli->query($employList)) {
             </div>
             <div class="container p-2" data-aos="fade-up">
                 <div class="card">
-                   <div class="card-header" ><h5>ກ່ຽວກັບບໍລິສັດ</h5></div>
-                   <div class="card-body" ><?=$description?></div>
-
-                </div>
-
-            </div>
-            <div class="container p-2" data-aos="fade-up">
-                <div class="card">
-                   <div class="card-header" ><h5>ລາຍການປະກາດຫາວຽກ</h5></div>
-                   <div class="card-body" >
-                   <div class="row">
-                        <div class="col-sm-6">
-                            <img src="../dist/img/company/<?= $logo ?>" class="img-fluid img-thumbnail">
-                            <p class="card-text "><i class="bi bi-telephone icon"> <?= $phone ?></i><br><i
-                                        class="bi bi-envelope">
-                                        <?= $mail ?></i><br><i class="bi bi-geo">
-                                        <?= $address ?></i></i><br><i class="bi bi-browser-chrome"> <a
-                                            href=""><?= $website ?></a></i>
-                                </p>
-                        </div>
-                        <div class="col-sm-6">
-                        <img src="../dist/img/company/<?= $logo ?>" class="img-fluid img-thumbnail">
-                            <p class="card-text "><i class="bi bi-telephone icon"> <?= $phone ?></i><br><i
-                                        class="bi bi-envelope">
-                                        <?= $mail ?></i><br><i class="bi bi-geo">
-                                        <?= $address ?></i></i><br><i class="bi bi-browser-chrome"> <a
-                                            href=""><?= $website ?></a></i>
-                                </p>
-                        </div>
+                    <div class="card-header">
+                        <h5>ກ່ຽວກັບບໍລິສັດ</h5>
                     </div>
-                   </div>
+                    <div class="card-body"><?= $description ?></div>
 
                 </div>
 
             </div>
             <div class="container p-2" data-aos="fade-up">
                 <div class="card">
-                   <div class="card-header" ><h5>ຕິດຕໍ່</h5></div>
-                   <div class="card-body" ><h5 class="card-title"><?= $name ?></h5>
-                               
-                                <p class="card-text "> <?= $address ?><br><i class="bi bi-telephone icon"> <?= $phone ?></i><br><i
-                                        class="bi bi-envelope">
-                                        <?= $mail ?></i><br><i class="bi bi-browser-chrome"> <a
-                                            href=""><?= $website ?></a></i>
-                                </p></div>
+                    <div class="card-header">
+                        <h5>ລາຍການປະກາດຫາວຽກ</h5>
+                    </div>
+                    <div class="card-body">
+
+                        <?php
+                        $employList = "SELECT * FROM employ WHERE companyId = '$companyId'";
+                        if ($result = $mysqli->query($employList)) {
+                            while ($row1 = $result->fetch_row()) {
+                                $employName = $row1[2];
+                                $location = $row1[7];
+                                $strDate = $row1[14];
+                                $endDate = $row1[15];
+
+                                ?>
+                                <div class="row"  >
+                                    <div class="col-sm-2">
+                                        <div align="center" >
+                                            <img src="../dist/img/company/<?= $logo ?>" class="w-50" style="border-radius: 50%;" />
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <div style="align-items: center;">
+                                            <a href=""><?= $employName ?></a>
+
+                                            <p class="">
+                                                <i class="bi bi-geo">
+                                                    <?= $location ?></i><br> <i class="bi bi-calendar3">
+                                                    <?= $strDate ?> - <?= $endDate ?></i>
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <?php
+                            }
+                        } ?>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="container p-2" data-aos="fade-up">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>ຕິດຕໍ່</h5>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><?= $name ?></h5>
+
+                        <p class="card-text "> <?= $address ?><br><i class="bi bi-telephone icon">
+                                <?= $phone ?></i><br><i class="bi bi-envelope">
+                                <?= $mail ?></i><br><i class="bi bi-browser-chrome"> <a href=""><?= $website ?></a></i>
+                        </p>
+                    </div>
 
                 </div>
 

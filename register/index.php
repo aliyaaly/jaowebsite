@@ -79,7 +79,7 @@ if (isset($_POST['btnLogin'])) {
           </li>
         </ul>
       </nav><!-- .navbar -->
-      <button type="button" class="btn-book-a-table" data-bs-toggle="modal" data-bs-target="#myModal">
+      <button type="button" class="btn-employ-add" data-bs-toggle="modal" data-bs-target="#myModal">
         ຜູ້ຈ້າງງານ
       </button>
       <!-- <a class="btn-book-a-table" href="#"><i class="fas fa-edit" data-toggle="modal"

@@ -4,18 +4,19 @@ session_start();
 
 include_once ("../config.php");
 $userId = $_SESSION['user_id'];
+$companyAddress = $_SESSION['address'];
 $fetchHeader = "SELECT * FROM company WHERE userId = '$userId'";
 if ($result = $mysqli->query($fetchHeader)) {
-  while ($row = $result->fetch_row()) {
+    while ($row = $result->fetch_row()) {
 
-    $name = $row[2];
-    $logo = $row[3];
-    $phone = $row[4];
-    $mail = $row[5];
-    $address = $row[6];
-    $website = $row[7];
-    $description = $row[8];
-  }
+        $name = $row[2];
+        $logo = $row[3];
+        $phone = $row[4];
+        $mail = $row[5];
+        $address = $row[6];
+        $website = $row[7];
+        $description = $row[8];
+    }
 }
 ?>
 
@@ -76,7 +77,7 @@ if ($result = $mysqli->query($fetchHeader)) {
                 </ul>
             </nav><!-- .navbar -->
 
-            <a class="btn-book-a-table" href="#book-a-table"><?= $name ?></a>
+            <a class="btn-employ-add" href="#"><?= $name ?></a>
             <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
             <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
@@ -88,65 +89,104 @@ if ($result = $mysqli->query($fetchHeader)) {
 
     <main id="main">
 
-        <section id="about" class="about">
+        <section id="employ-add" class="employ-add">
             <div class="container" data-aos="fade-up">
 
-                <div class="row gy-4">
+                <div class="section-header">
+                    <h2>ປະກາດສະໝັກວຽກ</h2>
+                    <p>ເພີ່ມຂໍ້ມູນ <span>ການປະກາດ</span> ວຽກ</p>
+                </div>
 
-                    <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="why-box">
-                            <h3>Why Choose Yummy?</h3>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et
-                                dolore magna aliqua. Duis aute irure dolor in reprehenderit
-                                Asperiores dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel necessitatibus
-                                optio ad
-                                corporis.
-                            </p>
-                            <div class="text-center">
-                                <a href="#" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
+                <div class="row g-0">
+
+                    <div class="col-lg-4 reservation-img" style="background-image: url(assets/img/company/hiring.jpg);"
+                        data-aos="zoom-out" data-aos-delay="200"></div>
+
+                    <div class="col-lg-8 d-flex align-items-center reservation-form-bg">
+                        <form action="#" method="post" role="form" class="php-email-form" data-aos="fade-up"
+                            data-aos-delay="100">
+                            <div class="row gy-4">
+                                <div class="col-lg-4 col-md-6">
+                                    <input type="text" class="form-control" placeholder="ຕຳແໜ່ງວຽກ" required>
+
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <select name="language" id="language" class="form-control">
+                                        <option value="0">--ເລືອກພາສາ--</option>
+                                        <option value="ລາວ">ລາວ</option>
+                                        <option value="ອັງກິດ">ອັງກິດ</option>
+
+                                    </select>
+
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <select name="experience" id="experience" class="form-control">
+                                        <option value="0">--ປະສົບການ--</option>
+                                        <option value="1-2 ປີ">1-2 ປີ</option>
+                                        <option value="2-4 ປີ">2-4 ປີ</option>
+
+                                    </select>
+
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <input type="text" class="form-control" disabled placeholder="ທີ່ຢູ່"
+                                        value="<?= $companyAddress ?>" required>
+
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <select name="salary" id="salary" class="form-control">
+                                        <option value="0">--ເງິນເດືອນ--</option>
+                                        <option value="400$-800$">400$-800$</option>
+                                        <option value="800$-100$">800$-100$</option>
+
+                                    </select>
+
+                                </div>
+
+                                <div class="col-lg-4 col-md-6">
+                                    <select class="form-control select2" name="cbProvince" required="true"
+                                        onchange="this.form.submit()">
+                                        <option class="pleaseSelect" value="">-- ປະເພດວຽກ --</option>
+                                        <?php
+                                        $job = "select * from job where isDelete=0";
+
+                                        if ($resultjob = $mysqli->query($job)) {
+                                            while ($rowjob = $resultjob->fetch_assoc()) {
+                                                ?>
+                                                <option value="<?= $rowjob['id'] ?>"><?= $rowjob['name'] ?></option>
+                                            <?php }
+                                        } ?>
+                                    </select>
+
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <label for="">ວັນທີ</label>
+                                    <input type="date" class="form-control"  required>
+
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <label for="">ຫາວັນທີ</label>
+                                    <input type="date" class="form-control"  required>
+
+                                </div>
+                               
                             </div>
-                        </div>
-                    </div><!-- End Why Box -->
+                            <div class="form-group mt-3">
+                                <textarea class="form-control" name="description" rows="6"
+                                    placeholder="ລາຍລະອຽດ"></textarea>
 
-                    <div class="col-lg-8 d-flex align-items-center">
-                        <div class="row gy-4">
+                            </div>
+                            <div class="mb-3">
 
-                            <div class="col-xl-4" data-aos="fade-up" data-aos-delay="200">
-                                <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                                    <i class="bi bi-clipboard-data"></i>
-                                    <h4>Corporis voluptates officia eiusmod</h4>
-                                    <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut
-                                        aliquip</p>
-                                </div>
-                            </div><!-- End Icon Box -->
-
-                            <div class="col-xl-4" data-aos="fade-up" data-aos-delay="300">
-                                <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                                    <i class="bi bi-gem"></i>
-                                    <h4>Ullamco laboris ladore pan</h4>
-                                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                        deserunt</p>
-                                </div>
-                            </div><!-- End Icon Box -->
-
-                            <div class="col-xl-4" data-aos="fade-up" data-aos-delay="400">
-                                <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                                    <i class="bi bi-inboxes"></i>
-                                    <h4>Labore consequatur incidid dolore</h4>
-                                    <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere
-                                    </p>
-                                </div>
-                            </div><!-- End Icon Box -->
-
-                        </div>
-                    </div>
+                            </div>
+                            <div class="text-center"><button type="submit">ບັນທຶກ</button></div>
+                        </form>
+                    </div><!-- End Reservation Form -->
 
                 </div>
 
             </div>
-        </section><!-- End Why Us Section -->
+        </section>
 
         <!-- ======= Stats Counter Section ======= -->
         <section id="stats-counter" class="stats-counter">
@@ -912,7 +952,8 @@ if ($result = $mysqli->query($fetchHeader)) {
                 </div>
 
             </div>
-        </section><!-- End Book A Table Section -->
+        </section>
+        <!-- End Book A Table Section -->
 
         <!-- ======= Gallery Section ======= -->
         <section id="gallery" class="gallery section-bg">
@@ -960,62 +1001,7 @@ if ($result = $mysqli->query($fetchHeader)) {
         <section id="contact" class="contact">
             <div class="container" data-aos="fade-up">
 
-                <div class="section-header">
-                    <h2>Contact</h2>
-                    <p>Need Help? <span>Contact Us</span></p>
-                </div>
 
-                <div class="mb-3">
-                    <iframe style="border:0; width: 100%; height: 350px;"
-                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621"
-                        frameborder="0" allowfullscreen></iframe>
-                </div><!-- End Google Maps -->
-
-                <div class="row gy-4">
-
-                    <div class="col-md-6">
-                        <div class="info-item  d-flex align-items-center">
-                            <i class="icon bi bi-map flex-shrink-0"></i>
-                            <div>
-                                <h3>Our Address</h3>
-                                <p>A108 Adam Street, New York, NY 535022</p>
-                            </div>
-                        </div>
-                    </div><!-- End Info Item -->
-
-                    <div class="col-md-6">
-                        <div class="info-item d-flex align-items-center">
-                            <i class="icon bi bi-envelope flex-shrink-0"></i>
-                            <div>
-                                <h3>Email Us</h3>
-                                <p>contact@example.com</p>
-                            </div>
-                        </div>
-                    </div><!-- End Info Item -->
-
-                    <div class="col-md-6">
-                        <div class="info-item  d-flex align-items-center">
-                            <i class="icon bi bi-telephone flex-shrink-0"></i>
-                            <div>
-                                <h3>Call Us</h3>
-                                <p>+1 5589 55488 55</p>
-                            </div>
-                        </div>
-                    </div><!-- End Info Item -->
-
-                    <div class="col-md-6">
-                        <div class="info-item  d-flex align-items-center">
-                            <i class="icon bi bi-share flex-shrink-0"></i>
-                            <div>
-                                <h3>Opening Hours</h3>
-                                <div><strong>Mon-Sat:</strong> 11AM - 23PM;
-                                    <strong>Sunday:</strong> Closed
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- End Info Item -->
-
-                </div>
 
                 <form action="forms/contact.php" method="post" role="form" class="php-email-form p-3 p-md-4">
                     <div class="row">

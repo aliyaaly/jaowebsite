@@ -247,11 +247,13 @@ if ($result = $mysqli->query($fetchHeader)) {
                         $mysqli->query($sql1);
                     }
                     if (count($_FILES)) {
+                        $k=0;
                         foreach ($_FILES['file']['name'] as $key => $fname) {
+                            $k++;
                             $file_name = strtolower($fname);
                             $file_ext = substr($file_name, strrpos($file_name, '.'));
 
-                            $file_name_new = date('YmdHis') . $userId. $file_ext;
+                            $file_name_new = date('YmdHis') .$k. $userId. $file_ext;
                             move_uploaded_file($_FILES["file"]["tmp_name"][$key], "assets/img/company/" . $file_name_new);
                             $sql2 = "INSERT INTO employ_image(employId, companyId, image, createdBy, 
                             updatedBy, 

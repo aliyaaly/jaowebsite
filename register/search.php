@@ -1,3 +1,99 @@
+<?php
+error_reporting(E_ALL & ~E_NOTICE);
+session_start();
+
+include_once ("../config.php");
+
+$userId = $_SESSION['user_id'];
+$companyAddress = $_SESSION['address'];
+
+
+if (isset($_POST['btnLogin'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $passmd5 = md5($password . 'l1tt@v@nh' . $username);
+
+    $qry = " SELECT * FROM user WHERE  username='$username' and password='$passmd5'  ";
+
+    if ($result_auth = $mysqli->query($qry)) {
+        while ($row = $result_auth->fetch_row()) {
+            $_SESSION['user_id'] = $row[0];
+            $_SESSION['username'] = $row[1];
+            $_SESSION['role'] = $row[3];
+            $_SESSION['name'] = $row[4];
+            $_SESSION['surname'] = $row[5];
+            $_SESSION['address'] = $row[7];
+
+
+            if ($_SESSION['role'] == "employer") {
+                header("Location: ../register/employer.php");
+                exit();
+            }
+            if ($_SESSION['role'] == "employee") {
+                header("Location: ../register/index.php");
+                exit();
+            }
+            $result_auth->close();
+        }
+    }
+
+}
+if (isset($_POST['btnRegister'])) {
+    $txtName = $_POST['txtName'];
+    $txtSurName = $_POST['txtSurName'];
+    $txtBorn = $_POST['txtBorn'];
+    $txtAddress = $_POST['txtAddress'];
+    $txtPhone = $_POST['txtPhone'];
+    $txtEmail = $_POST['txtEmail'];
+    $txtUserName = $_POST['txtUserName'];
+    $txtPassword = $_POST['txtPassword'];
+    $passmd5Re = md5($txtPassword . 'l1tt@v@nh' . $txtUserName);
+    $sql = "INSERT INTO user(username, password, role, name, surname, born, address, phone, mail, createdBy, updatedBy, createdAt, updatedAt)
+      VALUES
+      ('$txtUserName', '$passmd5Re', 'employee', '$txtName', '$txtSurName', '$txtBorn', '$txtAddress', '$txtPhone', '$txtEmail','3','3',NOW(),NOW())";
+
+
+    if ($mysqli->query($sql) === TRUE) {
+
+        echo '<script>alert("ລົງທະບຽນສຳເລັດແລ້ວ")</script>';
+
+    } else {
+        echo "<center><h2>$sql</h2></center>";
+    }
+}
+if (isset($_POST['btnLoginEmp'])) {
+    $usernameEmp = $_POST['usernameEmp'];
+    $passwordEmp = $_POST['passwordEmp'];
+
+    $passEmpmd5 = md5($passwordEmp . 'l1tt@v@nh' . $usernameEmp);
+
+    $qry = " SELECT * FROM user WHERE  username='$usernameEmp' and password='$passEmpmd5'  ";
+
+    if ($result_auth = $mysqli->query($qry)) {
+        while ($row = $result_auth->fetch_row()) {
+            $_SESSION['user_id'] = $row[0];
+            $_SESSION['username'] = $row[1];
+            $_SESSION['role'] = $row[3];
+            $_SESSION['name'] = $row[4];
+            $_SESSION['surname'] = $row[5];
+            $_SESSION['address'] = $row[7];
+
+
+            if ($_SESSION['role'] == "employer") {
+                header("Location: ../register/employer.php");
+                exit();
+            }
+            if ($_SESSION['role'] == "employee") {
+                header("Location: ../register/index.php");
+                exit();
+            }
+            $result_auth->close();
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +106,7 @@
     <meta content="" name="keywords">
 
 
-    
+
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
@@ -69,29 +165,196 @@
           <li><a href="#gallery">Gallery</a></li>
           -->
                     <li><a href="#contact">ກ່ຽວກັບ</a></li>
-                    <li class="dropdown"><a href="#"><span>ສະໝັກວຽກ</span> <i
-                                class="bi bi-chevron-down dropdown-indicator"></i></a>
-                        <ul>
-                            <li><a href="#">ລົງທະບຽນ</a></li>
+                    <?php
 
-                            <li><a href="#">ເຂົ້າສູ່ລະບົບ</a></li>
+                    if ($_SESSION['role'] == "employee") {
+                        ?>
+                        <li class="dropdown"><a href="#"><span >ຜູ້ໃຊ້</span> <i
+                                    class="bi bi-chevron-down dropdown-indicator"></i></a>
+                            <ul>
+                                <li><a href="#"><?= $_SESSION['name'] ?>     <?= $_SESSION['surname'] ?></a></li>
+                                <li><a href="logout.php">ອອກຈາກລະບົບ</a></li>
 
-                        </ul>
-                    </li>
+
+
+                            </ul>
+                        </li>
+                    <?php } else {
+                        ?>
+                        <li class="dropdown"><a href="#"><span >ສະໝັກວຽກ</span> <i
+                                    class="bi bi-chevron-down dropdown-indicator"></i></a>
+                            <ul>
+                                <li><a href="#" data-bs-toggle="modal" data-bs-target="#myModalRegister">ລົງທະບຽນ</a></li>
+
+                                <li><a href="#" data-bs-toggle="modal" data-bs-target="#myModalLogin">ເຂົ້າສູ່ລະບົບ</a></li>
+
+                            </ul>
+                        </li>
+                        <?php
+                    } ?>
                 </ul>
             </nav><!-- .navbar -->
 
-            <a class="btn-book-a-table" href="#book-a-table">ຜູ້ຈ້າງານ</a>
+            <a type="button" class="btn-employ-add" data-bs-toggle="modal" data-bs-target="#myModal">
+                ຜູ້ຈ້າງງານ
+            </a>
             <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
             <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
         </div>
     </header><!-- End Header -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">ເຂົ້າສູ່ລະບົບ</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="post">
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 mt-3">
+                            <label for="email" class="form-label">ຊື່ຜູ້ໃຊ້:</label>
+                            <input type="text" class="form-control" placeholder="ກະລຸນາປ້ອນຊື່ຜູ້ໃຊ້" name="username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="pwd" class="form-label">ລະຫັດຜ່ານ:</label>
+                            <input type="password" class="form-control" id="pwd" placeholder="ກະລຸນາປ້ອນລະຫັດຜ່ານ"
+                                name="password">
+                        </div>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" name="btnLogin" class="btn btn-primary">ເຂົ້າສູ່ລະບົບ</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ປິດ</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="myModalRegister">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">ລົງທະບຽນ</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="post">
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>ຊື່</label>
+                                    <input type="text" name="txtName" class="form-control" required>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>ນາມສະກຸນ</label>
+                                    <input type="text" name="txtSurName" class="form-control" required>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>ວັນເດືອນປີເກີດ</label>
+                                    <input type="date" name="txtBorn" class="form-control" required>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>ທີ່ຢູ່</label>
+                                    <input type="text" name="txtAddress" class="form-control">
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>ເບີໂທ</label>
+                                    <input type="text" name="txtPhone" class="form-control" required>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>ອີເມລ</label>
+                                    <input type="text" name="txtEmail" class="form-control">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>ຊື່ຜູ້ໃຊ້</label>
+                                    <input type="text" name="txtUserName" class="form-control" required>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>ລະຫັດຜ່ານ</label>
+                                    <input type="password" name="txtPassword" class="form-control" required>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" name="btnRegister" class="btn btn-primary">ລົງທະບຽນ</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ປິດ</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="myModalLogin">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">ເຂົ້າສູ່ລະບົບ</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="post">
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 mt-3">
+                            <label for="email" class="form-label">ຊື່ຜູ້ໃຊ້:</label>
+                            <input type="text" class="form-control" placeholder="ກະລຸນາປ້ອນຊື່ຜູ້ໃຊ້"
+                                name="usernameEmp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="pwd" class="form-label">ລະຫັດຜ່ານ:</label>
+                            <input type="password" class="form-control" id="pwd" placeholder="ກະລຸນາປ້ອນລະຫັດຜ່ານ"
+                                name="passwordEmp">
+                        </div>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" name="btnLoginEmp" class="btn btn-primary">ເຂົ້າສູ່ລະບົບ</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ປິດ</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!-- ======= home Section ======= -->
 
 
-    <main id="main" class="pt-4">
+    <main id="main" class="pt-2">
 
 
 
@@ -102,32 +365,44 @@
 
                 <div class="section-header">
                     <p class="pb-5">ຄົ້ນຫາ <span>ວຽກ</span> ທີ່ທ່ານຕ້ອງການ</p>
-                    <div class="row justify-content-center">
-                        <div class="col-lg-3 col-md-6">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="ຄົ້ນຫາ">
-                                <button class="btn btn-success" type="submit">ຄົ້ນຫາ</button>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <select class="form-select" id="single-select-field" data-placeholder="ຕຳແໜ່ງວຽກ">
-                                <option></option>
-                                <option>IT Support</option>
-                                <option>Frontend Developer</option>
-                                <option>Backend Developer</option>
-                                <option>Mobile App Developer</option>
-                                <option>Infrastructure</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <select class="form-select" id="single-select-field2" data-placeholder="ເວລາ">
-                                <option></option>
-                                <option>Full-time</option>
-                                <option>Part-time</option>
-                                
-                            </select>
-                        </div>
 
+
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="input-group">
+                            <input type="text" id="txtSearch" class="form-control" placeholder="ຄົ້ນຫາຕຳແໜ່ງວຽກ"
+                                onkeyup="searchInput();">
+                            <button class="btn btn-success" id="txtSearch" onclick="searchInput();">ຄົ້ນຫາ</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <select class="form-control" id="select" class="select" data-placeholder="ປະເພດວຽກ"
+                            onchange="search();" name="cbJobFunc[]" multiple>
+
+                            <?php
+                            $job = "SELECT a.id,a.name,b.jobId,count(b.jobId) as countJob from job as a left join employ_job as b 
+                                on a.id = b.jobId where a.isDelete=0 group by b.jobId order by a.id asc";
+
+                            if ($resultjob = $mysqli->query($job)) {
+                                while ($rowjob = $resultjob->fetch_assoc()) {
+                                    ?>
+                                    <option value="<?= $rowjob['id'] ?>"> <?= $rowjob['name'] ?>
+                                        <b> (<?= $rowjob['countJob'] ?>)</b>
+                                    </option>
+                                <?php }
+                            } ?>
+                        </select>
+
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <select class="form-select" id="single-select-field2" data-placeholder="ເວລາ">
+                            <option></option>
+                            <option>Full-time</option>
+                            <option>Part-time</option>
+
+                        </select>
                     </div>
 
                 </div>
@@ -135,289 +410,167 @@
             </div>
         </section><!-- End Events Section -->
 
-        <!-- ======= Chefs Section ======= -->
-        <section id="chefs" class="chefs section-bg">
-            <div class="container" data-aos="fade-up">
 
-                <div class="section-header">
-                    <h2>Chefs</h2>
-                    <p>Our <span>Proffesional</span> Chefs</p>
-                </div>
+        <section id="contact" class="contact ">
+
+            <div class="container" data-aos="fade-up">
 
                 <div class="row gy-4">
 
-                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                        <div class="chef-member">
-                            <div class="member-img">
-                                <img src="assets/img/chefs/chefs-1.jpg" class="img-fluid" alt="">
-                                <div class="social">
-                                    <a href=""><i class="bi bi-twitter"></i></a>
-                                    <a href=""><i class="bi bi-facebook"></i></a>
-                                    <a href=""><i class="bi bi-instagram"></i></a>
-                                    <a href=""><i class="bi bi-linkedin"></i></a>
-                                </div>
-                            </div>
-                            <div class="member-info">
-                                <h4>Walter White</h4>
-                                <span>Master Chef</span>
-                                <p>Velit aut quia fugit et et. Dolorum ea voluptate vel tempore tenetur ipsa quae aut.
-                                    Ipsum
-                                    exercitationem iure minima enim corporis et voluptate.</p>
-                            </div>
-                        </div>
-                    </div><!-- End Chefs Member -->
+                    <?php
+                    $i = 0;
+                    $fetchHeader = "SELECT * FROM v_employ WHERE status ='open' GROUP BY name ";
+                    if ($result = $mysqli->query($fetchHeader)) {
+                        while ($row = $result->fetch_assoc()) {
+                            $id = $row['id'];
+                            $comName = $row['companyName'];
+                            $comId = $row['companyId'];
+                            $comLogo = $row['companyLogo'];
+                            $name = $row['name'];
+                            $address = $row['address'];
+                            $strDate = $row['strDate'];
+                            $endDate = $row['endDate'];
+                            $language = $row['language'];
+                            $salary = $row['salary'];
+                            $jobName = $row['jobName'];
+                            $experience = $row['experience'];
+                            $description = $row['description'];
+                            $image = $row['image'];
+                            ?>
+                            <div class="modal fade" id="myModalInfo<?= $i ?>">
+                                <div class="modal-dialog modal-xl">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-md-9">
+                                                        <div class="row">
+                                                            <div class="col-md-12 pb-2">
+                                                                <div class="info-item  d-flex align-items-center">
+                                                                    <div>
+                                                                        <h2><b><?= $name ?></b></h2>
+                                                                        <p>ທີ່ຢູ່: <b><?= $address ?></b></p>
+                                                                        <p>ເປີດຮັບເຖິງວັນທີ: <b><?= $endDate ?></b></p>
+                                                                        <a type="button" class="btn btn-primary"
+                                                                            style="font-weight: 500;font-size: 12px;letter-spacing: 1px;display: inline-block;padding: 8px 32px;transition: 0.5s;color: #fff">
+                                                                            Apply <i class="bi bi-box-arrow-down-right"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12 pb-2">
+                                                                <div class="info-item  d-flex align-items-center">
+                                                                    <div>
+                                                                        <p>ພາສາ: <b><?= $language ?></b></p>
+                                                                        <p>ປະສົບການ: <b><?= $experience ?></b></p>
+                                                                        <p>ເງິນເດືອນ: <b><?= $salary ?></b></p>
+                                                                        <p>ປະເພດວຽກ: <b>
+                                                                                <?php
+                                                                                $details = "SELECT b.name FROM employ_job as a join job as b on a.jobId = b.id WHERE employId ='$id'";
+                                                                                if ($resultDetails = $mysqli->query($details)) {
+                                                                                    while ($rowDetails = $resultDetails->fetch_assoc()) {
+                                                                                        ?>
+                                                                                        <?= $rowDetails['name'] ?>,
+                                                                                        <?php
+                                                                                    }
+                                                                                }
+                                                                                ?>
 
-                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-                        <div class="chef-member">
-                            <div class="member-img">
-                                <img src="assets/img/chefs/chefs-2.jpg" class="img-fluid" alt="">
-                                <div class="social">
-                                    <a href=""><i class="bi bi-twitter"></i></a>
-                                    <a href=""><i class="bi bi-facebook"></i></a>
-                                    <a href=""><i class="bi bi-instagram"></i></a>
-                                    <a href=""><i class="bi bi-linkedin"></i></a>
-                                </div>
-                            </div>
-                            <div class="member-info">
-                                <h4>Sarah Jhonson</h4>
-                                <span>Patissier</span>
-                                <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima
-                                    suscipit corporis.
-                                    Voluptate sed quas reiciendis animi neque sapiente.</p>
-                            </div>
-                        </div>
-                    </div><!-- End Chefs Member -->
+                                                                            </b></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12 pb-2">
+                                                                <div class="info-item  d-flex align-items-center">
+                                                                    <div>
 
-                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-                        <div class="chef-member">
-                            <div class="member-img">
-                                <img src="assets/img/chefs/chefs-3.jpg" class="img-fluid" alt="">
-                                <div class="social">
-                                    <a href=""><i class="bi bi-twitter"></i></a>
-                                    <a href=""><i class="bi bi-facebook"></i></a>
-                                    <a href=""><i class="bi bi-instagram"></i></a>
-                                    <a href=""><i class="bi bi-linkedin"></i></a>
-                                </div>
-                            </div>
-                            <div class="member-info">
-                                <h4>William Anderson</h4>
-                                <span>Cook</span>
-                                <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt.
-                                    Voluptates enim aut
-                                    architecto porro aspernatur molestiae modi.</p>
-                            </div>
-                        </div>
-                    </div><!-- End Chefs Member -->
+                                                                        <img src="assets/img/company/<?= $image ?>"
+                                                                            class="w-100" />
 
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+
+                                                        <div style="text-align: center;">
+                                                            <img src="../dist/img/company/<?= $comLogo ?>"
+                                                                class="img-fluid img-thumbnail">
+
+                                                            <p class="pt-2"><?= $address ?></p>
+                                                            <a type="button" class="btn btn-primary">
+                                                                ກ່ຽວກັບບໍລິສັດ
+                                                            </a>
+                                                        </div>
+                                                        <hr>
+                                                        <div>
+                                                            <h5>ວຽກຈາກບໍລິສັດນີ້</h5>
+                                                            <hr>
+                                                            <div class="card-body">
+
+                                                                <?php
+                                                                $employList = "SELECT * FROM employ WHERE companyId = '$comId' AND status='open'";
+                                                                if ($result3 = $mysqli->query($employList)) {
+                                                                    while ($row1 = $result3->fetch_row()) {
+                                                                        $employName = $row1[2];
+                                                                        $location = $row1[7];
+                                                                        $strDate = $row1[14];
+                                                                        $endDate = $row1[15];
+
+                                                                        ?>
+                                                                        <div class="row">
+
+                                                                            <div class="col-sm-12">
+                                                                                <div style="align-items: center;">
+                                                                                    <a href=""><?= $employName ?></a>
+
+                                                                                    <p class="">
+                                                                                        <i class="bi bi-geo">
+                                                                                            <?= $location ?></i><br> <i
+                                                                                            class="bi bi-calendar3">
+                                                                                            <?= $strDate ?> - <?= $endDate ?></i>
+                                                                                    </p>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr>
+                                                                        <?php
+                                                                    }
+                                                                } ?>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6" data-bs-toggle="modal" data-bs-target="#myModalInfo<?= $i ?>">
+                                <div class="info-item  d-flex align-items-center">
+                                    <img src="../dist/img/company/<?= $comLogo ?>" width="20%" />
+                                    <div class="p-2">
+                                        <a style="color: blue;cursor:pointer"><?= $name ?></a>
+                                        <p><?= $comName ?></p>
+                                        <p><?= $address ?></p>
+                                        <p><?= $strDate ?> - <?= $endDate ?></p>
+                                    </div>
+                                </div>
+                            </div><!-- End Info Item -->
+
+                            <?php $i++;
+                        }
+                    }
+                    ?>
                 </div>
-
-            </div>
-        </section><!-- End Chefs Section -->
-
-        <!-- ======= Book A Table Section ======= -->
-        <section id="book-a-table" class="book-a-table">
-            <div class="container" data-aos="fade-up">
-
-                <div class="section-header">
-                    <h2>Book A Table</h2>
-                    <p>Book <span>Your Stay</span> With Us</p>
-                </div>
-
-                <div class="row g-0">
-
-                    <div class="col-lg-4 reservation-img" style="background-image: url(assets/img/reservation.jpg);"
-                        data-aos="zoom-out" data-aos-delay="200"></div>
-
-                    <div class="col-lg-8 d-flex align-items-center reservation-form-bg">
-                        <form action="forms/book-a-table.php" method="post" role="form" class="php-email-form"
-                            data-aos="fade-up" data-aos-delay="100">
-                            <div class="row gy-4">
-                                <div class="col-lg-4 col-md-6">
-                                    <input type="text" name="name" class="form-control" id="name"
-                                        placeholder="Your Name" data-rule="minlen:4"
-                                        data-msg="Please enter at least 4 chars">
-                                    <div class="validate"></div>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <input type="email" class="form-control" name="email" id="email"
-                                        placeholder="Your Email" data-rule="email"
-                                        data-msg="Please enter a valid email">
-                                    <div class="validate"></div>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <input type="text" class="form-control" name="phone" id="phone"
-                                        placeholder="Your Phone" data-rule="minlen:4"
-                                        data-msg="Please enter at least 4 chars">
-                                    <div class="validate"></div>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <input type="text" name="date" class="form-control" id="date" placeholder="Date"
-                                        data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-                                    <div class="validate"></div>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <input type="text" class="form-control" name="time" id="time" placeholder="Time"
-                                        data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-                                    <div class="validate"></div>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <input type="number" class="form-control" name="people" id="people"
-                                        placeholder="# of people" data-rule="minlen:1"
-                                        data-msg="Please enter at least 1 chars">
-                                    <div class="validate"></div>
-                                </div>
-                            </div>
-                            <div class="form-group mt-3">
-                                <textarea class="form-control" name="message" rows="5" placeholder="Message"></textarea>
-                                <div class="validate"></div>
-                            </div>
-                            <div class="mb-3">
-                                <div class="loading">Loading</div>
-                                <div class="error-message"></div>
-                                <div class="sent-message">Your booking request was sent. We will call back or send an
-                                    Email to confirm
-                                    your reservation. Thank you!</div>
-                            </div>
-                            <div class="text-center"><button type="submit">Book a Table</button></div>
-                        </form>
-                    </div><!-- End Reservation Form -->
-
-                </div>
-
-            </div>
-        </section><!-- End Book A Table Section -->
-
-        <!-- ======= Gallery Section ======= -->
-        <section id="gallery" class="gallery section-bg">
-            <div class="container" data-aos="fade-up">
-
-                <div class="section-header">
-                    <h2>gallery</h2>
-                    <p>Check <span>Our Gallery</span></p>
-                </div>
-
-                <div class="gallery-slider swiper">
-                    <div class="swiper-wrapper align-items-center">
-                        <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery"
-                                href="assets/img/gallery/gallery-1.jpg"><img src="assets/img/gallery/gallery-1.jpg"
-                                    class="img-fluid" alt=""></a></div>
-                        <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery"
-                                href="assets/img/gallery/gallery-2.jpg"><img src="assets/img/gallery/gallery-2.jpg"
-                                    class="img-fluid" alt=""></a></div>
-                        <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery"
-                                href="assets/img/gallery/gallery-3.jpg"><img src="assets/img/gallery/gallery-3.jpg"
-                                    class="img-fluid" alt=""></a></div>
-                        <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery"
-                                href="assets/img/gallery/gallery-4.jpg"><img src="assets/img/gallery/gallery-4.jpg"
-                                    class="img-fluid" alt=""></a></div>
-                        <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery"
-                                href="assets/img/gallery/gallery-5.jpg"><img src="assets/img/gallery/gallery-5.jpg"
-                                    class="img-fluid" alt=""></a></div>
-                        <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery"
-                                href="assets/img/gallery/gallery-6.jpg"><img src="assets/img/gallery/gallery-6.jpg"
-                                    class="img-fluid" alt=""></a></div>
-                        <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery"
-                                href="assets/img/gallery/gallery-7.jpg"><img src="assets/img/gallery/gallery-7.jpg"
-                                    class="img-fluid" alt=""></a></div>
-                        <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery"
-                                href="assets/img/gallery/gallery-8.jpg"><img src="assets/img/gallery/gallery-8.jpg"
-                                    class="img-fluid" alt=""></a></div>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-
-            </div>
-        </section><!-- End Gallery Section -->
-
-        <!-- ======= Contact Section ======= -->
-        <section id="contact" class="contact">
-            <div class="container" data-aos="fade-up">
-
-                <div class="section-header">
-                    <h2>Contact</h2>
-                    <p>Need Help? <span>Contact Us</span></p>
-                </div>
-
-                <div class="mb-3">
-                    <iframe style="border:0; width: 100%; height: 350px;"
-                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621"
-                        frameborder="0" allowfullscreen></iframe>
-                </div><!-- End Google Maps -->
-
-                <div class="row gy-4">
-
-                    <div class="col-md-6">
-                        <div class="info-item  d-flex align-items-center">
-                            <i class="icon bi bi-map flex-shrink-0"></i>
-                            <div>
-                                <h3>Our Address</h3>
-                                <p>A108 Adam Street, New York, NY 535022</p>
-                            </div>
-                        </div>
-                    </div><!-- End Info Item -->
-
-                    <div class="col-md-6">
-                        <div class="info-item d-flex align-items-center">
-                            <i class="icon bi bi-envelope flex-shrink-0"></i>
-                            <div>
-                                <h3>Email Us</h3>
-                                <p>contact@example.com</p>
-                            </div>
-                        </div>
-                    </div><!-- End Info Item -->
-
-                    <div class="col-md-6">
-                        <div class="info-item  d-flex align-items-center">
-                            <i class="icon bi bi-telephone flex-shrink-0"></i>
-                            <div>
-                                <h3>Call Us</h3>
-                                <p>+1 5589 55488 55</p>
-                            </div>
-                        </div>
-                    </div><!-- End Info Item -->
-
-                    <div class="col-md-6">
-                        <div class="info-item  d-flex align-items-center">
-                            <i class="icon bi bi-share flex-shrink-0"></i>
-                            <div>
-                                <h3>Opening Hours</h3>
-                                <div><strong>Mon-Sat:</strong> 11AM - 23PM;
-                                    <strong>Sunday:</strong> Closed
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- End Info Item -->
-
-                </div>
-
-                <form action="forms/contact.php" method="post" role="form" class="php-email-form p-3 p-md-4">
-                    <div class="row">
-                        <div class="col-xl-6 form-group">
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name"
-                                required>
-                        </div>
-                        <div class="col-xl-6 form-group">
-                            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email"
-                                required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject"
-                            required>
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control" name="message" rows="5" placeholder="Message"
-                            required></textarea>
-                    </div>
-                    <div class="my-3">
-                        <div class="loading">Loading</div>
-                        <div class="error-message"></div>
-                        <div class="sent-message">Your message has been sent. Thank you!</div>
-                    </div>
-                    <div class="text-center"><button type="submit">Send Message</button></div>
-                </form>
-                <!--End Contact Form -->
-
             </div>
         </section><!-- End Contact Section -->
 
@@ -433,8 +586,8 @@
                     <div>
                         <h4>Address</h4>
                         <p>
-                            A108 Adam Street <br>
-                            New York, NY 535022 - US<br>
+                            Phonpapao Road <br>
+                            Vientiane, Laos<br>
                         </p>
                     </div>
 
@@ -445,8 +598,8 @@
                     <div>
                         <h4>Reservations</h4>
                         <p>
-                            <strong>Phone:</strong> +1 5589 55488 55<br>
-                            <strong>Email:</strong> info@example.com<br>
+                            <strong>Phone:</strong> 020 56 945 946<br>
+                            <strong>Email:</strong> obassistoffice@gmail.com<br>
                         </p>
                     </div>
                 </div>
@@ -456,8 +609,9 @@
                     <div>
                         <h4>Opening Hours</h4>
                         <p>
-                            <strong>Mon-Sat: 11AM</strong> - 23PM<br>
-                            Sunday: Closed
+                            <strong>Mon-Fri: 09AM</strong> - 04PM<br>
+                            Sunday: Closed<br>
+                            Saturday: Closed
                         </p>
                     </div>
                 </div>
@@ -465,10 +619,8 @@
                 <div class="col-lg-3 col-md-6 footer-links">
                     <h4>Follow Us</h4>
                     <div class="social-links d-flex">
-                        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
                         <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
                         <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
                     </div>
                 </div>
 
@@ -499,16 +651,58 @@
 </body>
 
 </html>
+
 <script>
- 
-    $('#single-select-field').select2({
+    $('#select').select2({
         theme: "bootstrap-5",
-        width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
         placeholder: $(this).data('placeholder'),
     });
+
     $('#single-select-field2').select2({
         theme: "bootstrap-5",
         width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
         placeholder: $(this).data('placeholder'),
     });
+</script>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript">
+</script>
+<script>
+    function search() {
+
+        var str = '';
+        var val = document.getElementById('select');
+        for (i = 0; i < val.length; i++) {
+            if (val[i].selected) {
+                str += val[i].value + ',';
+            }
+        }
+        var str = str.slice(0, str.length - 1);
+        // alert(str);
+        $.ajax({
+            type: "GET",
+            url: "getJob.php",
+            data: 'jobId=' + str,
+            success: function (data) {
+                $("#contact").html(data);
+                // alert(data);
+            }
+        });
+    }
+
+    function searchInput() {
+
+
+        var val = document.getElementById('txtSearch').value;
+
+
+        $.ajax({
+            type: "GET",
+            url: "getJobByInput.php",
+            data: 'jobName=' + val,
+            success: function (data) {
+                $("#contact").html(data);
+                // alert(data);
+            }
+        });
+    }
 </script>

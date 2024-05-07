@@ -35,7 +35,7 @@ htmltage("Job Jao Website");
                             ເພີ່ມ
                     </div> -->
                     <!-- /.card-header -->
-              
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card-body">
@@ -55,35 +55,31 @@ htmltage("Job Jao Website");
                                         </thead>
                                         <tbody class="text-center">
                                             <?php
-                      $i = 1;
+                                            $i = 1;
 
-                      if ($result = $mysqli->query($fetch)) {
-                        while ($row = $result->fetch_row()) {
-
-                      ?>
-
-
-
-
-                                            <tr>
-                                                <td><?= $i ?></td>
-                                                <td><?= $row[1] ?></td>
-                                                <td><?= $row[4] ?></td>
-                                                <td><?= $row[5] ?></td>
-                                                <td><?= $row[3] ?></td>
-                                                <td align="center"><a href="?d=master/user&reset=<?= $row[0] ?>&userName=<?= $row[1] ?>"><i
-                                                            class="fas fa-edit"
-                                                            onclick="return confirm('ຫຼັງຈາກ Reset ລະຫັດຂອງທ່ານແມ່ນ 123456')"></i></a>
-                                                </td>
-                                                <td align="center">
-                                                    <a href="?d=master/user&del=<?= $row[0] ?>"
-                                                        onclick="return confirm('ທ່ານຕ້ອງການລຶບແທ້ບໍ...?')"><i
-                                                            class="far fa-trash-alt"></i></a>
-                                                </td>
-                                            </tr>
-                                            <?php $i++;
-                        }
-                      } ?>
+                                            if ($result = $mysqli->query($fetch)) {
+                                                while ($row = $result->fetch_row()) {
+                                                    ?>
+                                                    <tr>
+                                                        <td><?= $i ?></td>
+                                                        <td><?= $row[1] ?></td>
+                                                        <td><?= $row[4] ?></td>
+                                                        <td><?= $row[5] ?></td>
+                                                        <td><?= $row[3] ?></td>
+                                                        <td align="center"><a
+                                                                href="?d=master/user&reset=<?= $row[0] ?>&userName=<?= $row[1] ?>"><i
+                                                                    class="fas fa-edit"
+                                                                    onclick="return confirm('ຫຼັງຈາກ Reset ລະຫັດຂອງທ່ານແມ່ນ 123456')"></i></a>
+                                                        </td>
+                                                        <td align="center">
+                                                            <a href="?d=master/user&del=<?= $row[0] ?>"
+                                                                onclick="return confirm('ທ່ານຕ້ອງການລຶບແທ້ບໍ...?')"><i
+                                                                    class="far fa-trash-alt"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                    <?php $i++;
+                                                }
+                                            } ?>
 
                                         </tbody>
                                     </table>

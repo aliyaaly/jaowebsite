@@ -15,12 +15,3 @@ if ($mysqli->connect_errno) {
 $mysqli->set_charset("utf8");
 
 
-function nr_execute($qry){
-	$res = mysql_query($qry);
-	if ($res != null){
-		$row = @mysql_fetch_row($res);
-		if ($row != null){
-			return $row[0];
-		}
-	}
-}

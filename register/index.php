@@ -150,6 +150,7 @@ if (isset($_POST['btnLoginEmp'])) {
                   class="bi bi-chevron-down dropdown-indicator"></i></a>
               <ul>
                 <li><a href="#"><?= $_SESSION['name'] ?>   <?= $_SESSION['surname'] ?></a></li>
+                <li><a href="history.php"  >ປະຫວັດການສະໝັກວຽກ</a></li>
                 <li><a href="logout.php">ອອກຈາກລະບົບ</a></li>
 
 

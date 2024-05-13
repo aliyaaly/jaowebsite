@@ -117,44 +117,67 @@ if ($result = $mysqli->query($fetchHeader)) {
                             <div class="row gy-4">
                                 <div class="col-lg-4 col-md-6">
                                     <input type="text" name="txtJobPosition" class="form-control"
-                                        placeholder="ຕຳແໜ່ງວຽກ">
+                                        placeholder="ຕຳແໜ່ງວຽກ" required>
 
                                 </div>
                                 <div class="col-lg-4 col-md-6">
-                                    <select name="cbLang" class="form-control">
+                                    <select name="cbLang" class="form-control" required>
                                         <option value="0">--ເລືອກພາສາ--</option>
-                                        <option value="ລາວ">ລາວ</option>
-                                        <option value="ອັງກິດ">ອັງກິດ</option>
+                                        <?php
+                                        $language = "select * from language";
 
+                                        if ($resultlanguage = $mysqli->query($language)) {
+                                            while ($rowlanguage = $resultlanguage->fetch_assoc()) {
+                                                ?>
+                                                <option value="<?= $rowlanguage['id'] ?>"><?= $rowlanguage['language'] ?></option>
+                                            <?php }
+                                        } ?>
+                                    </select>
                                     </select>
 
                                 </div>
                                 <div class="col-lg-4 col-md-6">
-                                    <select name="cbEx" class="form-control">
+                                    <select name="cbEx" class="form-control" required>
                                         <option value="0">--ປະສົບການ--</option>
-                                        <option value="1-2 ປີ">1-2 ປີ</option>
-                                        <option value="2-4 ປີ">2-4 ປີ</option>
+                                        <?php
+                                        $experience = "select * from experience";
+
+                                        if ($resultexperience = $mysqli->query($experience)) {
+                                            while ($rowexperience = $resultexperience->fetch_assoc()) {
+                                                ?>
+                                                <option value="<?= $rowexperience['id'] ?>"><?= $rowexperience['experience'] ?></option>
+                                            <?php }
+                                        } ?>
+                                    </select>
 
                                     </select>
 
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <input type="text" class="form-control" name="txtAddress" disabled
-                                        placeholder="ທີ່ຢູ່" value="<?= $companyAddress ?>">
+                                        placeholder="ທີ່ຢູ່" value="<?= $companyAddress ?>" required>
 
                                 </div>
                                 <div class="col-lg-4 col-md-6">
-                                    <select name="cbSalary" class="form-control">
+                                    <select name="cbSalary" class="form-control" required>
                                         <option value="0">--ເງິນເດືອນ--</option>
-                                        <option value="400$-800$">400$-800$</option>
-                                        <option value="800$-100$">800$-100$</option>
+                                        <?php
+                                        $salary = "select * from salary";
+
+                                        if ($resultsalary = $mysqli->query($salary)) {
+                                            while ($rowsalary = $resultsalary->fetch_assoc()) {
+                                                ?>
+                                                <option value="<?= $rowsalary['id'] ?>"><?= $rowsalary['salary'] ?></option>
+                                            <?php }
+                                        } ?>
+                                    </select>
 
                                     </select>
 
                                 </div>
 
                                 <div class="col-lg-4 col-md-6">
-                                    <select class="form-control" id="select" name="cbJobFunc[]" multiple>
+                                    <select class="form-control" id="select" name="cbJobFunc[]" multiple >
 
                                         <?php
                                         $job = "select * from job where isDelete=0";
@@ -169,13 +192,29 @@ if ($result = $mysqli->query($fetchHeader)) {
 
                                 </div>
                                 <div class="col-lg-4 col-md-6">
+                                <label for="">ເວລາ</label>
+                                    <select class="form-control"  name="cbTime" >
+                                  
+                                        <?php
+                                        $time = "select * from time";
+
+                                        if ($resulttime = $mysqli->query($time)) {
+                                            while ($rowtime = $resulttime->fetch_assoc()) {
+                                                ?>
+                                                <option value="<?= $rowtime['id'] ?>"><?= $rowtime['time'] ?></option>
+                                            <?php }
+                                        } ?>
+                                    </select>
+
+                                </div>
+                                <div class="col-lg-4 col-md-6">
                                     <label for="">ແຕ່ວັນທີ</label>
-                                    <input type="date" name="strDate" class="form-control">
+                                    <input type="date" name="strDate" class="form-control" required>
 
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <label for="">ຫາວັນທີ</label>
-                                    <input type="date" name="endDate" class="form-control">
+                                    <input type="date" name="endDate" class="form-control" required>
 
                                 </div>
                                 <div class="col-lg-4 col-md-6">
@@ -211,13 +250,14 @@ if ($result = $mysqli->query($fetchHeader)) {
             $cbEx = $mysqli->real_escape_string($_POST['cbEx']);
             $txtAddress = $mysqli->real_escape_string($_POST['txtAddress']);
             $cbSalary = $mysqli->real_escape_string($_POST['cbSalary']);
+            $cbTime = $mysqli->real_escape_string($_POST['cbTime']);
             $cbJobFunc = $_POST['cbJobFunc'];
             $strDate = $mysqli->real_escape_string($_POST['strDate']);
             $endDate = $mysqli->real_escape_string($_POST['endDate']);
             $txtDescription = $mysqli->real_escape_string($_POST['txtDescription']);
             $countcbJobFunc = count($cbJobFunc);
 
-            $sql = "INSERT INTO employ(companyId, name, language, experience, salary, 
+            $sql = "INSERT INTO employ(companyId, name, languageId, experienceId, salaryId, 
             description, 
             address, 
             status, 
@@ -226,9 +266,10 @@ if ($result = $mysqli->query($fetchHeader)) {
             createdAt, 
             updatedAt,
             strDate, 
-            endDate)
+            endDate,
+            timeId)
             VALUES
-            ('$comId', '$txtJobPosition', '$cbLang', '$cbEx', '$cbSalary', '$txtDescription', '$companyAddress','close','$userId','$userId',NOW(),NOW(),'$strDate','$endDate')";
+            ('$comId', '$txtJobPosition', '$cbLang', '$cbEx', '$cbSalary', '$txtDescription', '$companyAddress','close','$userId','$userId',NOW(),NOW(),'$strDate','$endDate','$cbTime')";
 
 
             if ($mysqli->query($sql) === TRUE) {
@@ -237,7 +278,7 @@ if ($result = $mysqli->query($fetchHeader)) {
                 $maxId = $mysqli->query($max);
                 $rowMaxId = $maxId->fetch_row();
                 $rowEmploy_maxId = $rowMaxId[0];
-                echo '<script>alert("'.$rowEmploy_maxId.'")</script>';
+                // echo '<script>alert("'.$rowEmploy_maxId.'")</script>';
                 if ($rowEmploy_maxId != "") {
                     for ($i = 0; $i < $countcbJobFunc; $i++) {
                         $sql1 = "INSERT INTO employ_job(employId, companyId, jobId, createdBy, 

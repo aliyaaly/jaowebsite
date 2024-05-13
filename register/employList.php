@@ -98,6 +98,7 @@ if ($result = $mysqli->query($fetchHeader)) {
 
                         <?php
                         $employList = "SELECT * FROM employ WHERE companyId = '$companyId'";
+                        $i = 1;
                         if ($result = $mysqli->query($employList)) {
                             while ($row1 = $result->fetch_row()) {
                                 $employName = $row1[2];
@@ -115,7 +116,7 @@ if ($result = $mysqli->query($fetchHeader)) {
 
                                         </div>
                                     </div>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-8">
                                         <div style="align-items: center;">
                                             <a href=""><?= $employName ?></a>
 
@@ -141,19 +142,111 @@ if ($result = $mysqli->query($fetchHeader)) {
 
 
                                         </div>
+
                                     </div>
+                                    <div class="col-sm-2">
+
+                                        <?php
+                                        $count = "SELECT count(employId) FROM v_apply WHERE companyId=$companyId";
+                                        $countApply = $mysqli->query($count);
+                                        $rowcountApply = $countApply->fetch_row();
+                                        $rowApply_countApply = $rowcountApply[0];
+                                        ?>
+                                        <a data-bs-toggle="modal" href="#myModalApplyList<?= $i ?>"> ຜູ້ເຂົ້າມາສະໝັກ:
+                                            <b><?= $rowApply_countApply ?></b> ຄົນ</a>
+                                    </div>
+
                                 </div>
+
+
                                 <hr>
-                                <?php
+
+                                <div class="modal" id="myModalApplyList<?= $i ?>">
+                                    <div class="modal-dialog modal-xl">
+                                        <class class="modal-content">
+
+                                            <!-- Modal Header -->
+                                            <div class="modal-header bg-info " style="color: whitesmoke;">
+                                                <h4 class="modal-title">ລາຍການຜູ້ເຂົ້າມາສະໝັກ: <b><?= $row1[2] ?></b></h4>
+
+                                            </div>
+                                            <form method="post" action="#" role="form" enctype="multipart/form-data">
+                                                <!-- Modal body -->
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card-body">
+                                                                <div class="table-responsive">
+                                                                    <table id="example1"
+                                                                        class="table table-bordered beautified_report">
+
+                                                                        <thead class="text-center">
+                                                                            <tr>
+                                                                                <th>ລ/ດ</th>
+                                                                                <th>ຊື່ ແລະ ນາມສະກຸນ</th>
+                                                                                <th>ຫົວຂໍ້</th>
+                                                                                <th>ໄຟລແນບ CV</th>
+
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody class="text-center">
+                                                                            <?php
+                                                                            $loop = "SELECT * FROM v_apply WHERE employId = '$row1[0]'";
+                                                                            $z = 1;
+                                                                            if ($reLoop = $mysqli->query($loop)) {
+                                                                                while ($data = $reLoop->fetch_assoc()) {
+                                                                                    ?>
+                                                                                    <div class="modal fade"
+                                                                                        id="modallgImage<?= $z ?>">
+                                                                                        <div class="modal-dialog modal-lg">
+                                                                                            <div class="modal-content">  
+                                                                                                <div class="modal-body">
+                                                                                                    <?php
+                                                                                                    $imagePath = "assets/img/cv/" . $data['file'];
+                                                                                                    ?>
+                                                                                                    <embed src="<?= $imagePath ?>"
+                                                                                                        width="100%" height="800px" />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <tr>
+                                                                                        <td><?= $z ?></td>
+                                                                                        <td><?= $data['firstName'] ?>
+                                                                                            <?= $data['lastName'] ?>
+                                                                                        </td>
+                                                                                        <td><?= $data['title'] ?></td>
+                                                                                        <td class="centered">
+                                                                                            <a  
+                                                                                                href="#" onclick="openMyModal2(<?= $z ?>)" ><i
+                                                                                                    class="bi bi-filetype-pdf"></i></a>
+                                                                                        </td>
+
+                                                                                    </tr>
+                                                                                    <?php $z++;
+                                                                                }
+                                                                            } ?>
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                    </div>
+                                    <?php $i++;
                             }
                         } ?>
 
 
+                        </div>
+
                     </div>
 
                 </div>
-
-            </div>
         </section><!-- End Why Us Section -->
 
 
@@ -171,3 +264,25 @@ if ($result = $mysqli->query($fetchHeader)) {
 </body>
 
 </html>
+<script>
+    $("#example1").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "ordering": false
+    });
+
+    function openMyModal2(i) {
+        var para = i;
+       
+        // alert(id);
+      
+            let myModal = new
+                bootstrap.Modal(document.getElementById('modallgImage'+para), {});
+            myModal.show();
+
+          
+       
+
+    }
+
+</script>

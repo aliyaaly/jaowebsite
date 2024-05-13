@@ -2,29 +2,32 @@
 $mn_dashboard = "";
 $mn_Mmain = "";
 $mn_Mmain1 = "";
+$mn_Mmain2 = "";
 $mn_job = "";
 $mn_company = "";
 $mn_user = "";
+$mn_employerList = "";
 
 
 if ($_GET['d'] == 'index') {
-  $mn_dashboard = "active";
+    $mn_dashboard = "active";
 } else if ($_GET['d'] == 'master/job') {
-  $mn_Mmain = "menu-open";
-  $mn_Mmain1 = "active";
-  $mn_job = "active";
-}
-else if ($_GET['d'] == 'master/company') {
-  $mn_Mmain = "menu-open";
-  $mn_Mmain1 = "active";
-  $mn_company = "active";
-}
-else if ($_GET['d'] == 'master/user') {
+    $mn_Mmain = "menu-open";
+    $mn_Mmain1 = "active";
+    $mn_job = "active";
+} else if ($_GET['d'] == 'master/company') {
+    $mn_Mmain = "menu-open";
+    $mn_Mmain1 = "active";
+    $mn_company = "active";
+} else if ($_GET['d'] == 'master/user') {
     $mn_Mmain = "menu-open";
     $mn_Mmain1 = "active";
     $mn_user = "active";
-  }
+} else if ($_GET['d'] == 'approve/approveEmployerList') {
 
+
+    $mn_employerList = "active";
+}
 
 
 
@@ -96,6 +99,17 @@ else if ($_GET['d'] == 'master/user') {
                     </ul>
 
                 </li>
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
+                    <li class="nav-item">
+                        <a href="index.php?d=approve/approveEmployerList" class="nav-link <?= $mn_employerList ?>">
+                            <i class="nav-icon far fa-check-circle"></i>
+                            <p>
+                            ອະນຸມັດລາຍການປະກາດວຽກ
+                            </p>
+                        </a>
+                    </li>
+                </ul>
             </ul>
         </nav>
     </div>

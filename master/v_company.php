@@ -241,16 +241,11 @@ htmltage("Job Jao Website");
                                     <button type="button" class="btn btn-default" data-dismiss="modal">ປິດ</button>
                                     <button type="submit" name="btSaveEdit" class="btn btn-primary">ບັນທືກ</button>
                                   </div>
-
                                 </form>
                               </div>
-
                             </div>
-
                           </div>
-
-
-
+                          
                           <tr class="text-center">
                             <td class="align-middle">
                               <?= $i ?>

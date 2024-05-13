@@ -9,18 +9,18 @@ require_once ("config.php");
         header("Location: register/index.php");
         exit();        
     }
-	if(isset($_SESSION['user_id']) && $_SESSION['role'] =="admin"){
-        header("Location: index.php");
-        exit();        
-    }
-	if(isset($_SESSION['user_id']) && $_SESSION['role'] =="employer"){
-        header("Location: register/employer.php");
-        exit();        
-    }
-	if(isset($_SESSION['user_id']) && $_SESSION['role'] =="employee"){
-        header("Location: register/index.php");
-        exit();        
-    }
+	// if(isset($_SESSION['user_id']) && $_SESSION['role'] =="admin"){
+    //     header("Location: index.php");
+    //     exit();        
+    // }
+	// if(isset($_SESSION['user_id']) && $_SESSION['role'] =="employer"){
+    //     header("Location: register/employer.php");
+    //     exit();        
+    // }
+	// if(isset($_SESSION['user_id']) && $_SESSION['role'] =="employee"){
+    //     header("Location: register/index.php");
+    //     exit();        
+    // }
 $filename = "index";
 
 if (isset($_GET['d'])) $filename = $_GET['d'];

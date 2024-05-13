@@ -169,10 +169,11 @@ if (isset($_POST['btnLoginEmp'])) {
 
                     if ($_SESSION['role'] == "employee") {
                         ?>
-                        <li class="dropdown"><a href="#"><span >ຜູ້ໃຊ້</span> <i
+                        <li class="dropdown"><a href="#"><span>ຜູ້ໃຊ້</span> <i
                                     class="bi bi-chevron-down dropdown-indicator"></i></a>
                             <ul>
                                 <li><a href="#"><?= $_SESSION['name'] ?>     <?= $_SESSION['surname'] ?></a></li>
+                                <li><a href="history.php">ປະຫວັດການສະໝັກວຽກ</a></li>
                                 <li><a href="logout.php">ອອກຈາກລະບົບ</a></li>
 
 
@@ -181,12 +182,12 @@ if (isset($_POST['btnLoginEmp'])) {
                         </li>
                     <?php } else {
                         ?>
-                        <li class="dropdown"><a href="#"><span >ສະໝັກວຽກ</span> <i
+                        <li class="dropdown"><a href="#"><span>ສະໝັກວຽກ</span> <i
                                     class="bi bi-chevron-down dropdown-indicator"></i></a>
                             <ul>
                                 <li><a href="#" data-bs-toggle="modal" data-bs-target="#myModalRegister">ລົງທະບຽນ</a></li>
 
-                                <li><a href="#" data-bs-toggle="modal" data-bs-target="#myModalLogin">ເຂົ້າສູ່ລະບົບ</a></li>
+                                <li><a href="#myModalLogin" data-bs-toggle="modal">ເຂົ້າສູ່ລະບົບ</a></li>
 
                             </ul>
                         </li>
@@ -436,80 +437,96 @@ if (isset($_POST['btnLoginEmp'])) {
                             $experience = $row['experience'];
                             $description = $row['description'];
                             $image = $row['image'];
+
                             ?>
-                            <div class="modal fade" id="myModalInfo<?= $i ?>">
-                                <div class="modal-dialog modal-xl">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <div class="container-fluid">
+                       <div class="modal fade" id="myModalInfo<?= $i ?>">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-9">
                                                 <div class="row">
-                                                    <div class="col-md-9">
-                                                        <div class="row">
-                                                            <div class="col-md-12 pb-2">
-                                                                <div class="info-item  d-flex align-items-center">
-                                                                    <div>
-                                                                        <h2><b><?= $name ?></b></h2>
-                                                                        <p>ທີ່ຢູ່: <b><?= $address ?></b></p>
-                                                                        <p>ເປີດຮັບເຖິງວັນທີ: <b><?= $endDate ?></b></p>
-                                                                        <a type="button" class="btn btn-primary"
-                                                                            style="font-weight: 500;font-size: 12px;letter-spacing: 1px;display: inline-block;padding: 8px 32px;transition: 0.5s;color: #fff">
-                                                                            Apply <i class="bi bi-box-arrow-down-right"></i>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
+                                                    <div class="col-md-12 pb-2">
+                                                        <div class="info-item  d-flex align-items-center">
+                                                            <div>
+                                                                <h2><b><?= $name ?></b></h2>
+                                                                <p>ທີ່ຢູ່: <b><?= $address ?></b></p>
+                                                                <p>ເປີດຮັບເຖິງວັນທີ: <b><?= $endDate ?></b></p>
+                                                                <a type="button" href="#" class="btn btn-primary"
+                                                                    onclick="openMyModal2(<?= $i ?>,<?= $userId ?>)"
+                                                                    style=" font-weight: 500;font-size:
+                                                                            16px;letter-spacing: 1px;display:
+                                                                            inline-block;padding: 8px 32px;transition:
+                                                                            0.5s;color: #fff; ">
+                                                                    <b>ສະໝັກທີ່ນີ້</b> <i
+                                                                        class="bi bi-box-arrow-down-right"></i>
+                                                                </a>
+
                                                             </div>
-                                                            <div class="col-md-12 pb-2">
-                                                                <div class="info-item  d-flex align-items-center">
-                                                                    <div>
-                                                                        <p>ພາສາ: <b><?= $language ?></b></p>
-                                                                        <p>ປະສົບການ: <b><?= $experience ?></b></p>
-                                                                        <p>ເງິນເດືອນ: <b><?= $salary ?></b></p>
-                                                                        <p>ປະເພດວຽກ: <b>
-                                                                                <?php
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 pb-2">
+                                                        <div class="info-item  d-flex align-items-center">
+                                                            <div>
+                                                                <p>ພາສາ: <b><?= $language ?></b></p>
+                                                                <p>ປະສົບການ: <b><?= $experience ?></b></p>
+                                                                <p>ເງິນເດືອນ: <b><?= $salary ?></b></p>
+                                                                <p>ປະເພດວຽກ: <b>
+                                                                        <?php
                                                                                 $details = "SELECT b.name FROM employ_job as a join job as b on a.jobId = b.id WHERE employId ='$id'";
                                                                                 if ($resultDetails = $mysqli->query($details)) {
                                                                                     while ($rowDetails = $resultDetails->fetch_assoc()) {
                                                                                         ?>
-                                                                                        <?= $rowDetails['name'] ?>,
-                                                                                        <?php
+                                                                        <?= $rowDetails['name'] ?>,
+                                                                        <?php
                                                                                     }
                                                                                 }
                                                                                 ?>
 
-                                                                            </b></p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12 pb-2">
-                                                                <div class="info-item  d-flex align-items-center">
-                                                                    <div>
-
-                                                                        <img src="assets/img/company/<?= $image ?>"
-                                                                            class="w-100" />
-
-                                                                    </div>
-                                                                </div>
+                                                                    </b></p>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
-
-                                                        <div style="text-align: center;">
-                                                            <img src="../dist/img/company/<?= $comLogo ?>"
-                                                                class="img-fluid img-thumbnail">
-
-                                                            <p class="pt-2"><?= $address ?></p>
-                                                            <a type="button" class="btn btn-primary">
-                                                                ກ່ຽວກັບບໍລິສັດ
-                                                            </a>
-                                                        </div>
-                                                        <hr>
-                                                        <div>
-                                                            <h5>ວຽກຈາກບໍລິສັດນີ້</h5>
-                                                            <hr>
-                                                            <div class="card-body">
-
+                                                    <div class="col-md-12 pb-2">
+                                                        <div class="info-item  d-flex align-items-center">
+                                                            <div>
                                                                 <?php
+                                                                        $imageDe = "SELECT image FROM employ_image WHERE  employId ='$id'";
+                                                                        if ($resultimageDe = $mysqli->query($imageDe)) {
+                                                                            while ($rowimageDe = $resultimageDe->fetch_assoc()) {
+                                                                                ?>
+
+                                                                <img src="assets/img/company/<?= $rowimageDe['image'] ?>"
+                                                                    class="w-100" />
+                                                                <?php
+
+                                                                            }
+                                                                        }
+                                                                        ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+
+                                                <div style="text-align: center;">
+                                                    <img src="../dist/img/company/<?= $comLogo ?>"
+                                                        class="img-fluid img-thumbnail">
+
+                                                    <p class="pt-2"><?= $address ?></p>
+                                                    <a type="button" class="btn btn-primary">
+                                                        ກ່ຽວກັບບໍລິສັດ
+                                                    </a>
+                                                </div>
+                                                <hr>
+                                                <div>
+                                                    <h5>ວຽກຈາກບໍລິສັດນີ້</h5>
+                                                    <hr>
+                                                    <div class="card-body">
+
+                                                        <?php
                                                                 $employList = "SELECT * FROM employ WHERE companyId = '$comId' AND status='open'";
                                                                 if ($result3 = $mysqli->query($employList)) {
                                                                     while ($row1 = $result3->fetch_row()) {
@@ -519,42 +536,101 @@ if (isset($_POST['btnLoginEmp'])) {
                                                                         $endDate = $row1[15];
 
                                                                         ?>
-                                                                        <div class="row">
+                                                        <div class="row">
 
-                                                                            <div class="col-sm-12">
-                                                                                <div style="align-items: center;">
-                                                                                    <a href=""><?= $employName ?></a>
+                                                            <div class="col-sm-12">
+                                                                <div style="align-items: center;">
+                                                                    <a href=""><?= $employName ?></a>
 
-                                                                                    <p class="">
-                                                                                        <i class="bi bi-geo">
-                                                                                            <?= $location ?></i><br> <i
-                                                                                            class="bi bi-calendar3">
-                                                                                            <?= $strDate ?> - <?= $endDate ?></i>
-                                                                                    </p>
+                                                                    <p class="">
+                                                                        <i class="bi bi-geo">
+                                                                            <?= $location ?></i><br> <i
+                                                                            class="bi bi-calendar3">
+                                                                            <?= $strDate ?> - <?= $endDate ?></i>
+                                                                    </p>
 
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <hr>
-                                                                        <?php
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <?php
                                                                     }
                                                                 } ?>
 
 
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
-
                                             </div>
-
                                         </div>
 
                                     </div>
+
                                 </div>
 
                             </div>
-                            <div class="col-md-6" data-bs-toggle="modal" data-bs-target="#myModalInfo<?= $i ?>">
+                        </div>
+
+                    </div>
+                    <div class="modal" id="myModalApply<?= $i ?>">
+                        <div class="modal-dialog modal-lg">
+                            <class class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header bg-info " style="color: whitesmoke;">
+                                    <h4 class="modal-title">ສະໝັກຕຳແໜ່ງ <b><?= $name ?></b></h4>
+
+                                </div>
+                                <form method="post" action="#" role="form" enctype="multipart/form-data">
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label>ບໍລິສັດ</label>
+                                                    <input type="hidden" name="txtaEmployerId" class="form-control"
+                                                        value="<?= $id ?>">
+                                                    <input type="hidden" name="txtaComId" class="form-control"
+                                                        value="<?= $comId ?>">
+                                                    <input type="text" name="txtaCom" disabled class="form-control"
+                                                        value="<?= $comName ?>">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label>ຄຳອະທິບາຍ</label>
+                                                    <input type="text" name="txtTitle" class="form-control" required>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label>ຄຳອະທິບາຍ</label>
+                                                        <textarea class="form-control" name="txtDescription" rows="6"
+                                                            placeholder="ລາຍລະອຽດ"></textarea>
+
+                                                    </div>
+                                                </div> -->
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>ແນບໄຟລ CV</label>
+                                                    <input name="file" class="form-control" type="file" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                            data-bs-dismiss="modal">ປີດ</button>
+                                        <button type="submit" name="btnApply" class="btn btn-success">ສະໝັກເລີຍ</button>
+                                    </div>
+                                </form>
+                        </div>
+                    </div>
+
+                            <div class="col-md-6" data-bs-toggle="modal" href="#myModalInfo<?= $i ?>">
                                 <div class="info-item  d-flex align-items-center">
                                     <img src="../dist/img/company/<?= $comLogo ?>" width="20%" />
                                     <div class="p-2">
@@ -575,6 +651,50 @@ if (isset($_POST['btnLoginEmp'])) {
         </section><!-- End Contact Section -->
 
     </main><!-- End #main -->
+    <?php
+    if (isset($_POST['btnApply'])) {
+        $txtaEmployerId = $_POST['txtaEmployerId'];
+        $txtaComId = $_POST['txtaComId'];
+        $txtTitle = $_POST['txtTitle'];
+        // echo '<script>alert("txtaEmployerId:' . $txtaEmployerId . '")</script>';
+        // echo '<script>alert("txtaComId:' . $txtaComId . '")</script>';
+        // echo '<script>alert("txtTitle:' . $txtTitle . '")</script>';
+        $sqlApply = "INSERT INTO apply(employId, companyId, userId, title, status, createdBy, updatedBy, createdAt, updatedAt)
+      VALUES
+      ('$txtaEmployerId', '$txtaComId', '$userId', '$txtTitle', 'proceed','$userId','$userId',NOW(),NOW())";
+
+
+        if ($mysqli->query($sqlApply) === TRUE) {
+
+            $max = "SELECT max(id) FROM apply";
+            $maxId = $mysqli->query($max);
+            $rowMaxId = $maxId->fetch_row();
+            $rowApply_maxId = $rowMaxId[0];
+            $file = trim($_FILES["file"]["tmp_name"]);
+
+            if ($file != "") {
+                $nameCV = $_FILES["file"]["name"];
+                $extCV = end((explode(".", $nameCV))); # extra () to prevent notice
+                $fileNameCV = date('YmdHis') . $userId . "." . $extCV;
+                copy($_FILES["file"]["tmp_name"], "assets/img/cv/" . $fileNameCV);
+            }
+            $sqlApplyFile = "INSERT INTO apply_attachment(applyId, companyId, userId, file, createdBy, updatedBy, createdAt, updatedAt)
+        VALUES
+        ('$rowApply_maxId', '$txtaComId', '$userId', '$fileNameCV','$userId','$userId',NOW(),NOW())";
+
+            if ($mysqli->query($sqlApplyFile) === TRUE) {
+                echo '<script>alert("ສະໝັກວຽກສຳເລັດແລ້ວ")</script>';
+            } else {
+                echo "<center><h2>$sql</h2></center>";
+            }
+
+        } else {
+            echo "<center><h2>$sql</h2></center>";
+        }
+    }
+    ?>
+
+
 
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
@@ -637,6 +757,11 @@ if (isset($_POST['btnLoginEmp'])) {
 
     <div id="preloader"></div>
 
+
+    <?php
+
+
+    ?>
     <!-- Vendor JS Files -->
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/vendor/aos/aos.js"></script>
@@ -667,6 +792,25 @@ if (isset($_POST['btnLoginEmp'])) {
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript">
 </script>
 <script>
+    function openMyModal2(i, userId) {
+        var para = i;
+        var id = userId;
+        // alert(id);
+        if (id === undefined) {
+            let myModal = new
+                bootstrap.Modal(document.getElementById('myModalLogin'), {});
+            myModal.show();
+
+            $('#myModalInfo' + para).modal('hide');
+        } else {
+
+            let myModal = new
+                bootstrap.Modal(document.getElementById('myModalApply' + para), {});
+            myModal.show();
+        }
+
+    }
+
     function search() {
 
         var str = '';

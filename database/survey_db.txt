@@ -1,0 +1,167 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: May 12, 2024 at 04:37 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- Database: `jobs`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `survey_answer`
+--
+
+CREATE TABLE `survey_answer` (
+  `id` int(11) NOT NULL,
+  `responeId` int(11) DEFAULT NULL,
+  `questionId` int(11) DEFAULT NULL,
+  `choiceId` int(11) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `isDelete` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `survey_choice`
+--
+
+CREATE TABLE `survey_choice` (
+  `id` int(11) NOT NULL,
+  `questionId` int(11) DEFAULT NULL,
+  `choiceText` text NOT NULL,
+  `defaultChoice` tinyint(1) NOT NULL,
+  `choiceOrder` int(11) NOT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `updatedBy` int(11) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `isDelete` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `survey_question`
+--
+
+CREATE TABLE `survey_question` (
+  `id` int(11) NOT NULL,
+  `questionText` varchar(200) NOT NULL,
+  `questionOrder` int(11) NOT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `updatedBy` int(11) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `isDelete` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `survey_respone`
+--
+
+CREATE TABLE `survey_respone` (
+  `id` int(11) NOT NULL,
+  `gender` enum('female','male','none','') NOT NULL,
+  `age` int(11) NOT NULL,
+  `tribe` varchar(100) NOT NULL,
+  `education` varchar(100) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `updatedBy` int(11) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `isDelete` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `survey_answer`
+--
+ALTER TABLE `survey_answer`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `responeId` (`responeId`),
+  ADD KEY `choiceId` (`choiceId`),
+  ADD KEY `res_questionId` (`questionId`);
+
+--
+-- Indexes for table `survey_choice`
+--
+ALTER TABLE `survey_choice`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `questionId` (`questionId`);
+
+--
+-- Indexes for table `survey_question`
+--
+ALTER TABLE `survey_question`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `survey_respone`
+--
+ALTER TABLE `survey_respone`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `survey_answer`
+--
+ALTER TABLE `survey_answer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `survey_choice`
+--
+ALTER TABLE `survey_choice`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `survey_question`
+--
+ALTER TABLE `survey_question`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `survey_respone`
+--
+ALTER TABLE `survey_respone`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `survey_answer`
+--
+ALTER TABLE `survey_answer`
+  ADD CONSTRAINT `choiceId` FOREIGN KEY (`choiceId`) REFERENCES `survey_choice` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
+  ADD CONSTRAINT `res_questionId` FOREIGN KEY (`questionId`) REFERENCES `survey_question` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
+  ADD CONSTRAINT `responeId` FOREIGN KEY (`responeId`) REFERENCES `survey_respone` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
+
+--
+-- Constraints for table `survey_choice`
+--
+ALTER TABLE `survey_choice`
+  ADD CONSTRAINT `questionId` FOREIGN KEY (`questionId`) REFERENCES `survey_question` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
+COMMIT;

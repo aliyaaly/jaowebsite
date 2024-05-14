@@ -295,7 +295,7 @@ if ($result = $mysqli->query($fetchHeader)) {
                             $file_ext = substr($file_name, strrpos($file_name, '.'));
 
                             $file_name_new = date('YmdHis') .$k. $userId. $file_ext;
-                            copy($_FILES["edit_fileUpload"]["tmp_name"][$key], "assets/img/company/" . $file_name_new);
+                            copy($_FILES["file"]["tmp_name"][$key], "assets/img/company/" . $file_name_new);
                             $sql2 = "INSERT INTO employ_image(employId, companyId, image, createdBy, 
                             updatedBy, 
                             createdAt, 

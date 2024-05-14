@@ -419,7 +419,7 @@ if (isset($_POST['btnLoginEmp'])) {
         <div class="row gy-4">
           <?php
           $i = 0;
-          $fetchHeader = "SELECT * FROM v_employ WHERE status ='open' GROUP BY name ";
+          $fetchHeader = "SELECT * FROM v_employ WHERE status ='open' GROUP BY id ORDER BY rand()";
           if ($result = $mysqli->query($fetchHeader)) {
             while ($row = $result->fetch_assoc()) {
               $id = $row['id'];
@@ -441,7 +441,7 @@ if (isset($_POST['btnLoginEmp'])) {
               <div class="col-lg-4 col-md-6 d-flex align-items-stretch p-2" data-aos="fade-up" data-aos-delay="100">
                 <div class="chef-member">
                   <div class="member-img">
-                    <img src="assets/img/job/job<?php $random = rand(1,5); echo $random; ?>.jpeg" class="img-fluid" alt="">
+                    <img src="assets/img/job/job<?php $random = rand(1,12); echo $random; ?>.jpeg" class="img-fluid" alt="">
                    
                   </div>
                   <div class="member-info">
@@ -450,7 +450,7 @@ if (isset($_POST['btnLoginEmp'])) {
                     <p><?=$strDate?> ຫາ <?=$endDate?></p>
                   </div>
                 </div>
-              </div><!-- End Chefs Member -->
+              </div>
               <?php
             }
           } ?>

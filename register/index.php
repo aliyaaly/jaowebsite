@@ -417,71 +417,44 @@ if (isset($_POST['btnLoginEmp'])) {
         </div>
 
         <div class="row gy-4">
+          <?php
+          $i = 0;
+          $fetchHeader = "SELECT * FROM v_employ WHERE status ='open' GROUP BY id ORDER BY rand()";
+          if ($result = $mysqli->query($fetchHeader)) {
+            while ($row = $result->fetch_assoc()) {
+              $id = $row['id'];
+              $comName = $row['companyName'];
+              $comId = $row['companyId'];
+              $comLogo = $row['companyLogo'];
+              $name = $row['name'];
+              $address = $row['address'];
+              $strDate = $row['strDate'];
+              $endDate = $row['endDate'];
+              $language = $row['language'];
+              $salary = $row['salary'];
+              $jobName = $row['jobName'];
+              $experience = $row['experience'];
+              $description = $row['description'];
+              $image = $row['image'];
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-            <div class="chef-member">
-              <div class="member-img">
-                <img src="assets/img/job/administrative.jpeg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href="#"><i class="bi bi-twitter"></i></a>
-                  <a href="#"><i class="bi bi-facebook"></i></a>
-                  <a href="#"><i class="bi bi-instagram"></i></a>
-                  <a href="#"><i class="bi bi-linkedin"></i></a>
+              ?>
+              <div class="col-lg-4 col-md-6 d-flex align-items-stretch p-2" data-aos="fade-up" data-aos-delay="100">
+                <div class="chef-member">
+                  <div class="member-img">
+                    <img src="assets/img/job/job<?php $random = rand(1,12); echo $random; ?>.jpeg" class="img-fluid" alt="">
+                   
+                  </div>
+                  <div class="member-info">
+                    <h4> <img src="../dist/img/Company/<?=$comLogo?>" width="30" height="25" alt=""> <?=$comName?></h4>
+                    <span><?=$name?></span>
+                    <p><?=$strDate?> ຫາ <?=$endDate?></p>
+                  </div>
                 </div>
               </div>
-              <div class="member-info">
-                <h4> <img src="assets/img/company/company.jpeg" width="30" height="25" alt=""> ບໍລິສັດ
-                  ສາມັກຄີ
-                  ບໍລິຫານຈັດການ ອະສັງຫາລິມະຊັບ ຈໍາກັດ</h4>
-                <span>Administrtive Assistant</span>
-                <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima
-                  suscipit corporis.
-                  Voluptate sed quas reiciendis animi neque sapiente.</p>
-              </div>
-            </div>
-          </div><!-- End Chefs Member -->
+              <?php
+            }
+          } ?>
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-            <div class="chef-member">
-              <div class="member-img">
-                <img src="assets/img/job/engineer.jpeg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Sarah Jhonson</h4>
-                <span>Patissier</span>
-                <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima
-                  suscipit corporis.
-                  Voluptate sed quas reiciendis animi neque sapiente.</p>
-              </div>
-            </div>
-          </div><!-- End Chefs Member -->
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-            <div class="chef-member">
-              <div class="member-img">
-              <img src="assets/img/job/job<?php $random = rand(1,5); echo $random; ?>.jpeg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>William Anderson</h4>
-                <span>Cook</span>
-                <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt.
-                  Voluptates enim aut
-                  architecto porro aspernatur molestiae modi.</p>
-              </div>
-            </div>
-          </div><!-- End Chefs Member -->
 
         </div>
 

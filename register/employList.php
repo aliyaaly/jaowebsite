@@ -101,12 +101,14 @@ if ($result = $mysqli->query($fetchHeader)) {
                         $i = 1;
                         if ($result = $mysqli->query($employList)) {
                             while ($row1 = $result->fetch_row()) {
+
+                                $employId = $row1[0];
                                 $employName = $row1[2];
                                 $location = $row1[7];
                                 $strDate = $row1[14];
                                 $endDate = $row1[15];
                                 $status = $row1[8];
-
+                                // echo '<script>alert("employName:' . $employName . '")</script>';
                                 ?>
                                 <div class="row">
                                     <div class="col-sm-2 d-flex align-items-center">
@@ -147,13 +149,19 @@ if ($result = $mysqli->query($fetchHeader)) {
                                     <div class="col-sm-2">
 
                                         <?php
-                                        $count = "SELECT count(employId) FROM v_apply WHERE companyId=$companyId";
+                                        $count = "SELECT count(employId),employId FROM v_apply WHERE companyId=$companyId";
                                         $countApply = $mysqli->query($count);
                                         $rowcountApply = $countApply->fetch_row();
                                         $rowApply_countApply = $rowcountApply[0];
+
+                                        if ($employId == $rowcountApply[1]) {
+
+
+                                            ?>
+                                            <a data-bs-toggle="modal" href="#myModalApplyList<?= $i ?>"> ຜູ້ເຂົ້າມາສະໝັກ:
+                                                <b><?= $rowApply_countApply ?></b> ຄົນ</a>
+                                        <?php }
                                         ?>
-                                        <a data-bs-toggle="modal" href="#myModalApplyList<?= $i ?>"> ຜູ້ເຂົ້າມາສະໝັກ:
-                                            <b><?= $rowApply_countApply ?></b> ຄົນ</a>
                                     </div>
 
                                 </div>
@@ -213,10 +221,12 @@ if ($result = $mysqli->query($fetchHeader)) {
 
                                                                                     <tr>
                                                                                         <td class="align-middle"><?= $z ?></td>
-                                                                                        <td class="align-middle"><?= $data['firstName'] ?>
+                                                                                        <td class="align-middle">
+                                                                                            <?= $data['firstName'] ?>
                                                                                             <?= $data['lastName'] ?>
                                                                                         </td>
-                                                                                        <td class="align-middle"><?= $data['title'] ?></td>
+                                                                                        <td class="align-middle"><?= $data['title'] ?>
+                                                                                        </td>
 
                                                                                         <td class="align-middle">
                                                                                             <a href="#"
@@ -228,32 +238,38 @@ if ($result = $mysqli->query($fetchHeader)) {
 
                                                                                                 ?>
                                                                                                 <h5><span
-                                                                                                        class="badge bg-info"><?= $data['status'] ?></span></h5>
+                                                                                                        class="badge bg-info"><?= $data['status'] ?></span>
+                                                                                                </h5>
                                                                                                 <?php
                                                                                             } else if ($data['status'] == 'cancel') {
                                                                                                 ?>
                                                                                                     <h5><span
-                                                                                                            class="badge bg-danger"><?= $data['status'] ?></span></h5>
+                                                                                                            class="badge bg-danger"><?= $data['status'] ?></span>
+                                                                                                    </h5>
                                                                                                 <?php
                                                                                             } else if ($data['status'] == 'denide') {
                                                                                                 ?>
                                                                                                         <h5><span
-                                                                                                                class="badge bg-warning"><?= $data['status'] ?></span></h5>
+                                                                                                                class="badge bg-warning"><?= $data['status'] ?></span>
+                                                                                                        </h5>
                                                                                                 <?php
                                                                                             } else {
                                                                                                 ?>
                                                                                                         <h5><span
-                                                                                                                class="badge bg-success"><?= $data['status'] ?></span></h5>
+                                                                                                                class="badge bg-success"><?= $data['status'] ?></span>
+                                                                                                        </h5>
                                                                                                 <?php
                                                                                             }
                                                                                             ?>
                                                                                         </td>
                                                                                         <td class="align-middle">
-                                                                                            <a href="cancel.php?accept=<?= $data['id'] ?> " class="btn btn-success"
+                                                                                            <a href="cancel.php?accept=<?= $data['id'] ?> "
+                                                                                                class="btn btn-success"
                                                                                                 onclick="return confirm('ທ່ານຕ້ອງການ Accept ການສະໝັກແທ້ບໍ...?')"><i
                                                                                                     class="bi bi-patch-check-fill"></i>Accept</a>
-                                                                                                
-                                                                                            <a href="cancel.php?denide=<?= $data['id'] ?>" class="btn btn-danger"
+
+                                                                                            <a href="cancel.php?denide=<?= $data['id'] ?>"
+                                                                                                class="btn btn-danger"
                                                                                                 onclick="return confirm('ທ່ານຕ້ອງການ Denide ການສະໝັກແທ້ບໍ...?')"><i
                                                                                                     class="bi bi-x-octagon-fill"></i>Denide</a>
                                                                                         </td>
@@ -271,16 +287,18 @@ if ($result = $mysqli->query($fetchHeader)) {
 
                                                 </div>
                                     </div>
-                                    <?php $i++;
+                                </div>
+
+                                <?php $i++;
                             }
                         } ?>
 
 
-                        </div>
-
                     </div>
 
                 </div>
+
+            </div>
         </section><!-- End Why Us Section -->
 
 

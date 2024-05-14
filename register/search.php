@@ -159,39 +159,32 @@ if (isset($_POST['btnLoginEmp'])) {
                 <ul>
                     <li><a href="index.php #home" class="nav-item nav-link ">ໜ້າຫຼັກ</a></li>
                     <li><a href="search.php" class="nav-item nav-link active">ຄົ້ນຫາວຽກ</a></li>
-                    <li><a href="#menu">ບໍລິສັດ</a></li>
-                    <!-- <li><a href="#events">Events</a></li>
-          <li><a href="#chefs">Chefs</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          -->
-                    <li><a href="#contact">ກ່ຽວກັບ</a></li>
+                    <li><a href="company.php">ບໍລິສັດ</a></li>
+
                     <?php
 
                     if ($_SESSION['role'] == "employee") {
                         ?>
-                        <li class="dropdown"><a href="#"><span>ຜູ້ໃຊ້</span> <i
-                                    class="bi bi-chevron-down dropdown-indicator"></i></a>
-                            <ul>
-                                <li><a href="#"><?= $_SESSION['name'] ?>     <?= $_SESSION['surname'] ?></a></li>
-                                <li><a href="history.php">ປະຫວັດການສະໝັກວຽກ</a></li>
-                                <li><a href="logout.php">ອອກຈາກລະບົບ</a></li>
-
-
-
-                            </ul>
-                        </li>
+                    <li class="dropdown"><a href="#"><span>ຜູ້ໃຊ້</span> <i
+                                class="bi bi-chevron-down dropdown-indicator"></i></a>
+                        <ul>
+                            <li><a href="#"><?= $_SESSION['name'] ?> <?= $_SESSION['surname'] ?></a></li>
+                            <li><a href="history.php">ປະຫວັດການສະໝັກວຽກ</a></li>
+                            <li><a href="logout.php">ອອກຈາກລະບົບ</a></li>
+                        </ul>
+                    </li>
                     <?php } else {
                         ?>
-                        <li class="dropdown"><a href="#"><span>ສະໝັກວຽກ</span> <i
-                                    class="bi bi-chevron-down dropdown-indicator"></i></a>
-                            <ul>
-                                <li><a href="#" data-bs-toggle="modal" data-bs-target="#myModalRegister">ລົງທະບຽນ</a></li>
+                    <li class="dropdown"><a href="#"><span>ສະໝັກວຽກ</span> <i
+                                class="bi bi-chevron-down dropdown-indicator"></i></a>
+                        <ul>
+                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#myModalRegister">ລົງທະບຽນ</a></li>
 
-                                <li><a href="#myModalLogin" data-bs-toggle="modal">ເຂົ້າສູ່ລະບົບ</a></li>
+                            <li><a href="#myModalLogin" data-bs-toggle="modal">ເຂົ້າສູ່ລະບົບ</a></li>
 
-                            </ul>
-                        </li>
-                        <?php
+                        </ul>
+                    </li>
+                    <?php
                     } ?>
                 </ul>
             </nav><!-- .navbar -->
@@ -388,10 +381,10 @@ if (isset($_POST['btnLoginEmp'])) {
                             if ($resultjob = $mysqli->query($job)) {
                                 while ($rowjob = $resultjob->fetch_assoc()) {
                                     ?>
-                                    <option value="<?= $rowjob['id'] ?>"> <?= $rowjob['name'] ?>
-                                        <b> (<?= $rowjob['countJob'] ?>)</b>
-                                    </option>
-                                <?php }
+                            <option value="<?= $rowjob['id'] ?>"> <?= $rowjob['name'] ?>
+                                <b> (<?= $rowjob['countJob'] ?>)</b>
+                            </option>
+                            <?php }
                             } ?>
                         </select>
 
@@ -439,7 +432,7 @@ if (isset($_POST['btnLoginEmp'])) {
                             $image = $row['image'];
 
                             ?>
-                       <div class="modal fade" id="myModalInfo<?= $i ?>">
+                    <div class="modal fade" id="myModalInfo<?= $i ?>">
                         <div class="modal-dialog modal-xl">
                             <div class="modal-content">
                                 <div class="modal-body">
@@ -630,19 +623,19 @@ if (isset($_POST['btnLoginEmp'])) {
                         </div>
                     </div>
 
-                            <div class="col-md-6" data-bs-toggle="modal" href="#myModalInfo<?= $i ?>">
-                                <div class="info-item  d-flex align-items-center">
-                                    <img src="../dist/img/company/<?= $comLogo ?>" width="20%" />
-                                    <div class="p-2">
-                                        <a style="color: blue;cursor:pointer"><?= $name ?></a>
-                                        <p><?= $comName ?></p>
-                                        <p><?= $address ?></p>
-                                        <p><?= $strDate ?> - <?= $endDate ?></p>
-                                    </div>
-                                </div>
-                            </div><!-- End Info Item -->
+                    <div class="col-md-6" data-bs-toggle="modal" href="#myModalInfo<?= $i ?>">
+                        <div class="info-item  d-flex align-items-center">
+                            <img src="../dist/img/company/<?= $comLogo ?>" width="20%" />
+                            <div class="p-2">
+                                <a style="color: blue;cursor:pointer"><?= $name ?></a>
+                                <p><?= $comName ?></p>
+                                <p><?= $address ?></p>
+                                <p><?= $strDate ?> - <?= $endDate ?></p>
+                            </div>
+                        </div>
+                    </div><!-- End Info Item -->
 
-                            <?php $i++;
+                    <?php $i++;
                         }
                     }
                     ?>
@@ -778,75 +771,75 @@ if (isset($_POST['btnLoginEmp'])) {
 </html>
 
 <script>
-    $('#select').select2({
-        theme: "bootstrap-5",
-        placeholder: $(this).data('placeholder'),
-    });
+$('#select').select2({
+    theme: "bootstrap-5",
+    placeholder: $(this).data('placeholder'),
+});
 
-    $('#single-select-field2').select2({
-        theme: "bootstrap-5",
-        width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-        placeholder: $(this).data('placeholder'),
-    });
+$('#single-select-field2').select2({
+    theme: "bootstrap-5",
+    width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+    placeholder: $(this).data('placeholder'),
+});
 </script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript">
 </script>
 <script>
-    function openMyModal2(i, userId) {
-        var para = i;
-        var id = userId;
-        // alert(id);
-        if (id === undefined) {
-            let myModal = new
-                bootstrap.Modal(document.getElementById('myModalLogin'), {});
-            myModal.show();
+function openMyModal2(i, userId) {
+    var para = i;
+    var id = userId;
+    // alert(id);
+    if (id === undefined) {
+        let myModal = new
+        bootstrap.Modal(document.getElementById('myModalLogin'), {});
+        myModal.show();
 
-            $('#myModalInfo' + para).modal('hide');
-        } else {
+        $('#myModalInfo' + para).modal('hide');
+    } else {
 
-            let myModal = new
-                bootstrap.Modal(document.getElementById('myModalApply' + para), {});
-            myModal.show();
+        let myModal = new
+        bootstrap.Modal(document.getElementById('myModalApply' + para), {});
+        myModal.show();
+    }
+
+}
+
+function search() {
+
+    var str = '';
+    var val = document.getElementById('select');
+    for (i = 0; i < val.length; i++) {
+        if (val[i].selected) {
+            str += val[i].value + ',';
         }
-
     }
-
-    function search() {
-
-        var str = '';
-        var val = document.getElementById('select');
-        for (i = 0; i < val.length; i++) {
-            if (val[i].selected) {
-                str += val[i].value + ',';
-            }
+    var str = str.slice(0, str.length - 1);
+    // alert(str);
+    $.ajax({
+        type: "GET",
+        url: "getJob.php",
+        data: 'jobId=' + str,
+        success: function(data) {
+            $("#contact").html(data);
+            // alert(data);
         }
-        var str = str.slice(0, str.length - 1);
-        // alert(str);
-        $.ajax({
-            type: "GET",
-            url: "getJob.php",
-            data: 'jobId=' + str,
-            success: function (data) {
-                $("#contact").html(data);
-                // alert(data);
-            }
-        });
-    }
+    });
+}
 
-    function searchInput() {
+function searchInput() {
 
 
-        var val = document.getElementById('txtSearch').value;
+    var val = document.getElementById('txtSearch').value;
 
 
-        $.ajax({
-            type: "GET",
-            url: "getJobByInput.php",
-            data: 'jobName=' + val,
-            success: function (data) {
-                $("#contact").html(data);
-                // alert(data);
-            }
-        });
-    }
+    $.ajax({
+        type: "GET",
+        url: "getJobByInput.php",
+        data: 'jobName=' + val,
+        success: function(data) {
+            $("#contact").html(data);
+            // alert(data);
+        }
+    });
+}
 </script>

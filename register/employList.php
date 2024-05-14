@@ -186,7 +186,8 @@ if ($result = $mysqli->query($fetchHeader)) {
                                                                                 <th>ຊື່ ແລະ ນາມສະກຸນ</th>
                                                                                 <th>ຫົວຂໍ້</th>
                                                                                 <th>ໄຟລແນບ CV</th>
-
+                                                                                <th>ສະຖານະ</th>
+                                                                                <th></th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody class="text-center">
@@ -196,10 +197,9 @@ if ($result = $mysqli->query($fetchHeader)) {
                                                                             if ($reLoop = $mysqli->query($loop)) {
                                                                                 while ($data = $reLoop->fetch_assoc()) {
                                                                                     ?>
-                                                                                    <div class="modal fade"
-                                                                                        id="modallgImage<?= $z ?>">
+                                                                                    <div class="modal fade" id="modallgImage<?= $z ?>">
                                                                                         <div class="modal-dialog modal-lg">
-                                                                                            <div class="modal-content">  
+                                                                                            <div class="modal-content">
                                                                                                 <div class="modal-body">
                                                                                                     <?php
                                                                                                     $imagePath = "assets/img/cv/" . $data['file'];
@@ -212,17 +212,51 @@ if ($result = $mysqli->query($fetchHeader)) {
                                                                                     </div>
 
                                                                                     <tr>
-                                                                                        <td><?= $z ?></td>
-                                                                                        <td><?= $data['firstName'] ?>
+                                                                                        <td class="align-middle"><?= $z ?></td>
+                                                                                        <td class="align-middle"><?= $data['firstName'] ?>
                                                                                             <?= $data['lastName'] ?>
                                                                                         </td>
-                                                                                        <td><?= $data['title'] ?></td>
-                                                                                        <td class="centered">
-                                                                                            <a  
-                                                                                                href="#" onclick="openMyModal2(<?= $z ?>)" ><i
+                                                                                        <td class="align-middle"><?= $data['title'] ?></td>
+
+                                                                                        <td class="align-middle">
+                                                                                            <a href="#"
+                                                                                                onclick="openMyModal2(<?= $z ?>)"><i
                                                                                                     class="bi bi-filetype-pdf"></i></a>
                                                                                         </td>
+                                                                                        <td class="align-middle">
+                                                                                            <?php if ($data['status'] == 'proceed') {
 
+                                                                                                ?>
+                                                                                                <h5><span
+                                                                                                        class="badge bg-info"><?= $data['status'] ?></span></h5>
+                                                                                                <?php
+                                                                                            } else if ($data['status'] == 'cancel') {
+                                                                                                ?>
+                                                                                                    <h5><span
+                                                                                                            class="badge bg-danger"><?= $data['status'] ?></span></h5>
+                                                                                                <?php
+                                                                                            } else if ($data['status'] == 'denide') {
+                                                                                                ?>
+                                                                                                        <h5><span
+                                                                                                                class="badge bg-warning"><?= $data['status'] ?></span></h5>
+                                                                                                <?php
+                                                                                            } else {
+                                                                                                ?>
+                                                                                                        <h5><span
+                                                                                                                class="badge bg-success"><?= $data['status'] ?></span></h5>
+                                                                                                <?php
+                                                                                            }
+                                                                                            ?>
+                                                                                        </td>
+                                                                                        <td class="align-middle">
+                                                                                            <a href="cancel.php?accept=<?= $data['id'] ?> " class="btn btn-success"
+                                                                                                onclick="return confirm('ທ່ານຕ້ອງການ Accept ການສະໝັກແທ້ບໍ...?')"><i
+                                                                                                    class="bi bi-patch-check-fill"></i>Accept</a>
+                                                                                                
+                                                                                            <a href="cancel.php?denide=<?= $data['id'] ?>" class="btn btn-danger"
+                                                                                                onclick="return confirm('ທ່ານຕ້ອງການ Denide ການສະໝັກແທ້ບໍ...?')"><i
+                                                                                                    class="bi bi-x-octagon-fill"></i>Denide</a>
+                                                                                        </td>
                                                                                     </tr>
                                                                                     <?php $z++;
                                                                                 }
@@ -273,16 +307,15 @@ if ($result = $mysqli->query($fetchHeader)) {
 
     function openMyModal2(i) {
         var para = i;
-       
-        // alert(id);
-      
-            let myModal = new
-                bootstrap.Modal(document.getElementById('modallgImage'+para), {});
-            myModal.show();
 
-          
-       
+        // alert(id);
+
+        let myModal = new
+            bootstrap.Modal(document.getElementById('modallgImage' + para), {});
+        myModal.show();
+
+
+
 
     }
-
 </script>

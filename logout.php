@@ -7,4 +7,4 @@ unset($_SESSION['name']);
 unset($_SESSION['surname']);
 unset($_SESSION['role']);
 
-header("Location: login.php");
+header("Location: ../jobhiring/register/index.php");

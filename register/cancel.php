@@ -21,4 +21,36 @@ if(isset($_GET["del"]) ){
 
 
 }
+if(isset($_GET["accept"]) ){	
+	
+			 
+    $id = $_GET["accept"];	 		 
+
+    $sql = "UPDATE apply SET status = 'accept',updatedBy='$userId',updatedAt=NOW() WHERE id = '$id' ";	 	
+
+
+    if ($mysqli->query($sql) === TRUE) {
+        header("Location: employList.php");
+    }else{
+        echo "<center><h2>ERROR Delete</h2></center>";
+    }	
+
+
+}
+if(isset($_GET["denide"]) ){	
+	
+			 
+    $id = $_GET["denide"];	 		 
+
+    $sql = "UPDATE apply SET status = 'denide',updatedBy='$userId',updatedAt=NOW() WHERE id = '$id' ";	 	
+
+
+    if ($mysqli->query($sql) === TRUE) {
+        header("Location: employList.php");
+    }else{
+        echo "<center><h2>ERROR Delete</h2></center>";
+    }	
+
+
+}
 ?>

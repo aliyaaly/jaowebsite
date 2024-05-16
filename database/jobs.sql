@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 14, 2024 at 11:54 AM
+-- Generation Time: May 16, 2024 at 10:05 AM
 -- Server version: 5.7.17-log
 -- PHP Version: 5.6.30
 
@@ -47,7 +47,9 @@ CREATE TABLE `apply` (
 
 INSERT INTO `apply` (`id`, `employId`, `companyId`, `userId`, `title`, `description`, `status`, `createdBy`, `updatedBy`, `createdAt`, `updatedAt`, `isDelete`) VALUES
 (8, 27, 9, 11, 'ສົນໃຈສະໝັກຕຳແໜ່ງ IT support', NULL, 'accept', 11, 10, '2024-05-14 17:16:57', '2024-05-14 17:33:57', 0),
-(9, 32, 10, 13, 'ສົນໃຈສະໝັກຕຳແໜ່ງ ແມ່ບ້ານ', NULL, 'accept', 13, 12, '2024-05-14 18:43:12', '2024-05-14 18:46:16', 0);
+(9, 32, 10, 13, 'ສົນໃຈສະໝັກຕຳແໜ່ງ ແມ່ບ້ານ', NULL, 'accept', 13, 12, '2024-05-14 18:43:12', '2024-05-14 18:46:16', 0),
+(10, 32, 10, 7, 'testApply', NULL, 'proceed', 7, 7, '2024-05-16 16:20:36', '2024-05-16 16:20:36', 0),
+(11, 25, 9, 7, 'd', NULL, 'accept', 7, 10, '2024-05-16 16:28:39', '2024-05-16 16:47:10', 0);
 
 -- --------------------------------------------------------
 
@@ -74,7 +76,9 @@ CREATE TABLE `apply_attachment` (
 
 INSERT INTO `apply_attachment` (`id`, `applyId`, `companyId`, `userId`, `file`, `createdBy`, `updatedBy`, `createdAt`, `updatedAt`, `isDelete`) VALUES
 (4, 8, 9, 11, '2024051410165711.png', 11, 11, '2024-05-14 17:16:57', '2024-05-14 17:16:57', 0),
-(5, 9, 10, 13, '2024051411431213.pdf', 13, 13, '2024-05-14 18:43:12', '2024-05-14 18:43:12', 0);
+(5, 9, 10, 13, '2024051411431213.pdf', 13, 13, '2024-05-14 18:43:12', '2024-05-14 18:43:12', 0),
+(6, 10, 10, 7, '202405160920367.png', 7, 7, '2024-05-16 16:20:36', '2024-05-16 16:20:36', 0),
+(7, 11, 9, 7, '202405160928397.jpg', 7, 7, '2024-05-16 16:28:39', '2024-05-16 16:28:39', 0);
 
 -- --------------------------------------------------------
 
@@ -149,8 +153,8 @@ INSERT INTO `employ` (`id`, `companyId`, `name`, `languageId`, `experienceId`, `
 (28, 6, 'Finance', 1, 1, 1, ' ', 'Tanmixay, Xaythany, Vientiane', 'open', 4, 1, '2024-05-14 16:02:16', '2024-05-14 16:06:02', 0, '2024-05-01', '2024-05-26', 1),
 (29, 6, 'Backend Developer', 3, 2, 2, '', 'Tanmixay, Xaythany, Vientiane', 'open', 4, 1, '2024-05-14 16:03:07', '2024-05-14 16:06:04', 0, '2024-04-04', '2024-05-31', 1),
 (30, 1, 'Front-End Developer', 3, 2, 2, '', 'Vientiane', 'open', 2, 1, '2024-05-14 16:05:33', '2024-05-14 16:06:06', 0, '2024-05-14', '2024-05-31', 1),
-(31, 1, 'ປະຊາສຳພັນ', 1, 1, 1, ' ', 'Vientiane', 'open', 2, 1, '2024-05-14 16:11:02', '2024-05-14 16:11:26', 0, '2024-05-01', '2024-05-29', 1),
-(32, 10, 'ແມ່ບ້ານ', 1, 1, 1, ' ', 'aaaa', 'open', 12, 1, '2024-05-14 18:36:08', '2024-05-14 18:36:49', 0, '2024-05-01', '2024-05-31', 1);
+(31, 1, 'ປະຊາສຳພັນ', 1, 1, 1, ' ', 'Vientiane', 'open', 2, 1, '2024-05-14 16:11:02', '2024-05-14 16:11:26', 0, '2024-05-01', '2024-05-31', 1),
+(32, 10, 'ແມ່ບ້ານ', 1, 1, 1, ' ', 'aaaa', 'open', 12, 1, '2024-05-14 18:36:08', '2024-05-16 16:52:30', 0, '2024-05-01', '2024-05-31', 1);
 
 -- --------------------------------------------------------
 
@@ -303,6 +307,7 @@ INSERT INTO `language` (`id`, `language`) VALUES
 CREATE TABLE `news` (
   `id` int(11) NOT NULL,
   `image` varchar(200) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
   `createdBy` int(11) DEFAULT NULL,
   `updatedBy` int(11) DEFAULT NULL,
   `createdAt` datetime DEFAULT NULL,
@@ -314,10 +319,13 @@ CREATE TABLE `news` (
 -- Dumping data for table `news`
 --
 
-INSERT INTO `news` (`id`, `image`, `createdBy`, `updatedBy`, `createdAt`, `updatedAt`, `isDelete`) VALUES
-(1, 'feed.png', 1, 1, NULL, NULL, 0),
-(2, 'feed2.jpg', 1, 1, NULL, NULL, 0),
-(3, 'feed3.png', 1, 1, NULL, NULL, 0);
+INSERT INTO `news` (`id`, `image`, `name`, `createdBy`, `updatedBy`, `createdAt`, `updatedAt`, `isDelete`) VALUES
+(1, 'feed.png', 'feed', 1, 1, NULL, NULL, 0),
+(2, 'feed2.jpg', 'feed2', 1, 1, NULL, NULL, 0),
+(3, 'feed3.png', 'feed3', 1, 1, NULL, NULL, 0),
+(4, '202405160820041.jpeg', 'feed4', 1, 1, '2024-05-16 15:20:04', '2024-05-16 15:20:04', 0),
+(5, '202405160820211.png', 'feed5', 1, 1, '2024-05-16 15:20:21', '2024-05-16 15:20:21', 0),
+(6, '202405160820431.webp', 'feed7', 1, 1, '2024-05-16 15:20:43', '2024-05-16 15:21:33', 1);
 
 -- --------------------------------------------------------
 
@@ -427,7 +435,7 @@ CREATE TABLE `time` (
 
 INSERT INTO `time` (`id`, `time`) VALUES
 (1, 'full-time'),
-(2, 'half-time');
+(2, 'part-time');
 
 -- --------------------------------------------------------
 
@@ -678,12 +686,12 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `apply`
 --
 ALTER TABLE `apply`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `apply_attachment`
 --
 ALTER TABLE `apply_attachment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `company`
 --
@@ -708,7 +716,7 @@ ALTER TABLE `employ_job`
 -- AUTO_INCREMENT for table `experience`
 --
 ALTER TABLE `experience`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `job`
 --
@@ -718,17 +726,17 @@ ALTER TABLE `job`
 -- AUTO_INCREMENT for table `language`
 --
 ALTER TABLE `language`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `news`
 --
 ALTER TABLE `news`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `salary`
 --
 ALTER TABLE `salary`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `survey_answer`
 --
@@ -753,7 +761,7 @@ ALTER TABLE `survey_respone`
 -- AUTO_INCREMENT for table `time`
 --
 ALTER TABLE `time`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `user`
 --

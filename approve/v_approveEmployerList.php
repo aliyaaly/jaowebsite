@@ -1,7 +1,7 @@
 <?php
 
 htmltage("Job Jao Website");
-
+checkExpired($mysqli, $fetch);
 ?>
 
 <div class="content-wrapper">
@@ -15,7 +15,7 @@ htmltage("Job Jao Website");
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">ໜ້າຫຼັກ</a></li>
-                  
+
                         <li class="breadcrumb-item active">ອະນຸມັດລາຍການປະກາດວຽກ</li>
                     </ol>
                 </div>
@@ -53,7 +53,7 @@ htmltage("Job Jao Website");
                                                 <th>ເວລາ</th>
                                                 <th>ວັນທີ່ປະກາດ</th>
                                                 <th>ວັນທີ່ສິ້ນສຸດ</th>
-                                               
+
                                                 <th class="text-center">ສະຖານະ</th>
                                                 <th class="text-center"></th>
                                             </tr>
@@ -71,24 +71,37 @@ htmltage("Job Jao Website");
                                                         <td><?= $row['name'] ?></td>
                                                         <td><?= $row['language'] ?></td>
                                                         <td><?= $row['experience'] ?></td>
-                                                        <td><?= $row['salary'] ?></td> 
-                                                        <td><?= $row['time'] ?></td> 
-                                                        <td><?= $row['strDate'] ?></td> 
-                                                        <td><?= $row['endDate'] ?></td> 
+                                                        <td><?= $row['salary'] ?></td>
+                                                        <td><?= $row['time'] ?></td>
+                                                        <td><?= $row['strDate'] ?></td>
+                                                        <td><?= $row['endDate'] ?></td>
                                                         <?php if ($row['status'] == 'open') {
-                                                    ?>
-                                                        <td align="center" ><h4><span class="badge badge-pill badge-success"><?= $row['status'] ?></span></h4></td>
-                                                    <?php
-                                                    } else {
-                                                    ?>
-                                                        <td align="center"><h4><span class="badge badge-pill badge-danger"><?= $row['status'] ?></span></h4></td>
-                                                    <?php
-                                                    }
-                                                    ?>
+                                                            ?>
+                                                            <td align="center">
+                                                                <h4><span
+                                                                        class="badge badge-pill badge-success"><?= $row['status'] ?></span>
+                                                                </h4>
+                                                            </td>
+                                                            <?php
+                                                        } else {
+                                                            ?>
+                                                            <td align="center">
+                                                                <h4><span
+                                                                        class="badge badge-pill badge-danger"><?= $row['status'] ?></span>
+                                                                </h4>
+                                                            </td>
+                                                            <?php
+                                                        }
+                                                        ?>
                                                         <td align="center">
                                                             <a href="?d=approve/approveEmployerList&id=<?= $row['id'] ?>"
+                                                                class="btn btn-success"
                                                                 onclick="return confirm('ທ່ານຕ້ອງການອະນຸມັດແທ້ບໍ...?')">ອະນຸມັດ<i
                                                                     class="far fa-check-circle"></i></a>
+                                                            <a href="?d=approve/approveEmployerList&close=<?= $row['id'] ?>"
+                                                                class="btn btn-danger"
+                                                                onclick="return confirm('ທ່ານຕ້ອງການສິ້ນສຸດແທ້ບໍ...?')">ສິ້ນສຸດ<i
+                                                                    class="far fa-eye-slash"></i></a>
                                                         </td>
                                                     </tr>
                                                     <?php $i++;

@@ -149,18 +149,23 @@ if ($result = $mysqli->query($fetchHeader)) {
                                     <div class="col-sm-2">
 
                                         <?php
-                                        $count = "SELECT count(employId),employId FROM v_apply WHERE companyId=$companyId";
-                                        $countApply = $mysqli->query($count);
-                                        $rowcountApply = $countApply->fetch_row();
-                                        $rowApply_countApply = $rowcountApply[0];
+                                        $count = "SELECT employId FROM v_apply WHERE companyId=$companyId";
 
-                                        if ($employId == $rowcountApply[1]) {
+                                        if ($countApply = $mysqli->query($count)) {
+
+                                            while ($rowcountApply = $countApply->fetch_row()) {
+                                                // $row_cnt = mysqli_num_rows($countApply);
+                                                $rowApply_countApply = $rowcountApply[0];
+
+                                                if ($employId == $rowcountApply[0]) {
 
 
-                                            ?>
-                                            <a data-bs-toggle="modal" href="#myModalApplyList<?= $i ?>"> ຜູ້ເຂົ້າມາສະໝັກ:
-                                                <b><?= $rowApply_countApply ?></b> ຄົນ</a>
-                                        <?php }
+                                                    ?>
+                                                    <a data-bs-toggle="modal" href="#myModalApplyList<?= $i ?>">
+                                                        <b>ເຂົ້າເບິ່ງຜູ້ສະໝັກ</b></a>
+                                                <?php }
+                                            }
+                                        }
                                         ?>
                                     </div>
 

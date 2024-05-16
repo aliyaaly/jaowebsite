@@ -16,3 +16,20 @@ if(isset($_GET["id"]) ){
 
 
 }
+if(isset($_GET["close"]) ){	
+	
+			 
+    $id = $_GET["close"];	 		 
+
+    $sql = "UPDATE employ SET status = 'close',updatedBy='$user_id',updatedAt=NOW() WHERE id = '$id' ";	 	
+
+
+    if ($mysqli->query($sql) === TRUE) {
+        header("Location: ?d=approve/approveEmployerList");
+    }else{
+        echo "<center><h2>ERROR Delete</h2></center>";
+    }	
+
+
+}
+

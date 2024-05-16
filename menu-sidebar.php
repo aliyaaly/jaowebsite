@@ -1,12 +1,24 @@
 <?php
 $mn_dashboard = "";
 $mn_Mmain = "";
+$mn_Mmainn = "";
 $mn_Mmain1 = "";
 $mn_Mmain2 = "";
 $mn_job = "";
 $mn_company = "";
 $mn_user = "";
+$mn_salary = "";
+$mn_experience = "";
+$mn_language = "";
+$mn_time = "";
+$mn_news = "";
+
+
 $mn_employerList = "";
+
+$mn_report1 = "";
+$mn_report2 = "";
+$mn_report3 = "";
 
 
 if ($_GET['d'] == 'index') {
@@ -23,11 +35,42 @@ if ($_GET['d'] == 'index') {
     $mn_Mmain = "menu-open";
     $mn_Mmain1 = "active";
     $mn_user = "active";
+} else if ($_GET['d'] == 'master/salary') {
+    $mn_Mmain = "menu-open";
+    $mn_Mmain1 = "active";
+    $mn_salary = "active";
+} else if ($_GET['d'] == 'master/experience') {
+    $mn_Mmain = "menu-open";
+    $mn_Mmain1 = "active";
+    $mn_experience = "active";
+} else if ($_GET['d'] == 'master/language') {
+    $mn_Mmain = "menu-open";
+    $mn_Mmain1 = "active";
+    $mn_language = "active";
+} else if ($_GET['d'] == 'master/time') {
+    $mn_Mmain = "menu-open";
+    $mn_Mmain1 = "active";
+    $mn_time = "active";
+} else if ($_GET['d'] == 'master/news') {
+    $mn_Mmain = "menu-open";
+    $mn_Mmain1 = "active";
+    $mn_news = "active";
 } else if ($_GET['d'] == 'approve/approveEmployerList') {
-
-
     $mn_employerList = "active";
+} else if ($_GET['d'] == 'report/report1') {
+    $mn_Mmainn = "menu-open";
+    $mn_Mmain2 = "active";
+    $mn_report1 = "active";
+} else if ($_GET['d'] == 'report/report2') {
+    $mn_Mmainn = "menu-open";
+    $mn_Mmain2 = "active";
+    $mn_report2 = "active";
+} else if ($_GET['d'] == 'report/report3') {
+    $mn_Mmainn = "menu-open";
+    $mn_Mmain2 = "active";
+    $mn_report3 = "active";
 }
+
 
 
 
@@ -97,6 +140,46 @@ if ($_GET['d'] == 'index') {
                             </a>
                         </li>
                     </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="index.php?d=master/salary" class="nav-link <?= $mn_salary ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ຂໍ້ມູນຂັ້ນເງິນເດືອນ</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="index.php?d=master/experience" class="nav-link <?= $mn_experience ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ຂໍ້ມູນປະສົບການ</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="index.php?d=master/language" class="nav-link <?= $mn_language ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ຂໍ້ມູນພາສາ</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="index.php?d=master/time" class="nav-link <?= $mn_time ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ຂໍ້ມູນເວລາ</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="index.php?d=master/news" class="nav-link <?= $mn_news ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ຂໍ້ມູນຂ່າວສານ</p>
+                            </a>
+                        </li>
+                    </ul>
 
                 </li>
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -105,11 +188,45 @@ if ($_GET['d'] == 'index') {
                         <a href="index.php?d=approve/approveEmployerList" class="nav-link <?= $mn_employerList ?>">
                             <i class="nav-icon far fa-check-circle"></i>
                             <p>
-                            ອະນຸມັດລາຍການປະກາດວຽກ
+                                ອະນຸມັດລາຍການປະກາດວຽກ
                             </p>
                         </a>
                     </li>
                 </ul>
+                <li class="nav-item has-treeview <?= $mn_Mmainn ?>">
+                    <a href="#" class="nav-link <?= $mn_Mmain2 ?>">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>
+                            ລາຍງານ
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <!-- <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="index.php?d=report/report1" class="nav-link <?= $mn_report1 ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ຂໍ້ມູນຜູ້ຈ້າງງານທັງໝົດ</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="index.php?d=report/report2" class="nav-link <?= $mn_report2 ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ຂໍ້ມູນຜູ້ສະໝັກວຽກທັງໝົດຕໍ່ຜູ້ຈ້າງງານ</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="index.php?d=report/report3" class="nav-link <?= $mn_report3 ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ຂໍ້ມູນການຮັບສະໝັກງານທັງໝົດຕໍ່ຜູ້ຫາງານ</p>
+                            </a>
+                        </li>
+                    </ul> -->
+
+                </li>
             </ul>
         </nav>
     </div>

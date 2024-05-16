@@ -2,6 +2,10 @@
 session_start();
 include_once ("../function_sel.php");
 
+include_once ("../config.php");
+
+$userId = $_SESSION['user_id'];
+$companyAddress = $_SESSION['address'];
 
 if (isset($_POST['btnLogin'])) {
   $username = $_POST['username'];
@@ -141,7 +145,7 @@ if (isset($_POST['btnLoginEmp'])) {
           <li><a href="search.php " style="color: whitesmoke;">ຄົ້ນຫາວຽກ</a></li>
           <li><a href="company.php" style="color: whitesmoke;">ບໍລິສັດ</a></li>
 
-         
+
           <?php
 
           if ($_SESSION['role'] == "employee") {
@@ -150,7 +154,7 @@ if (isset($_POST['btnLoginEmp'])) {
                   class="bi bi-chevron-down dropdown-indicator"></i></a>
               <ul>
                 <li><a href="#"><?= $_SESSION['name'] ?>   <?= $_SESSION['surname'] ?></a></li>
-                <li><a href="history.php"  >ປະຫວັດການສະໝັກວຽກ</a></li>
+                <li><a href="history.php">ປະຫວັດການສະໝັກວຽກ</a></li>
                 <li><a href="logout.php">ອອກຈາກລະບົບ</a></li>
 
 
@@ -438,20 +442,203 @@ if (isset($_POST['btnLoginEmp'])) {
               $image = $row['image'];
 
               ?>
-              <div class="col-lg-4 col-md-6 d-flex align-items-stretch p-2" data-aos="fade-up" data-aos-delay="100">
+              <div class="modal fade" id="myModalInfo<?= $i ?>">
+                <div class="modal-dialog modal-xl">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-md-9">
+                            <div class="row">
+                              <div class="col-md-12 pb-2">
+                                <div class="info-item  d-flex align-items-center">
+                                  <div>
+                                    <h2><b><?= $name ?></b></h2>
+                                    <p>ທີ່ຢູ່: <b><?= $address ?></b></p>
+                                    <p>ເປີດຮັບເຖິງວັນທີ: <b><?= $endDate ?></b></p>
+                                    <a type="button" href="#" class="btn btn-primary"
+                                      onclick="openMyModal2(<?= $i ?>,<?= $userId ?>)" style=" font-weight: 500;font-size:
+                                                                            16px;letter-spacing: 1px;display:
+                                                                            inline-block;padding: 8px 32px;transition:
+                                                                            0.5s;color: #fff; ">
+                                      <b>ສະໝັກທີ່ນີ້</b> <i class="bi bi-box-arrow-down-right"></i>
+                                    </a>
+
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-12 pb-2">
+                                <div class="info-item  d-flex align-items-center">
+                                  <div>
+                                    <p>ພາສາ: <b><?= $language ?></b></p>
+                                    <p>ປະສົບການ: <b><?= $experience ?></b></p>
+                                    <p>ເງິນເດືອນ: <b><?= $salary ?></b></p>
+                                    <p>ປະເພດວຽກ: <b>
+                                        <?php
+                                        $details = "SELECT b.name FROM employ_job as a join job as b on a.jobId = b.id WHERE employId ='$id'";
+                                        if ($resultDetails = $mysqli->query($details)) {
+                                          while ($rowDetails = $resultDetails->fetch_assoc()) {
+                                            ?>
+                                            <?= $rowDetails['name'] ?>,
+                                            <?php
+                                          }
+                                        }
+                                        ?>
+
+                                      </b></p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-12 pb-2">
+                                <div class="info-item  d-flex align-items-center">
+                                  <div>
+                                    <?php
+                                    $imageDe = "SELECT image FROM employ_image WHERE  employId ='$id'";
+                                    if ($resultimageDe = $mysqli->query($imageDe)) {
+                                      while ($rowimageDe = $resultimageDe->fetch_assoc()) {
+                                        ?>
+
+                                        <img src="assets/img/company/<?= $rowimageDe['image'] ?>" class="w-100" />
+                                        <?php
+
+                                      }
+                                    }
+                                    ?>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+
+                            <div style="text-align: center;">
+                              <img src="../dist/img/company/<?= $comLogo ?>" class="img-fluid img-thumbnail">
+
+                              <p class="pt-2"><?= $address ?></p>
+                              <a type="button" class="btn btn-primary">
+                                ກ່ຽວກັບບໍລິສັດ
+                              </a>
+                            </div>
+                            <hr>
+                            <div>
+                              <h5>ວຽກຈາກບໍລິສັດນີ້</h5>
+                              <hr>
+                              <div class="card-body">
+
+                                <?php
+                                $employList = "SELECT * FROM employ WHERE companyId = '$comId' AND status='open'";
+                                if ($result3 = $mysqli->query($employList)) {
+                                  while ($row1 = $result3->fetch_row()) {
+                                    $employName = $row1[2];
+                                    $location = $row1[7];
+                                    $strDate = $row1[14];
+                                    $endDate = $row1[15];
+
+                                    ?>
+                                    <div class="row">
+
+                                      <div class="col-sm-12">
+                                        <div style="align-items: center;">
+                                          <a href=""><?= $employName ?></a>
+
+                                          <p class="">
+                                            <i class="bi bi-geo">
+                                              <?= $location ?></i><br> <i class="bi bi-calendar3">
+                                              <?= $strDate ?> - <?= $endDate ?></i>
+                                          </p>
+
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <hr>
+                                    <?php
+                                  }
+                                } ?>
+
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+              <div class="modal" id="myModalApply<?= $i ?>">
+                <div class="modal-dialog modal-lg">
+                  <class class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header bg-info " style="color: whitesmoke;">
+                      <h4 class="modal-title">ສະໝັກຕຳແໜ່ງ <b><?= $name ?></b></h4>
+
+                    </div>
+                    <form method="post" action="#" role="form" enctype="multipart/form-data">
+                      <!-- Modal body -->
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              <label>ບໍລິສັດ</label>
+                              <input type="hidden" name="txtaEmployerId" class="form-control" value="<?= $id ?>">
+                              <input type="hidden" name="txtaComId" class="form-control" value="<?= $comId ?>">
+                              <input type="text" name="txtaCom" disabled class="form-control" value="<?= $comName ?>">
+
+                            </div>
+                          </div>
+
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              <label>ຄຳອະທິບາຍ</label>
+                              <input type="text" name="txtTitle" class="form-control" required>
+                            </div>
+                          </div>
+                          <!-- <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label>ຄຳອະທິບາຍ</label>
+                                                        <textarea class="form-control" name="txtDescription" rows="6"
+                                                            placeholder="ລາຍລະອຽດ"></textarea>
+
+                                                    </div>
+                                                </div> -->
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                              <label>ແນບໄຟລ CV</label>
+                              <input name="file" class="form-control" type="file" required>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Modal footer -->
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ປີດ</button>
+                        <button type="submit" name="btnApply" class="btn btn-success">ສະໝັກເລີຍ</button>
+                      </div>
+                    </form>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 d-flex align-items-stretch p-2" data-aos="fade-up" data-aos-delay="100"
+                data-bs-toggle="modal" href="#myModalInfo<?= $i ?>">
                 <div class="chef-member">
                   <div class="member-img">
-                    <img src="assets/img/job/job<?php $random = rand(1,12); echo $random; ?>.jpeg" class="img-fluid" alt="">
-                   
+                    <img src="assets/img/job/job<?php $random = rand(1, 12);
+                    echo $random; ?>.jpeg" class="img-fluid" alt="">
+
                   </div>
                   <div class="member-info">
-                    <h4> <img src="../dist/img/Company/<?=$comLogo?>" width="30" height="25" alt=""> <?=$comName?></h4>
-                    <span><?=$name?></span>
-                    <p><?=$strDate?> ຫາ <?=$endDate?></p>
+                    <h4> <img src="../dist/img/Company/<?= $comLogo ?>" width="30" height="25" alt=""> <?= $comName ?></h4>
+                    <span><?= $name ?></span>
+                    <p><?= $strDate ?> ຫາ <?= $endDate ?></p>
                   </div>
                 </div>
               </div>
-              <?php
+              <?php $i++;
             }
           } ?>
 
@@ -467,64 +654,105 @@ if (isset($_POST['btnLoginEmp'])) {
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
 
-        <div class="container">
-            <div class="row gy-3">
-                <div class="col-lg-3 col-md-6 d-flex">
-                    <i class="bi bi-geo-alt icon"></i>
-                    <div>
-                        <h4>Address</h4>
-                        <p>
-                            Phonpapao Road <br>
-                            Vientiane, Laos<br>
-                        </p>
-                    </div>
+    <div class="container">
+      <div class="row gy-3">
+        <div class="col-lg-3 col-md-6 d-flex">
+          <i class="bi bi-geo-alt icon"></i>
+          <div>
+            <h4>Address</h4>
+            <p>
+              Phonpapao Road <br>
+              Vientiane, Laos<br>
+            </p>
+          </div>
 
-                </div>
-
-                <div class="col-lg-3 col-md-6 footer-links d-flex">
-                    <i class="bi bi-telephone icon"></i>
-                    <div>
-                        <h4>Reservations</h4>
-                        <p>
-                            <strong>Phone:</strong> 020 56 945 946<br>
-                            <strong>Email:</strong> obassistoffice@gmail.com<br>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 footer-links d-flex">
-                    <i class="bi bi-clock icon"></i>
-                    <div>
-                        <h4>Opening Hours</h4>
-                        <p>
-                            <strong>Mon-Fri: 09AM</strong> - 04PM<br>
-                            Sunday: Closed<br>
-                            Saturday: Closed
-                        </p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 footer-links">
-                    <h4>Follow Us</h4>
-                    <div class="social-links d-flex">    
-                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                    </div>
-                </div>
-
-            </div>
         </div>
 
+        <div class="col-lg-3 col-md-6 footer-links d-flex">
+          <i class="bi bi-telephone icon"></i>
+          <div>
+            <h4>Reservations</h4>
+            <p>
+              <strong>Phone:</strong> 020 56 945 946<br>
+              <strong>Email:</strong> obassistoffice@gmail.com<br>
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links d-flex">
+          <i class="bi bi-clock icon"></i>
+          <div>
+            <h4>Opening Hours</h4>
+            <p>
+              <strong>Mon-Fri: 09AM</strong> - 04PM<br>
+              Sunday: Closed<br>
+              Saturday: Closed
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links">
+          <h4>Follow Us</h4>
+          <div class="social-links d-flex">
+            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
 
 
-    </footer><!-- End Footer -->
+
+  </footer><!-- End Footer -->
   <!-- End Footer -->
 
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
 
   <div id="preloader"></div>
+  <?php
+  if (isset($_POST['btnApply'])) {
+    $txtaEmployerId = $_POST['txtaEmployerId'];
+    $txtaComId = $_POST['txtaComId'];
+    $txtTitle = $_POST['txtTitle'];
+    // echo '<script>alert("txtaEmployerId:' . $txtaEmployerId . '")</script>';
+    // echo '<script>alert("txtaComId:' . $txtaComId . '")</script>';
+    // echo '<script>alert("txtTitle:' . $txtTitle . '")</script>';
+    $sqlApply = "INSERT INTO apply(employId, companyId, userId, title, status, createdBy, updatedBy, createdAt, updatedAt)
+      VALUES
+      ('$txtaEmployerId', '$txtaComId', '$userId', '$txtTitle', 'proceed','$userId','$userId',NOW(),NOW())";
 
+
+    if ($mysqli->query($sqlApply) === TRUE) {
+
+      $max = "SELECT max(id) FROM apply";
+      $maxId = $mysqli->query($max);
+      $rowMaxId = $maxId->fetch_row();
+      $rowApply_maxId = $rowMaxId[0];
+      $file = trim($_FILES["file"]["tmp_name"]);
+
+      if ($file != "") {
+        $nameCV = $_FILES["file"]["name"];
+        $extCV = end((explode(".", $nameCV))); # extra () to prevent notice
+        $fileNameCV = date('YmdHis') . $userId . "." . $extCV;
+        copy($_FILES["file"]["tmp_name"], "assets/img/cv/" . $fileNameCV);
+      }
+      $sqlApplyFile = "INSERT INTO apply_attachment(applyId, companyId, userId, file, createdBy, updatedBy, createdAt, updatedAt)
+        VALUES
+        ('$rowApply_maxId', '$txtaComId', '$userId', '$fileNameCV','$userId','$userId',NOW(),NOW())";
+
+      if ($mysqli->query($sqlApplyFile) === TRUE) {
+        echo '<script>alert("ສະໝັກວຽກສຳເລັດແລ້ວ")</script>';
+      } else {
+        echo "<center><h2>$sql</h2></center>";
+      }
+
+    } else {
+      echo "<center><h2>$sql</h2></center>";
+    }
+  }
+  ?>
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
@@ -539,8 +767,23 @@ if (isset($_POST['btnLoginEmp'])) {
 </body>
 
 </html>
-<script type="text/javascript">
-  var numClicks = 0;
+
+<script>
+$('#select').select2({
+    theme: "bootstrap-5",
+    placeholder: $(this).data('placeholder'),
+});
+
+$('#single-select-field2').select2({
+    theme: "bootstrap-5",
+    width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+    placeholder: $(this).data('placeholder'),
+});
+</script>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript">
+</script>
+<script>
+   var numClicks = 0;
   var x = 5;
 
   function action() {
@@ -554,4 +797,61 @@ if (isset($_POST['btnLoginEmp'])) {
 
     }
   }
+function openMyModal2(i, userId) {
+    var para = i;
+    var id = userId;
+    // alert(id);
+    if (id === undefined) {
+        let myModal = new
+        bootstrap.Modal(document.getElementById('myModalLogin'), {});
+        myModal.show();
+
+        $('#myModalInfo' + para).modal('hide');
+    } else {
+
+        let myModal = new
+        bootstrap.Modal(document.getElementById('myModalApply' + para), {});
+        myModal.show();
+    }
+
+}
+
+function search() {
+
+    var str = '';
+    var val = document.getElementById('select');
+    for (i = 0; i < val.length; i++) {
+        if (val[i].selected) {
+            str += val[i].value + ',';
+        }
+    }
+    var str = str.slice(0, str.length - 1);
+    // alert(str);
+    $.ajax({
+        type: "GET",
+        url: "getJob.php",
+        data: 'jobId=' + str,
+        success: function(data) {
+            $("#contact").html(data);
+            // alert(data);
+        }
+    });
+}
+
+function searchInput() {
+
+
+    var val = document.getElementById('txtSearch').value;
+
+
+    $.ajax({
+        type: "GET",
+        url: "getJobByInput.php",
+        data: 'jobName=' + val,
+        success: function(data) {
+            $("#contact").html(data);
+            // alert(data);
+        }
+    });
+}
 </script>

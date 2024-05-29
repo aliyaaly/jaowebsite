@@ -191,61 +191,70 @@ htmltage("Job Jao Website");
                                         <div class="form-group">
                                           <label>ເບີໂທ</label>
                                           <input type="text" name="txtPhone" class="form-control" required=""
-                                            value="<?= $row[2] ?>">
+                                            value="<?= $row[4] ?>">
 
                                         </div>
                                       </div>
                                       <div class="col-sm-6">
                                         <div class="form-group">
-                                          <label>ຊື່ບໍລິສັດ</label>
+                                          <label>ອີເມລ</label>
                                           <input type="text" name="txtEmail" class="form-control" required=""
-                                            value="<?= $row[2] ?>">
+                                            value="<?= $row[5] ?>">
 
                                         </div>
                                       </div>
                                       <div class="col-sm-6">
                                         <div class="form-group">
-                                          <label>ຊື່ບໍລິສັດ</label>
+                                          <label>ທີ່ຢູ່</label>
                                           <input type="text" name="txtAddress" class="form-control" required=""
-                                            value="<?= $row[2] ?>">
+                                            value="<?= $row[6] ?>">
 
                                         </div>
                                       </div>
                                       <div class="col-sm-6">
                                         <div class="form-group">
-                                          <label>ຊື່ບໍລິສັດ</label>
+                                          <label>ເວັບໄຊ້</label>
                                           <input type="text" name="txtWebsite" class="form-control" required=""
-                                            value="<?= $row[2] ?>">
+                                            value="<?= $row[7] ?>">
 
                                         </div>
                                       </div>
                                       <div class="col-sm-6">
                                         <div class="form-group">
-                                          <label>ຊື່ບໍລິສັດ</label>
+                                          <label>ລາຍລະອຽດ</label>
                                           <input type="text" name="txtDescription" class="form-control" required=""
-                                            value="<?= $row[2] ?>">
+                                            value="<?= $row[8] ?>">
 
                                         </div>
                                       </div>
                                       <div class="col-sm-6">
                                         <div class="form-group">
-                                          <label>ຊື່ບໍລິສັດ</label>
-                                          <input type="text" name="txtLogo" class="form-control" required=""
-                                            value="<?= $row[2] ?>">
+                                          <label>ໂລໂກ້</label>
+                                          <?php
 
+                                          $imagePath = "dist/img/company/" . $row[3];
+                                          if (!file_exists($imagePath) || $row[3] == '') {
+                                            $imagePath = "dist/img/default.png";
+                                          }
+                                          ?>
+                                           
+                                          <img class="img-fluid img-thumbnail mb-2" width="70px" height="70px"
+                                            src="<?= $imagePath ?>" />
+
+                                            <input name="edit_fileUpload" class="form-control" type="file">
                                         </div>
                                       </div>
                                     </div>
                                   </div>
                                   <div class="modal-footer justify-content-between">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">ປິດ</button>
-                                    <button type="submit" name="btSaveEdit" class="btn btn-primary">ບັນທືກ</button>
+                                    <button type="submit" name="btSaveEdit" class="btn btn-primary">ແກ້ໄຂ</button>
                                   </div>
                                 </form>
                               </div>
                             </div>
                           </div>
-                          
+
                           <tr class="text-center">
                             <td class="align-middle">
                               <?= $i ?>

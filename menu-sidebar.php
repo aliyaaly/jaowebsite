@@ -19,6 +19,7 @@ $mn_employerList = "";
 $mn_report1 = "";
 $mn_report2 = "";
 $mn_report3 = "";
+$mn_report4 = "";
 
 
 if ($_GET['d'] == 'index') {
@@ -69,6 +70,11 @@ if ($_GET['d'] == 'index') {
     $mn_Mmainn = "menu-open";
     $mn_Mmain2 = "active";
     $mn_report3 = "active";
+}
+ else if ($_GET['d'] == 'report/report4') {
+    $mn_Mmainn = "menu-open";
+    $mn_Mmain2 = "active";
+    $mn_report4 = "active";
 }
 
 
@@ -201,19 +207,19 @@ if ($_GET['d'] == 'index') {
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <!-- <ul class="nav nav-treeview">
+                    <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="index.php?d=report/report1" class="nav-link <?= $mn_report1 ?>">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>ຂໍ້ມູນຜູ້ຈ້າງງານທັງໝົດ</p>
+                                <p>ລາຍງານຜູ້ຈ້າງງານ</p>
                             </a>
                         </li>
                     </ul>
-                    <ul class="nav nav-treeview">
+                    <!-- <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="index.php?d=report/report2" class="nav-link <?= $mn_report2 ?>">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>ຂໍ້ມູນຜູ້ສະໝັກວຽກທັງໝົດຕໍ່ຜູ້ຈ້າງງານ</p>
+                                <p>ລາຍງານຜູ້ສະໝັກວຽກ</p>
                             </a>
                         </li>
                     </ul>
@@ -221,10 +227,18 @@ if ($_GET['d'] == 'index') {
                         <li class="nav-item">
                             <a href="index.php?d=report/report3" class="nav-link <?= $mn_report3 ?>">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>ຂໍ້ມູນການຮັບສະໝັກງານທັງໝົດຕໍ່ຜູ້ຫາງານ</p>
+                                <p>ລາຍງານຮັບສະໝັກງານ</p>
                             </a>
                         </li>
                     </ul> -->
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="index.php?d=report/report4" class="nav-link <?= $mn_report4 ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ລາຍງານປະເມີນການໃຊ້ບໍລິການ</p>
+                            </a>
+                        </li>
+                    </ul>
 
                 </li>
             </ul>

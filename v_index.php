@@ -19,179 +19,68 @@ htmltage("Job Jao Website");
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
-   
-    <!-- <section class="content mb-4">
 
+    <section class="content">
         <div class="container-fluid">
-           
+            <!-- Small boxes (Stat box) -->
             <div class="row">
-                <div class="col-12 col-sm-6 col-md-4" onclick="location.href='index.php?d=master/stocka';"
+                <div class="col-12 col-sm-6 col-md-3" onclick="location.href='index.php?d=master/company';"
                     style="cursor:pointer">
-                  
-                    <div class="small-box bg-info ">
-                        <div class="inner">
-                            <h1>ສະຕ໋ອກສິນຄ້າ</h1>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-eye"></i>
-                        </div>
-                        <a href="index.php?d=master/stocka" class="small-box-footer">More info <i
-                                class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
+                    <div class="info-box">
+                        <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-boxes"></i></span>
 
-                <div class="col-12 col-sm-6 col-md-4" onclick="location.href='index.php?d=order/order';"
-                    style="cursor:pointer">
-                   
-                    <div class="small-box bg-primary ">
-                        <div class="inner">
-                            <h1>ສັ່ງຊື້ສິນຄ້າ</h1>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-box"></i>
-                        </div>
-                        <a href="index.php?d=order/order" class="small-box-footer">More info <i
-                                class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
+                        <div class="info-box-content">
+                            <span class="info-box-text ">ຈັດການຂໍ້ມູນພື້ນຖານ</span>
+                            <span class="info-box-number ">8 ເມນູ
 
-                <div class="col-12 col-sm-6 col-md-4" onclick="location.href='index.php?d=import/import';"
-                    style="cursor:pointer">
-                  
-                    <div class="small-box bg-warning ">
-                        <div class="inner">
-                            <h1>ນຳເຂົ້າສິນຄ້າ</h1>
+                            </span>
                         </div>
-                        <div class="icon">
-                            <i class="fas fa-truck"></i>
-                        </div>
-                        <a href="index.php?d=import/import" class="small-box-footer">More info <i
-                                class="fas fa-arrow-circle-right"></i></a>
+                        <!-- /.info-box-content -->
                     </div>
+                    <!-- /.info-box -->
                 </div>
-                <div class="col-12 col-sm-6 col-md-4" onclick="location.href='index.php?d=sale/sale';"
-                    style="cursor:pointer">
-                
-                    <div class="small-box bg-success ">
-                        <div class="inner">
-                            <h1>ຂາຍສິນຄ້າ</h1>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                        <a href="index.php?d=sale/sale" class="small-box-footer">More info <i
-                                class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4" onclick="location.href='index.php?d=report/report';"
-                    style="cursor:pointer">
-                  
-                    <div class="small-box bg-secondary ">
-                        <div class="inner">
-                            <h1>ລາຍງານ</h1>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-book"></i>
-                        </div>
-                        <a href="index.php?d=report/report" class="small-box-footer">More info <i
-                                class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
+                <!-- ./col -->
 
 
+                <div class="col-12 col-sm-6 col-md-3" onclick="location.href='index.php?d=approve/approveEmployerList';"
+                    style="cursor:pointer">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-check-circle"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text ">ອະນຸມັດລາຍການປະກາດວຽກ</span>
+                            <span class="info-box-number ">1 ເມນູ
+
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- ./col -->
+                <div class="col-12 col-sm-6 col-md-3" onclick="location.href='index.php?d=report/report1';"
+                    style="cursor:pointer">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-chart-bar"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text ">ລາຍງານ</span>
+                            <span class="info-box-number ">2 ເມນູ
+
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- ./col -->
+
+                <!-- ./col -->
             </div>
-        </div>
-    </section> -->
-    <!-- <section class="content">
+            <!-- /.row -->
+            <!-- Main row -->
 
-        <div class="row">
-
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 style="color:red;">ສະແດງລາຍການສິນຄ້າໃກ້ໝົດອາຍຸ</h2>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table id="main" class="table table-bordered beautified_report">
-
-                                        <thead style="background-color:#2F96B4 ;">
-                                            <tr style="color:white;">
-                                                <th>no</th>
-                                                <th>ບາໂຄດ</th>
-                                                <th>ຊື່ສີນຄ້າ</th>
-                                                <th>ລາຍລະອຽດສີນຄ້າ</th>
-                                                <th>ປະເພດສີນຄ້າ</th>
-                                                <th>ຫົວໜ່ວຍສີນຄ້າ</th>
-                                                <th>ວັນໝົດອາຍຸ</th>
-                                                <th>ໝົດອາຍຸໃນ</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tbody1">
-                                            <?php
-                      $i = 1;
-                      $fetch = "SELECT *,(CASE WHEN datediff(expired_date,CURDATE()) > 0 then datediff(expired_date,CURDATE())
-                                    ELSE 'Expired'
-                                    END) as Remaining_days_expired from v_product WHERE isDelete = 'no'  ORDER BY  
-                                    Remaining_days_expired+0 ASC";
-                      $dateNow = date("Y-m-d", strtotime("+ 14days"));
-                      // echo '<script>alert("' . $dateNow . '")</script>';
-                      if ($result = $mysqli->query($fetch)) {
-                        while ($row = $result->fetch_row()) {
-
-                      ?>
-                                            <tr>
-                                                <td><?= $i ?></td>
-                                                <td><?= $row[1] ?></td>
-                                                <td><?= $row[2] ?></td>
-                                                <td><?= $row[3] ?></td>
-                                                <td><?= $row[4] ?></td>
-                                                <td><?= $row[5] ?></td>
-
-                                                <?php
-                            if ($row[10] <= $dateNow) {
-                            ?>
-                                                <td style="color: red;"><?= $row[10] ?></td>
-
-                                                <?php } else {
-                            ?>
-                                                <td><?= $row[10] ?></td>
-
-                                                <?php } ?>
-
-                                                <?php
-                            if ($row[12] <= 14) {
-                            ?>
-                                                <td style="color: red;"><?= $row[12] ?> ວັນ</td>
-
-                                                <?php } else {
-                            ?>
-                                                <td><?= $row[12] ?> ວັນ</td>
-
-                                                <?php } ?>
-                                            </tr>
-                                            <?php $i++;
-                        }
-                      } ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-
-
-    </section> -->
-
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+    </section>
 </div>
-
-<!-- /.content-wrapper -->

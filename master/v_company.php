@@ -237,11 +237,11 @@ htmltage("Job Jao Website");
                                             $imagePath = "dist/img/default.png";
                                           }
                                           ?>
-                                           
+
                                           <img class="img-fluid img-thumbnail mb-2" width="70px" height="70px"
                                             src="<?= $imagePath ?>" />
 
-                                            <input name="edit_fileUpload" class="form-control" type="file">
+                                          <input name="edit_fileUpload" class="form-control" type="file">
                                         </div>
                                       </div>
                                     </div>
@@ -283,9 +283,9 @@ htmltage("Job Jao Website");
                             if (!file_exists($imagePath) || $row[3] == '') {
                               $imagePath = "dist/img/default.png";
                             }
+
                             ?>
-                            <td class="align-middle"><img class="img-fluid img-thumbnail" width="70px" height="70px"
-                                src="<?= $imagePath ?>" /></td>
+                            <td class="align-middle"><img class="img-fluid img-thumbnail" src="<?= $imagePath ?>" /></td>
                             <td class="align-middle">
                               <a href="#"><i class="fas fa-edit" data-toggle="modal"
                                   data-target="#modal-lg-Edit<?= $i ?>"></i></a>

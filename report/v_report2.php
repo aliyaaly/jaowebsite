@@ -13,13 +13,13 @@ htmltage("Job Jao Website");
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>ລາຍງານການນຳເຂົ້າສິນຄ້າ</h1>
+                    <h1>ລາຍງານຜູ້ຈ້າງງານ</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
 
                         <li class="breadcrumb-item active">ລາຍງານ</li>
-                        <li class="breadcrumb-item active">ລາຍງານການນຳເຂົ້າສິນຄ້າ</li>
+                        <li class="breadcrumb-item active">ລາຍງານຜູ້ຈ້າງງານ</li>
                     </ol>
                 </div>
             </div>
@@ -35,7 +35,7 @@ htmltage("Job Jao Website");
                 <div class="card">
                     <div class="card-header">
                         <form method="get">
-                            <input type="hidden" name="d" value="report/import" />
+                            <input type="hidden" name="d" value="report/report" />
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="form-group">
@@ -54,10 +54,10 @@ htmltage("Job Jao Website");
 
                             </div>
                             <div class="box-footer">
-                                <button type="reset" class="btn btn-default" onclick="document.location='?d=report/import'">ຍົກເລີກ</button>
+                                <button type="reset" class="btn btn-default" onclick="document.location='?d=report/sale'">ຍົກເລີກ</button>
                                 <button type="submit" class="btn btn-primary">ຄົ້ນຫາ</button>
                                 <?php if ($_GET['strDate'] != '' && $_GET['endDate'] != '') { ?>
-                                    <a href="report/ex_import.php?strDate=<?= $_GET['strDate'] ?>&endDate=<?= $_GET['endDate'] ?>" target="_blank">
+                                    <a href="report/ex_sale.php?strDate=<?= $_GET['strDate'] ?>&endDate=<?= $_GET['endDate'] ?>" target="_blank">
                                         <input type="button" class="btn btn-success" value="Export To Excel" />
                                     </a>
 
@@ -69,13 +69,13 @@ htmltage("Job Jao Website");
                                                         <thead>
                                                             <tr>
                                                                 <th>ບິນເລກທີ</th>
-                                                                <th>ບິນສັ່ງຊື້ເລກທີ</th>
                                                                 <th>ເລກບາໂຄດ</th>
                                                                 <th>ຊື່ສິນຄ້າ</th>
+                                                                <th>ລາຄາສີນຄ້າ</th>
                                                                 <th>ຈຳນວນ</th>
-                                                                <th>ລາຄາ</th>
-                                                                <th>ລວມ</th>
+                                                                <th>ລາຄາລວມ</th>
                                                                 <th>ວັນທີ</th>
+                                                                <th>ສະຖານະ</th>
                                                                
                                                             </tr>
                                                         </thead>

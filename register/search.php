@@ -160,7 +160,7 @@ if (isset($_POST['btnLoginEmp'])) {
                     <li><a href="index.php #home" class="nav-item nav-link ">ໜ້າຫຼັກ</a></li>
                     <li><a href="search.php" class="nav-item nav-link active">ຄົ້ນຫາວຽກ</a></li>
                     <li><a href="company.php">ບໍລິສັດ</a></li>
-
+                    <li><a href="survey.php" class="nav-item nav-link" >ປະເມີນ</a></li>
                     <?php
 
                     if ($_SESSION['role'] == "employee") {

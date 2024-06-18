@@ -144,7 +144,7 @@ if (isset($_POST['btnLoginEmp'])) {
           <li><a href="#home" class="nav-item nav-link active" style="color: whitesmoke;">ໜ້າຫຼັກ</a></li>
           <li><a href="search.php " style="color: whitesmoke;">ຄົ້ນຫາວຽກ</a></li>
           <li><a href="company.php" style="color: whitesmoke;">ບໍລິສັດ</a></li>
-
+          <li><a href="survey.php" class="nav-item nav-link" style="color: whitesmoke;">ປະເມີນ</a></li>
 
           <?php
 

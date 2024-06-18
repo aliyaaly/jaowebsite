@@ -140,7 +140,7 @@ if (isset($_POST['btnLoginEmp'])) {
           <li><a href="index.php" style="color: whitesmoke;">ໜ້າຫຼັກ</a></li>
           <li><a href="search.php " style="color: whitesmoke;">ຄົ້ນຫາວຽກ</a></li>
           <li><a href="company.php" class="nav-item nav-link active" style="color: whitesmoke;">ບໍລິສັດ</a></li>
-
+          <li><a href="survey.php" class="nav-item nav-link" style="color: whitesmoke;">ປະເມີນ</a></li>
 
           <?php
 
@@ -152,9 +152,6 @@ if (isset($_POST['btnLoginEmp'])) {
                 <li><a href="#"><?= $_SESSION['name'] ?>   <?= $_SESSION['surname'] ?></a></li>
                 <li><a href="history.php">ປະຫວັດການສະໝັກວຽກ</a></li>
                 <li><a href="logout.php">ອອກຈາກລະບົບ</a></li>
-
-
-
               </ul>
             </li>
           <?php } else {
@@ -441,13 +438,14 @@ if (isset($_POST['btnLoginEmp'])) {
               <div class="col-lg-4 col-md-6 d-flex align-items-stretch p-2" data-aos="fade-up" data-aos-delay="100">
                 <div class="chef-member">
                   <div class="member-img">
-                    <img src="assets/img/job/job<?php $random = rand(1,12); echo $random; ?>.jpeg" class="img-fluid" alt="">
-                   
+                    <img src="assets/img/job/job<?php $random = rand(1, 12);
+                    echo $random; ?>.jpeg" class="img-fluid" alt="">
+
                   </div>
                   <div class="member-info">
-                    <h4> <img src="../dist/img/Company/<?=$comLogo?>" width="30" height="25" alt=""> <?=$comName?></h4>
-                    <span><?=$name?></span>
-                    <p><?=$strDate?> ຫາ <?=$endDate?></p>
+                    <h4> <img src="../dist/img/Company/<?= $comLogo ?>" width="30" height="25" alt=""> <?= $comName ?></h4>
+                    <span><?= $name ?></span>
+                    <p><?= $strDate ?> ຫາ <?= $endDate ?></p>
                   </div>
                 </div>
               </div>

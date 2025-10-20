@@ -2,7 +2,7 @@
 error_reporting(E_ALL & ~E_NOTICE);
 session_start();
 
-include_once ("../config.php");
+include_once("../config.php");
 
 $userId = $_SESSION['user_id'];
 $companyAddress = $_SESSION['address'];
@@ -67,8 +67,8 @@ $companyAddress = $_SESSION['address'];
 
             <a href="index.php" class="logo d-flex align-items-center me-auto me-lg-0">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
+                <h1 style="color: whitesmoke;">JOB<span></span></h1>
                 <img src="assets/img/logo_jobjao.png" alt="">
-                <h1>Job Assist<span>.</span></h1>
             </a>
 
             <nav id="navbar" class="navbar">
@@ -112,9 +112,15 @@ $companyAddress = $_SESSION['address'];
                 </ul>
             </nav><!-- .navbar -->
 
-            <a type="button" class="btn-employ-add" data-bs-toggle="modal" data-bs-target="#myModal">
-                ຜູ້ຈ້າງງານ
-            </a>
+            <?php
+
+            if ($_SESSION['role'] <> "employee") {
+                ?>
+                <a type="button" class="btn-employ-add" data-bs-toggle="modal" data-bs-target="#myModal">
+                    ຜູ້ຈ້າງງານ
+                </a>
+                <?php
+            } ?>
             <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
             <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
@@ -199,15 +205,15 @@ $companyAddress = $_SESSION['address'];
 
                                             </div>
                                             <div class="d-flex justify-content-end">
-                                               
-                                                
-                                                    <a href="cancel.php?del=<?= $row['id'] ?>"
+
+
+                                                <a href="cancel.php?del=<?= $row['id'] ?>"
                                                     onclick="return confirm('ທ່ານຕ້ອງການຍົກເລີກການສະໝັກແທ້ບໍ...?')"><i
                                                         class="bi bi-x-square"></i>ຍົກເລີກການສະໝັກ</a>
 
-                                                 
-                                               
-                                               
+
+
+
                                             </div>
                                         </div>
                                     </div>

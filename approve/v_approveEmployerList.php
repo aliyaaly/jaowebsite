@@ -68,7 +68,7 @@ checkExpired($mysqli, $fetch);
                                                     <tr>
                                                         <td><?= $i ?></td>
                                                         <td><?= $row['companyName'] ?></td>
-                                                        <td><?= $row['name'] ?></td>
+                                                        <td><?= $row['jobPositionLao'] ?></td>
                                                         <td><?= $row['language'] ?></td>
                                                         <td><?= $row['experience'] ?></td>
                                                         <td><?= $row['salary'] ?></td>

@@ -5,6 +5,7 @@ $mn_Mmainn = "";
 $mn_Mmain1 = "";
 $mn_Mmain2 = "";
 $mn_job = "";
+$mn_jobPosition = "";
 $mn_company = "";
 $mn_user = "";
 $mn_salary = "";
@@ -28,7 +29,13 @@ if ($_GET['d'] == 'index') {
     $mn_Mmain = "menu-open";
     $mn_Mmain1 = "active";
     $mn_job = "active";
-} else if ($_GET['d'] == 'master/company') {
+}
+else if ($_GET['d'] == 'master/jobPosition') {
+    $mn_Mmain = "menu-open";
+    $mn_Mmain1 = "active";
+    $mn_jobPosition = "active";
+}  
+else if ($_GET['d'] == 'master/company') {
     $mn_Mmain = "menu-open";
     $mn_Mmain1 = "active";
     $mn_company = "active";
@@ -135,6 +142,14 @@ if ($_GET['d'] == 'index') {
                             <a href="index.php?d=master/job" class="nav-link <?= $mn_job ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>ຂໍ້ມູນປະເພດວຽກ</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="index.php?d=master/jobPosition" class="nav-link <?= $mn_jobPosition ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ຂໍ້ມູນຕຳແໜ່ງວຽກ</p>
                             </a>
                         </li>
                     </ul>

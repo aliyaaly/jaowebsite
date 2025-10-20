@@ -1,15 +1,26 @@
-<?php 
-    session_start();
-  require_once('indexCode.php');    
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+register_shutdown_function(function(){ 
+    $e = error_get_last(); 
+    if($e){ echo "<pre>FATAL: ".print_r($e, true)."</pre>"; } 
+});
+echo "Reached register/index.php<br>";
+
+session_start();
+require_once ('indexCode.php');
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  
-  <?php function htmltage($title){ ?>
-  <title><?php echo $title; ?></title>
+
+  <?php function htmltage($title)
+  { ?>
+    <title><?php echo $title; ?></title>
   <?php } ?>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,8 +37,9 @@
   <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-<link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- JQVMap -->
   <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
@@ -43,142 +55,179 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
-     <!-- ##### Header Area Start ##### -->
-    <?php if (file_exists("menu-header.php")) { include_once("menu-header.php"); } ?>
-    <?php if (file_exists("menu-sidebar.php")) { include_once("menu-sidebar.php"); } ?>
-    <!-- ##### Header Area End ##### -->   
+  <div class="wrapper">
+    <!-- ##### Header Area Start ##### -->
+    <?php if (file_exists("menu-header.php")) {
+      include_once ("menu-header.php");
+    } ?>
+    <?php if (file_exists("menu-sidebar.php")) {
+      include_once ("menu-sidebar.php");
+    } ?>
+    <!-- ##### Header Area End ##### -->
     <!-- ##### Welcome Area Start ##### -->
-    <?php if (file_exists($vfilename)) include($vfilename); ?>
+    <?php if (file_exists($vfilename))
+      include ($vfilename); ?>
     <!-- ##### Pricing Area End ##### -->
     <!-- ##### Footer Area Start ##### -->
-   <?php if (file_exists("footer.php")) { include_once("footer.php"); } ?>
+    <?php if (file_exists("footer.php")) {
+      include_once ("footer.php");
+    } ?>
     <!-- ##### Footer Area End ##### -->
-<!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+  </div>
+  <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<script src="plugins/toastr/toastr.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
-<!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="plugins/select2/js/select2.full.min.js"></script>
-<!-- ChartJS -->
-<script src="plugins/chart.js/Chart.min.js"></script>
-<!-- Sparkline -->
-<script src="plugins/sparklines/sparkline.js"></script>
-<!-- JQVMap -->
-<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-<!-- jQuery Knob Chart -->
-<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+  <!-- jQuery -->
+  <script src="plugins/jquery/jquery.min.js"></script>
+  <script src="plugins/toastr/toastr.min.js"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script>
+    $.widget.bridge('uibutton', $.ui.button)
+  </script>
+  <!-- Bootstrap 4 -->
+  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="plugins/select2/js/select2.full.min.js"></script>
+  <!-- ChartJS -->
+  <script src="plugins/chart.js/Chart.min.js"></script>
+  <!-- Sparkline -->
+  <script src="plugins/sparklines/sparkline.js"></script>
+  <!-- JQVMap -->
+  <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
+  <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+  <!-- jQuery Knob Chart -->
+  <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
 
-<!-- daterangepicker -->
-<script src="plugins/moment/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Summernote -->
-<script src="plugins/summernote/summernote-bs4.min.js"></script>
-<!-- overlayScrollbars -->
-<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<script src="plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
- 
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-<!-- page script -->
-<script>
-  
-     
+  <!-- daterangepicker -->
+  <script src="plugins/moment/moment.min.js"></script>
+  <script src="plugins/daterangepicker/daterangepicker.js"></script>
+  <!-- Tempusdominus Bootstrap 4 -->
+  <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+  <!-- Summernote -->
+  <script src="plugins/summernote/summernote-bs4.min.js"></script>
+  <!-- overlayScrollbars -->
+  <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 
-  $(function () {
+  <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+  <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+  <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
- $('.select2').select2()
+  <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+  <script src="plugins/toastr/toastr.min.js"></script>
+  <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="dist/js/adminlte.js"></script>
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+
+  <!-- AdminLTE for demo purposes -->
+  <script src="dist/js/demo.js"></script>
+  <!-- page script -->
+  <script>
+
+
+
+    $(function () {
+
+      $('#select2').select2()
+      $('#select3').select2()
+      $('#select4').select2()
+      $('#select5').select2()
+      $('#select6').select2()
+      $('#select2').select2()
 
       //Initialize Select2 Elements
       $('.select2bs4').select2({
-        theme : 'bootstrap4'
+        theme: 'bootstrap4'
       })
 
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-      "ordering": false
-    });
-    $("#main").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-      "ordering": false,
-    });
-    $("#table1").DataTable({
-      "pageLength": 5,
-      "responsive": true,
-      "autoWidth": false,
-    });
-    $("#table2").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-    });
-    $("#table3").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-    });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
+      $("#example1").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "ordering": false,
 
-    $('#example3').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": true,
-      "ordering": false,
-      "info": true,
-      "autoWidth": true,
-      "responsive": true,
-    });
+      });
+      $("#exampleReport1").DataTable({  
+        "responsive": true,
+        "autoWidth": false,
+        "ordering": false,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      }).buttons().container().appendTo('#exampleReport1_wrapper .col-md-6:eq(0)');
+      $("#exampleReport").DataTable(
+        {
+          "responsive": true,
+          "autoWidth": false,
+          "ordering": false,
+          "pageLength": 50,
+          "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#exampleReport_wrapper .col-md-6:eq(0)');
+      $("#main").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "ordering": false,
+      });
+      $("#table1").DataTable({
+        "pageLength": 5,
+        "responsive": true,
+        "autoWidth": false,
+      });
+      $("#table2").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+      });
+      $("#table3").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+      });
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
 
-    $('#example4').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": true,
-      "ordering": false,
-      "info": true,
-      "autoWidth": true,
-      "responsive": true,
+      $('#example3').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": false,
+        "info": true,
+        "autoWidth": true,
+        "responsive": true,
+      });
+
+      $('#example4').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": false,
+        "info": true,
+        "autoWidth": true,
+        "responsive": true,
+      });
     });
-  });
-  $("#example55").DataTable({
+    $("#example55").DataTable({
       "responsive": true, "lengthChange": true, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     });
 
-  $(document).ready(function () {
-  bsCustomFileInput.init();
-});
-</script>
+    $(document).ready(function () {
+      bsCustomFileInput.init();
+    });
+  </script>
 </body>
+
 </html>

@@ -108,7 +108,7 @@ if (isset($_POST['btnLoginEmp'])) {
                 $comName = $row['companyName'];
                 $comId = $row['companyId'];
                 $comLogo = $row['companyLogo'];
-                $name = $row['name'];
+                $name = $row['jobPositionLao'].' ('.$row['jobPositionEn'].')';
                 $address = $row['address'];
                 $strDate = $row['strDate'];
                 $endDate = $row['endDate'];
@@ -207,14 +207,14 @@ if (isset($_POST['btnLoginEmp'])) {
                                         <hr>
                                         <div class="card-body">
 
-                                            <?php
-                                                    $employList = "SELECT * FROM employ WHERE companyId = '$comId' AND status='open'";
+                                        <?php
+                                                    $employList = "SELECT * FROM v_employ WHERE companyId = '$comId' AND status='open' group by id asc";
                                                     if ($result3 = $mysqli->query($employList)) {
-                                                        while ($row1 = $result3->fetch_row()) {
-                                                            $employName = $row1[2];
-                                                            $location = $row1[7];
-                                                            $strDate = $row1[14];
-                                                            $endDate = $row1[15];
+                                                        while ($row1 = $result3->fetch_assoc()) {
+                                                            $employName = $row1['jobPositionLao'];
+                                                            $location = $row1['address'];
+                                                            $strDate = $row1['strDate'];
+                                                            $endDate = $row1['endDate'];
 
                                                             ?>
                                             <div class="row">
@@ -261,52 +261,70 @@ if (isset($_POST['btnLoginEmp'])) {
                         <h4 class="modal-title">ສະໝັກຕຳແໜ່ງ <b><?= $name ?></b></h4>
 
                     </div>
-                    <form method="post" action="#" role="form" enctype="multipart/form-data">
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>ບໍລິສັດ</label>
-                                        <input type="hidden" name="txtaEmployerId" class="form-control"
-                                            value="<?= $id ?>">
-                                        <input type="hidden" name="txtaComId" class="form-control"
-                                            value="<?= $comId ?>">
-                                        <input type="text" name="txtaCom" disabled class="form-control"
-                                            value="<?= $comName ?>">
+                    <form method="post" action="#" role="form" enctype="multipart/form-data" class="was-validated">
+                      <!-- Modal body -->
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              <label>ບໍລິສັດ</label>
+                              <input type="hidden" name="txtaEmployerId" class="form-control" value="<?= $id ?>">
+                              <input type="hidden" name="txtaComId" class="form-control" value="<?= $comId ?>">
+                              <input type="text" name="txtaCom" disabled class="form-control" value="<?= $comName ?>">
 
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>ຄຳອະທິບາຍ</label>
-                                        <input type="text" name="txtTitle" class="form-control" required>
-                                    </div>
-                                </div>
-                                <!-- <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>ຄຳອະທິບາຍ</label>
-                                            <textarea class="form-control" name="txtDescription" rows="6"
-                                                placeholder="ລາຍລະອຽດ"></textarea>
-
-                                        </div>
-                                    </div> -->
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>ແນບໄຟລ CV</label>
-                                        <input name="file" class="form-control" type="file" required>
-                                    </div>
-                                </div>
                             </div>
-                        </div>
+                          </div>
 
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger"
-                                data-bs-dismiss="modal">ປີດ</button>
-                            <button type="submit" name="btnApply" class="btn btn-success">ສະໝັກເລີຍ</button>
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              <label>ຄຳອະທິບາຍ</label>
+                              <input type="text" name="txtTitle" class="form-control" required>
+                              <div class="valid-feedback">ກອກຂໍ້ມູນສຳເລັດ.</div>
+                              <div class="invalid-feedback">ກະລຸນາກອກຂໍ້ມູນ...</div>
+                            </div>
+                          </div>
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              <label>ເບີໂທ</label>
+
+                              <input type="text" name="txtPhone" disabled class="form-control"
+                                value="<?= $_SESSION['phone'] ?>">
+
+                            </div>
+                          </div>
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              <label>ທີ່ຢູ່</label>
+
+                              <input type="text" name="txtaCom" disabled class="form-control"
+                                value="<?= $_SESSION['address'] ?>">
+
+                            </div>
+                          </div>
+                          <!-- <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label>ຄຳອະທິບາຍ</label>
+                                                        <textarea class="form-control" name="txtDescription" rows="6"
+                                                            placeholder="ລາຍລະອຽດ"></textarea>
+
+                                                    </div>
+                                                </div> -->
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                              <label>ແນບໄຟລ CV</label>
+                              <input name="file" class="form-control" type="file" required>
+                              <div class="valid-feedback">ສຳເລັດ.</div>
+                              <div class="invalid-feedback">ກະລຸນາແນບໄຟລ...</div>
+                            </div>
+                          </div>
                         </div>
+                      </div>
+
+                      <!-- Modal footer -->
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ປີດ</button>
+                        <button type="submit" name="btnApply" class="btn btn-success">ສະໝັກເລີຍ</button>
+                      </div>
                     </form>
             </div>
         </div>

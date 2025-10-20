@@ -59,13 +59,13 @@ if ($result = $mysqli->query($fetchHeader)) {
 <body>
 
     <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top d-flex align-items-center">
+    <header id="header" class="header fixed-top d-flex align-items-center" >
         <div class="container d-flex align-items-center justify-content-between">
 
             <a href="index.php" class="logo d-flex align-items-center me-auto me-lg-0">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
+                <h1 style="color: #EC1D23;">JOB<span></span></h1>
                 <img src="assets/img/logo_jobjao.png" alt="">
-                <h1>Job Assist <span>.</span></h1>
             </a>
 
             <nav id="navbar" class="navbar">
@@ -136,13 +136,13 @@ if ($result = $mysqli->query($fetchHeader)) {
                     <div class="card-body">
 
                         <?php
-                        $employList = "SELECT * FROM employ WHERE companyId = '$companyId' AND status='open'";
+                        $employList = "SELECT * FROM v_employ WHERE companyId = '$companyId' AND status='open' GROUP BY id ASC";
                         if ($result = $mysqli->query($employList)) {
-                            while ($row1 = $result->fetch_row()) {
-                                $employName = $row1[2];
-                                $location = $row1[7];
-                                $strDate = $row1[14];
-                                $endDate = $row1[15];
+                            while ($row1 = $result->fetch_assoc()) {
+                                $employName = $row1['jobPositionLao'];
+                                $location = $row1['address'];
+                                $strDate = $row1['strDate'];
+                                $endDate = $row1['endDate'];
 
                                 ?>
                                 <div class="row"  >

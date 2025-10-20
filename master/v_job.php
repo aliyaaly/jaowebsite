@@ -45,8 +45,19 @@ htmltage("Job Jao Website");
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form method="post" action="?d=master/job" enctype="multipart/form-data">
+                                <form method="post" action="?d=master/job" enctype="multipart/form-data"
+                                    class="was-validated">
                                     <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>ລະຫັດປະເພດວຽກ</label>
+                                                    <input type="text" Name="txtJob_no" class="form-control" required="">
+
+
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
@@ -78,6 +89,7 @@ htmltage("Job Jao Website");
                                         <thead class="text-center">
                                             <tr>
                                                 <th>ລ/ດ</th>
+                                                <th>ລະຫັດປະເພດວຽກ</th>
                                                 <th>ຊື່ປະເພດວຽກ</th>
                                                 <th></th>
 
@@ -85,72 +97,84 @@ htmltage("Job Jao Website");
                                         </thead>
                                         <tbody class="text-center">
                                             <?php
-                      $i = 1;
+                                            $i = 1;
 
-                      if ($result = $mysqli->query($fetch)) {
-                        while ($row = $result->fetch_row()) {
+                                            if ($result = $mysqli->query($fetch)) {
+                                                while ($row = $result->fetch_row()) {
 
-                          ?>
-                                            <div class="modal fade" id="modal-lg-Edit<?= $i ?>">
-                                                <div class="modal-dialog modal-lg">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">ແກ້ໄຂປະເພດວຽກ</h4>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <form method="post" action="?d=master/job"
-                                                            enctype="multipart/form-data">
-                                                            <div class="modal-body">
-                                                                <input type="text" hidden name="txtId"
-                                                                    class="form-control" required=""
-                                                                    value="<?= $row[0] ?>">
-                                                                <div class="row">
-                                                                    <div class="col-sm-6">
-                                                                        <div class="form-group">
-                                                                            <label>ຊື່ປະເພດວຽກ</label>
-                                                                            <input type="text" name="txtJob"
-                                                                                class="form-control" required=""
-                                                                                value="<?= $row[1] ?>">
+                                                    ?>
+                                                    <div class="modal fade" id="modal-lg-Edit<?= $i ?>">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="modal-title">ແກ້ໄຂປະເພດວຽກ</h4>
+                                                                    <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <form method="post" action="?d=master/job"
+                                                                    enctype="multipart/form-data">
+                                                                    <div class="modal-body">
+                                                                        <input type="text" hidden name="txtId"
+                                                                            class="form-control" required=""
+                                                                            value="<?= $row[0] ?>">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-6">
+                                                                                <div class="form-group">
+                                                                                    <label>ລະຫັດປະເພດວຽກ</label>
+                                                                                    <input type="text" name="txtJob_no"
+                                                                                        class="form-control" required=""
+                                                                                        value="<?= $row[7] ?>">
 
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-sm-6">
+                                                                                <div class="form-group">
+                                                                                    <label>ຊື່ປະເພດວຽກ</label>
+                                                                                    <input type="text" name="txtJob"
+                                                                                        class="form-control" required=""
+                                                                                        value="<?= $row[1] ?>">
+
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer justify-content-between">
-                                                                <button type="button" class="btn btn-default"
-                                                                    data-dismiss="modal">ປິດ</button>
-                                                                <button type="submit" name="btSaveEdit"
-                                                                    class="btn btn-primary">ບັນທືກ</button>
+                                                                    <div class="modal-footer justify-content-between">
+                                                                        <button type="button" class="btn btn-default"
+                                                                            data-dismiss="modal">ປິດ</button>
+                                                                        <button type="submit" name="btSaveEdit"
+                                                                            class="btn btn-primary">ບັນທືກ</button>
+                                                                    </div>
+
+                                                                </form>
                                                             </div>
 
-                                                        </form>
+                                                        </div>
+
                                                     </div>
 
-                                                </div>
-
-                                            </div>
 
 
+                                                    <tr>
+                                                        <td><?= $i ?></td>
+                                                        <td><?= $row[7] ?></td>
+                                                        <td><?= $row[1] ?></td>
 
-                                            <tr>
-                                                <td><?= $i ?></td>
-                                                <td><?= $row[1] ?></td>
+                                                        <td align="center">
+                                                            <a href="#"><i class="fas fa-edit" data-toggle="modal"
+                                                                    data-target="#modal-lg-Edit<?= $i ?>"></i></a>
+                                                            <a href="?d=master/job&del=<?= $row[0] ?>"
+                                                                onclick="return confirm('ທ່ານຕ້ອງການລຶບແທ້ບໍ...?')"><i
+                                                                    class="far fa-trash-alt"></i></a>
+                                                        </td>
 
-                                                <td align="center">
-                                                    <a href="#"><i class="fas fa-edit" data-toggle="modal"
-                                                            data-target="#modal-lg-Edit<?= $i ?>"></i></a>
-                                                    <a href="?d=master/job&del=<?= $row[0] ?>"
-                                                        onclick="return confirm('ທ່ານຕ້ອງການລຶບແທ້ບໍ...?')"><i
-                                                            class="far fa-trash-alt"></i></a>
-                                                </td>
-
-                                            </tr>
-                                            <?php $i++;
-                        }
-                      } ?>
+                                                    </tr>
+                                                    <?php $i++;
+                                                }
+                                            } ?>
 
                                         </tbody>
                                     </table>

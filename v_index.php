@@ -31,7 +31,7 @@ htmltage("Job Jao Website");
 
                         <div class="info-box-content">
                             <span class="info-box-text ">ຈັດການຂໍ້ມູນພື້ນຖານ</span>
-                            <span class="info-box-number ">8 ເມນູ
+                            <span class="info-box-number ">9 ເມນູ
 
                             </span>
                         </div>
@@ -76,6 +76,55 @@ htmltage("Job Jao Website");
                 <!-- ./col -->
 
                 <!-- ./col -->
+            </div>
+            <!-- /.row -->
+            <!-- Main row -->
+
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <section class="content">
+        <div class="card">
+            <div class="card-header">
+                <h4 style="color:blue">==>10 ອັນດັບຕຳແໜ່ງວຽກທີ່ຄົນສະໝັກຫຼາຍທີ່ສຸດ</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="exampleReport" class="table table-bordered beautified_report">
+
+                                <thead class="text-center">
+                                    <tr>
+                                        <th>ລຳດັບ</th>
+                                        <th>ຕຳແໜ່ງວຽກ</th>
+                                        <th>ຈຳນວນ</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                    <?php
+                                    $i = 1;
+                                    $fetch = "SELECT *,count(job_position_id) as countJobPositionId FROM v_apply   group by job_position_id order by countJobPositionId desc LIMIT 10";
+                                    if ($result = $mysqli->query($fetch)) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            ?>
+                                            <tr>
+                                                <td><?= $i ?></td>
+                                                <td><?= $row['jobPositionLao'] ?> (<?= $row['jobPositionEn'] ?>)</td>
+                                                <td><b style="color:green" ><?= $row['countJobPositionId'] ?> ຄົນ</b></td>
+                                             
+
+                                            </tr>
+                                            <?php $i++;
+                                        }
+                                    } ?>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- /.row -->
             <!-- Main row -->

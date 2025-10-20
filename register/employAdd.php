@@ -113,54 +113,76 @@ if ($result = $mysqli->query($fetchHeader)) {
 
                     <div class="col-lg-8 d-flex align-items-center reservation-form-bg">
 
-                        <form method="post" action="" role="form" enctype="multipart/form-data" style="padding: 40px;">
+                        <form method="post" action="" role="form" enctype="multipart/form-data" style="padding: 40px;"
+                            class="was-validated">
                             <div class="row gy-4">
-                                <div class="col-lg-4 col-md-6">
-                                    <input type="text" name="txtJobPosition" class="form-control"
-                                        placeholder="ຕຳແໜ່ງວຽກ" required>
+                                <div class="col-lg-4 col-md-6" id="">
+                                    <select class="form-control" id="" name="cbJobFunc[]"
+                                        onChange="GetJob(this.value, 1)" required>
+                                        <option value="">--ເລືອກປະເພດວຽກ--</option>
+                                        <?php
+                                        $job = "select * from job where isDelete=0";
 
+                                        if ($resultjob = $mysqli->query($job)) {
+                                            while ($rowjob = $resultjob->fetch_assoc()) {
+                                                ?>
+                                                <option value="<?= $rowjob['id'] ?>"><?= $rowjob['name'] ?></option>
+                                            <?php }
+                                        } ?>
+                                    </select>
+                                    <div class="valid-feedback">ກອກຂໍ້ມູນສຳເລັດ.</div>
+                                    <div class="invalid-feedback">ກະລຸນາເລືອກປະເພດວຽກກ່ອນ...</div>
+                                </div>
+                                <div class="col-lg-4 col-md-6" id="position1">
+                                    <select class="form-control" id="" name="cbJobPositionId" required>
+                                        <option value=""></option>
+
+
+                                    </select>
+                                    <div class="valid-feedback">ກອກຂໍ້ມູນສຳເລັດ.</div>
+                                    <div class="invalid-feedback">ກະລຸນາເລືອກປະເພດວຽກກ່ອນ...</div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <select name="cbLang" class="form-control" required>
-                                        <option value="0">--ເລືອກພາສາ--</option>
+                                        <option value="">--ເລືອກພາສາ--</option>
                                         <?php
                                         $language = "select * from language";
 
                                         if ($resultlanguage = $mysqli->query($language)) {
                                             while ($rowlanguage = $resultlanguage->fetch_assoc()) {
                                                 ?>
-                                                <option value="<?= $rowlanguage['id'] ?>"><?= $rowlanguage['language'] ?></option>
+                                                <option value="<?= $rowlanguage['id'] ?>"><?= $rowlanguage['language'] ?>
+                                                </option>
                                             <?php }
                                         } ?>
                                     </select>
-                                    </select>
+                                    <div class="valid-feedback">ກອກຂໍ້ມູນສຳເລັດ.</div>
+                                    <div class="invalid-feedback">ກະລຸນາກອກຂໍ້ມູນ...</div>
 
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <select name="cbEx" class="form-control" required>
-                                        <option value="0">--ປະສົບການ--</option>
+                                        <option value="">--ປະສົບການ--</option>
                                         <?php
                                         $experience = "select * from experience";
 
                                         if ($resultexperience = $mysqli->query($experience)) {
                                             while ($rowexperience = $resultexperience->fetch_assoc()) {
                                                 ?>
-                                                <option value="<?= $rowexperience['id'] ?>"><?= $rowexperience['experience'] ?></option>
+                                                <option value="<?= $rowexperience['id'] ?>"><?= $rowexperience['experience'] ?>
+                                                </option>
                                             <?php }
                                         } ?>
                                     </select>
 
-                                    </select>
+                                    <div class="valid-feedback">ກອກຂໍ້ມູນສຳເລັດ.</div>
+                                    <div class="invalid-feedback">ກະລຸນາກອກຂໍ້ມູນ...</div>
 
                                 </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <input type="text" class="form-control" name="txtAddress" disabled
-                                        placeholder="ທີ່ຢູ່" value="<?= $companyAddress ?>" required>
 
-                                </div>
                                 <div class="col-lg-4 col-md-6">
                                     <select name="cbSalary" class="form-control" required>
-                                        <option value="0">--ເງິນເດືອນ--</option>
+                                        <option value="">--ເງິນເດືອນ--</option>
                                         <?php
                                         $salary = "select * from salary";
 
@@ -172,12 +194,13 @@ if ($result = $mysqli->query($fetchHeader)) {
                                         } ?>
                                     </select>
 
-                                    </select>
+                                    <div class="valid-feedback">ກອກຂໍ້ມູນສຳເລັດ.</div>
+                                    <div class="invalid-feedback">ກະລຸນາກອກຂໍ້ມູນ...</div>
 
                                 </div>
 
                                 <div class="col-lg-4 col-md-6">
-                                    <select class="form-control" id="select" name="cbJobFunc[]" multiple >
+                                    <select class="form-control" id="select" name="cbJobFunc[]" multiple required>
 
                                         <?php
                                         $job = "select * from job where isDelete=0";
@@ -189,12 +212,13 @@ if ($result = $mysqli->query($fetchHeader)) {
                                             <?php }
                                         } ?>
                                     </select>
-
+                                    <div class="valid-feedback">ກອກຂໍ້ມູນສຳເລັດ.</div>
+                                    <div class="invalid-feedback">ກະລຸນາກອກຂໍ້ມູນ...</div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
-                                <label for="">ເວລາ</label>
-                                    <select class="form-control"  name="cbTime" >
-                                  
+                                    <label for="">ເວລາ</label>
+                                    <select class="form-control" name="cbTime">
+
                                         <?php
                                         $time = "select * from time";
 
@@ -205,28 +229,42 @@ if ($result = $mysqli->query($fetchHeader)) {
                                             <?php }
                                         } ?>
                                     </select>
+                                    <div class="valid-feedback">ກອກຂໍ້ມູນສຳເລັດ.</div>
+                                    <div class="invalid-feedback">ກະລຸນາກອກຂໍ້ມູນ...</div>
 
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <label for="">ແຕ່ວັນທີ</label>
                                     <input type="date" name="strDate" class="form-control" required>
-
+                                    <div class="valid-feedback">ກອກຂໍ້ມູນສຳເລັດ.</div>
+                                    <div class="invalid-feedback">ກະລຸນາກອກຂໍ້ມູນ...</div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <label for="">ຫາວັນທີ</label>
-                                    <input type="date" name="endDate" class="form-control" required>
-
+                                    <input type="date" name="endDate" class="form-control"
+                                        min="<?php echo date("Y-m-d"); ?>" required>
+                                    <div class="valid-feedback">ກອກຂໍ້ມູນສຳເລັດ.</div>
+                                    <div class="invalid-feedback">ກະລຸນາກອກຂໍ້ມູນ...</div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <label for="">ຮູບພາບ</label>
-                                    <input type="file" name="file[]" class="form-control" multiple>
-
+                                    <input type="file" name="file[]" class="form-control" multiple required>
+                                    <div class="valid-feedback">ສຳເລັດ.</div>
+                                    <div class="invalid-feedback">ເລືອກຮູບພາບ...</div>
                                 </div>
-                            </div>
-                            <div class="form-group mt-3">
-                                <textarea class="form-control" name="txtDescription" rows="6"
-                                    placeholder="ລາຍລະອຽດ"></textarea>
+                                <div class="col-lg-8 col-md-6">
+                                <label for="">ທີ່ຢູ່</label>
+                                <input type="text" class="form-control" name="txtAddress" disabled placeholder="ທີ່ຢູ່"
+                                    value="<?= $companyAddress ?>" required>
 
+                            </div>
+                            </div>
+                            
+                            <div class="form-group mt-3">
+                                <textarea class="form-control" name="txtDescription" rows="6" placeholder="ລາຍລະອຽດ"
+                                    required></textarea>
+                                <div class="valid-feedback">ກອກຂໍ້ມູນສຳເລັດ.</div>
+                                <div class="invalid-feedback">ກະລຸນາກອກຂໍ້ມູນ...</div>
                             </div>
                             <div class="mb-3">
 
@@ -256,8 +294,8 @@ if ($result = $mysqli->query($fetchHeader)) {
             $endDate = $mysqli->real_escape_string($_POST['endDate']);
             $txtDescription = $mysqli->real_escape_string($_POST['txtDescription']);
             $countcbJobFunc = count($cbJobFunc);
-
-            $sql = "INSERT INTO employ(companyId, name, languageId, experienceId, salaryId, 
+            $txtPositionId = $mysqli->real_escape_string($_POST['txtPositionId1']);
+            $sql = "INSERT INTO employ(companyId, name,jobPositionId, languageId, experienceId, salaryId, 
             description, 
             address, 
             status, 
@@ -269,7 +307,7 @@ if ($result = $mysqli->query($fetchHeader)) {
             endDate,
             timeId)
             VALUES
-            ('$comId', '$txtJobPosition', '$cbLang', '$cbEx', '$cbSalary', '$txtDescription', '$companyAddress','close','$userId','$userId',NOW(),NOW(),'$strDate','$endDate','$cbTime')";
+            ('$comId', '$txtJobPosition','$txtPositionId', '$cbLang', '$cbEx', '$cbSalary', '$txtDescription', '$companyAddress','close','$userId','$userId',NOW(),NOW(),'$strDate','$endDate','$cbTime')";
 
 
             if ($mysqli->query($sql) === TRUE) {
@@ -288,13 +326,13 @@ if ($result = $mysqli->query($fetchHeader)) {
                         $mysqli->query($sql1);
                     }
                     if (count($_FILES)) {
-                        $k=0;
+                        $k = 0;
                         foreach ($_FILES['file']['name'] as $key => $fname) {
                             $k++;
                             $file_name = strtolower($fname);
                             $file_ext = substr($file_name, strrpos($file_name, '.'));
 
-                            $file_name_new = date('YmdHis') .$k. $userId. $file_ext;
+                            $file_name_new = date('YmdHis') . $k . $userId . $file_ext;
                             copy($_FILES["file"]["tmp_name"][$key], "assets/img/company/" . $file_name_new);
                             $sql2 = "INSERT INTO employ_image(employId, companyId, image, createdBy, 
                             updatedBy, 
@@ -346,9 +384,68 @@ if ($result = $mysqli->query($fetchHeader)) {
 
 
             maximumInputLength: 10,
+            placeholder: "--ປະເພດວຽກທີ່ກ່ຽວຂ້ອງ--",
+
+
+        });
+    });
+    $(document).ready(function () {
+        $('#select2').select2({
+
+
+            maximumInputLength: 10,
             placeholder: "--ປະເພດວຽກ--",
 
 
         });
     });
+    $(document).ready(function () {
+        $('#select3').select2({
+
+
+            maximumInputLength: 10,
+            placeholder: "--ປະເພດວຽກ--",
+
+
+        });
+    });
+    function getXMLHTTP() { //fuction to return the xml http object
+        var xmlhttp = false;
+        try {
+            xmlhttp = new XMLHttpRequest();
+        } catch (e) {
+            try {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch (e) {
+                try {
+                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+                } catch (e1) {
+                    xmlhttp = false;
+                }
+            }
+        }
+        return xmlhttp;
+    }
+
+    function GetJob(GetJob, divID) {
+        var strURL = "findPosition.php?GetJob=" + GetJob + "&divID=" + divID;
+        var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    // only if "OK"
+                    if (req.status == 200) {
+                        // alert(req.responseText);
+                        document.getElementById('position' + divID).innerHTML = req.responseText;
+                        '<option>--ເລືອກຕຳແໜ່ງວຽກ--</option>' +
+                            '</select>';
+                    } else {
+                        alert("Problem while using XMLHTTP (Account List):\n" + req.statusText);
+                    }
+                }
+            }
+            req.open("GET", strURL, true);
+            req.send(null);
+        }
+    }
 </script>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once ("../function_sel.php");
+include_once("../function_sel.php");
 $userId = $_SESSION['user_id'];
 
 if (isset($_POST['btnLogin'])) {
@@ -131,8 +131,8 @@ if (isset($_POST['btnLoginEmp'])) {
 
             <a href="index.php" class="logo d-flex align-items-center me-auto me-lg-0">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
+                
                 <img src="assets/img/logo_jobjao.png" alt="">
-                <h1 style="color: whitesmoke;">JOB<span>.</span></h1>
             </a>
 
             <nav id="navbar" class="navbar" style="color: whitesmoke;">
@@ -170,9 +170,15 @@ if (isset($_POST['btnLoginEmp'])) {
 
                 </ul>
             </nav><!-- .navbar -->
-            <a type="button" class="btn-employ-add" data-bs-toggle="modal" data-bs-target="#myModal">
-                ຜູ້ຈ້າງງານ
-            </a>
+            <?php
+
+            if ($_SESSION['role'] <> "employee") {
+                ?>
+                <a type="button" class="btn-employ-add" data-bs-toggle="modal" data-bs-target="#myModal">
+                    ຜູ້ຈ້າງງານ
+                </a>
+                <?php
+            } ?>
 
             <!-- <a class="btn-book-a-table" href="#"><i class="fas fa-edit" data-toggle="modal"
           data-target="#modal-lg-login"></i>ຜູ້ຈ້າງງານ</a> -->
@@ -238,7 +244,7 @@ if (isset($_POST['btnLoginEmp'])) {
                                                 <input type="radio" name="" id="" value="ບໍ່ລະບຸ"> ບໍ່ລະບຸ -->
 
                                                 </div>
-                                            <?
+                                                <?php
                                             } elseif ($choiceOrder == 2) {
                                                 ?>
                                                 <div class="form-check ps-5">
@@ -253,7 +259,7 @@ if (isset($_POST['btnLoginEmp'])) {
                                                 <input type="radio" name="" id="" value="35-45ປີ"> 35-45ປີ -->
 
                                                 </div>
-                                            <?
+                                                <?php
                                             } elseif ($choiceOrder == 3) {
                                                 ?>
                                                 <div class="form-check ps-5">
@@ -278,7 +284,7 @@ if (isset($_POST['btnLoginEmp'])) {
                                                 <input type="radio" name="" id="" value="ພວນ"> ພວນ&emsp; -->
 
                                                 </div>
-                                            <?
+                                                <?php
 
                                             } elseif ($choiceOrder == 4) {
                                                 ?>
@@ -295,7 +301,7 @@ if (isset($_POST['btnLoginEmp'])) {
                                                 <input type="radio" name="" id="" value="ປະລິນຍາເອກ"> ປະລິນຍາເອກ -->
 
                                                 </div>
-                                            <?
+                                                <?php
 
                                             } elseif ($choiceOrder == 5) {
                                                 ?>
@@ -311,7 +317,7 @@ if (isset($_POST['btnLoginEmp'])) {
                                                 <input type="radio" name="" id="" value="ບໍ່ລະບຸ"> ບໍ່ລະບຸ -->
 
                                                 </div>
-                                            <?
+                                                <?php
 
                                             }
                                         } else {
@@ -323,7 +329,7 @@ if (isset($_POST['btnLoginEmp'])) {
                                                 <label class="form-check-label " for="defaultCheck1"><?= $choiceText ?></label>
 
                                             </div>
-                                        <?
+                                            <?php
                                         }
 
                                     }
@@ -352,10 +358,11 @@ if (isset($_POST['btnLoginEmp'])) {
         createdBy, 
         updatedBy, 
         createdAt, 
-        updatedAt
+        updatedAt,
+        userId
         )
               VALUES
-              ('$txtSex', '$txtAge', '$txtTribe', '$txtEdu', '$txtPro','$userId','$userId',NOW(),NOW())";
+              ('$txtSex', '$txtAge', '$txtTribe', '$txtEdu', '$txtPro','$userId','$userId',NOW(),NOW(),'$userId')";
 
 
         if ($mysqli->query($sql) === TRUE) {
@@ -378,10 +385,10 @@ if (isset($_POST['btnLoginEmp'])) {
                     $rowMaxId = $maxId->fetch_row();
                     $survey_respone_maxId = $rowMaxId[0];
 
-                    $sql1 = "INSERT INTO survey_answer(responeId, questionId, choiceId, createdAt, updatedAt
+                    $sql1 = "INSERT INTO survey_answer(responeId, questionId, choiceId, createdAt, updatedAt, userId
                     )
                           VALUES
-                          ('$survey_respone_maxId', '$question_id', '$choice_id',NOW(),NOW())";
+                          ('$survey_respone_maxId', '$question_id', '$choice_id',NOW(),NOW(),'$userId')";
                     if ($mysqli->query($sql1) === TRUE) {
                         echo '<script>console.log("SUBMIT SUCCESS!!!")</script>';
                     } else {
@@ -418,7 +425,7 @@ if (isset($_POST['btnLoginEmp'])) {
                         <h4>Reservations</h4>
                         <p>
                             <strong>Phone:</strong> 020 56 945 946<br>
-                            <strong>Email:</strong> obassistoffice@gmail.com<br>
+                            <strong>Email:</strong> jobassistoffice@gmail.com<br>
                         </p>
                     </div>
                 </div>

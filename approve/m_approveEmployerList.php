@@ -19,6 +19,16 @@ function checkExpired($mysqli, $fetch)
                     echo "<center><h2>ERROR Delete</h2></center>";
                 }
             }
+            // else{
+            //     $sql = "UPDATE employ SET status = 'open' WHERE id = '$id' ";
+            //     // echo '<script>alert("endDate:' . $endDate . '")</script>';
+
+            //     if ($mysqli->query($sql) === TRUE) {
+            //         // header("Location: ?d=approve/approveEmployerList");
+            //     } else {
+            //         echo "<center><h2>ERROR Delete</h2></center>";
+            //     }
+            // }
         }
     }
 }

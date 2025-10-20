@@ -61,8 +61,8 @@ if ($result = $mysqli->query($fetchHeader)) {
 
             <a href="index.php" class="logo d-flex align-items-center me-auto me-lg-0">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
+                <h1 style="color: #EC1D23;">JOB<span></span></h1>
                 <img src="assets/img/logo_jobjao.png" alt="">
-                <h1>Job Assist <span>.</span></h1>
             </a>
 
             <nav id="navbar" class="navbar">
@@ -97,17 +97,17 @@ if ($result = $mysqli->query($fetchHeader)) {
                     <div class="card-body">
 
                         <?php
-                        $employList = "SELECT * FROM employ WHERE companyId = '$companyId'";
+                        $employList = "SELECT * FROM v_employ WHERE companyId = '$companyId' GROUP BY id ASC";
                         $i = 1;
                         if ($result = $mysqli->query($employList)) {
-                            while ($row1 = $result->fetch_row()) {
+                            while ($row1 = $result->fetch_assoc()) {
 
-                                $employId = $row1[0];
-                                $employName = $row1[2];
-                                $location = $row1[7];
-                                $strDate = $row1[14];
-                                $endDate = $row1[15];
-                                $status = $row1[8];
+                                $employId = $row1['id'];
+                                $employName = $row1['jobPositionLao'];
+                                $location = $row1['address'];
+                                $strDate = $row1['strDate'];
+                                $endDate = $row1['endDate'];
+                                $status = $row1['status'];
                                 // echo '<script>alert("employName:' . $employName . '")</script>';
                                 ?>
                                 <div class="row">
@@ -149,7 +149,7 @@ if ($result = $mysqli->query($fetchHeader)) {
                                     <div class="col-sm-2">
 
                                         <?php
-                                        $count = "SELECT employId FROM v_apply WHERE companyId=$companyId";
+                                        $count = "SELECT count(employId) as count,employId FROM v_apply WHERE companyId=$companyId group by employId";
 
                                         if ($countApply = $mysqli->query($count)) {
 
@@ -157,12 +157,12 @@ if ($result = $mysqli->query($fetchHeader)) {
                                                 // $row_cnt = mysqli_num_rows($countApply);
                                                 $rowApply_countApply = $rowcountApply[0];
 
-                                                if ($employId == $rowcountApply[0]) {
+                                                if ($employId == $rowcountApply[1]) {
 
 
                                                     ?>
-                                                    <a data-bs-toggle="modal" href="#myModalApplyList<?= $i ?>">
-                                                        <b>ເຂົ້າເບິ່ງຜູ້ສະໝັກ</b></a>
+                                                    <a data-bs-toggle="modal" href="#myModalApplyList<?= $i ?>">ເຂົ້າເບິ່ງຜູ້ສະໝັກມີ
+                                                        <b> <?=$rowApply_countApply?></b> ຄົນ</a>
                                                 <?php }
                                             }
                                         }
@@ -180,7 +180,8 @@ if ($result = $mysqli->query($fetchHeader)) {
 
                                             <!-- Modal Header -->
                                             <div class="modal-header bg-info " style="color: whitesmoke;">
-                                                <h4 class="modal-title">ລາຍການຜູ້ເຂົ້າມາສະໝັກ: <b><?= $row1[2] ?></b></h4>
+                                                <h4 class="modal-title">ລາຍການຜູ້ເຂົ້າມາສະໝັກ:
+                                                    <b><?= $row1['jobPositionLao'] ?></b></h4>
 
                                             </div>
                                             <form method="post" action="#" role="form" enctype="multipart/form-data">
@@ -205,7 +206,7 @@ if ($result = $mysqli->query($fetchHeader)) {
                                                                         </thead>
                                                                         <tbody class="text-center">
                                                                             <?php
-                                                                            $loop = "SELECT * FROM v_apply WHERE employId = '$row1[0]'";
+                                                                            $loop = "SELECT * FROM v_apply WHERE employId = '$employId'";
                                                                             $z = 1;
                                                                             if ($reLoop = $mysqli->query($loop)) {
                                                                                 while ($data = $reLoop->fetch_assoc()) {

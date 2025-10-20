@@ -44,7 +44,7 @@ htmltage("Job Jao Website");
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form method="post" action="?d=master/company" enctype="multipart/form-data">
+                <form method="post" action="?d=master/company" enctype="multipart/form-data" class="was-validated">
                   <div class="modal-body">
                     <div class="row">
                       <div class="col-sm-6">
@@ -64,21 +64,21 @@ htmltage("Job Jao Website");
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label>ອີເມລ</label>
-                          <input type="text" name="txtEmail" class="form-control">
+                          <input type="text" name="txtEmail" class="form-control" required>
 
                         </div>
                       </div>
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label>ທີ່ຢູ່</label>
-                          <input type="text" name="txtAddress" class="form-control">
+                          <input type="text" name="txtAddress" class="form-control" required>
 
                         </div>
                       </div>
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label>ເວັບໄຊ້</label>
-                          <input type="text" name="txtWebsite" class="form-control">
+                          <input type="text" name="txtWebsite" class="form-control" required>
 
                         </div>
                       </div>
@@ -99,7 +99,7 @@ htmltage("Job Jao Website");
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label>ຄຳອະທິບາຍ</label>
-                          <textarea name="txtDes" class="form-control" style="height: 100px"></textarea>
+                          <textarea name="txtDes" class="form-control" style="height: 100px" required></textarea>
 
                         </div>
                       </div>
@@ -109,7 +109,7 @@ htmltage("Job Jao Website");
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label>ຊື່ຜູ້ໃຊ້</label>
-                          <input type="text" name="txtUserName" class="form-control">
+                          <input type="text" name="txtUserName" class="form-control" required>
 
                         </div>
                       </div>

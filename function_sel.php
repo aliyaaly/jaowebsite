@@ -19,6 +19,7 @@ function checkLogin($getUsername, $getPass, $mysqli)
 			$_SESSION['name'] = $row[4];
 			$_SESSION['surname'] = $row[5];
 			$_SESSION['address'] = $row[7];
+			$_SESSION['phone'] = $row[8];
 
 
 			// if ($_SESSION['role'] == "employer") {

@@ -45,7 +45,7 @@ htmltage("Job Jao Website");
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form method="post" action="?d=master/experience" enctype="multipart/form-data">
+                                <form method="post" action="?d=master/experience" enctype="multipart/form-data" class="was-validated">
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-sm-6">

@@ -1,8 +1,8 @@
 <?php
 session_start();
-include_once ("../function_sel.php");
+include_once("../function_sel.php");
 
-include_once ("../config.php");
+include_once("../config.php");
 
 $userId = $_SESSION['user_id'];
 $companyAddress = $_SESSION['address'];
@@ -23,6 +23,7 @@ if (isset($_POST['btnLogin'])) {
       $_SESSION['name'] = $row[4];
       $_SESSION['surname'] = $row[5];
       $_SESSION['address'] = $row[7];
+      $_SESSION['phone'] = $row[8];
 
 
       if ($_SESSION['role'] == "employer") {
@@ -48,9 +49,19 @@ if (isset($_POST['btnRegister'])) {
   $txtUserName = $_POST['txtUserName'];
   $txtPassword = $_POST['txtPassword'];
   $passmd5Re = md5($txtPassword . 'l1tt@v@nh' . $txtUserName);
-  $sql = "INSERT INTO user(username, password, role, name, surname, born, address, phone, mail, createdBy, updatedBy, createdAt, updatedAt)
+
+  $file = trim($_FILES["cvFile"]["tmp_name"]);
+
+  if ($file != "") {
+    $nameCV = $_FILES["cvFile"]["name"];
+    $extCV = end((explode(".", $nameCV))); # extra () to prevent notice
+    $fileNameCV = date('YmdHis') . $userId . "." . $extCV;
+    copy($_FILES["cvFile"]["tmp_name"], "assets/img/cv/" . $fileNameCV);
+  }
+
+  $sql = "INSERT INTO user(username, password, role, name, surname, born, address, phone, mail, createdBy, updatedBy, createdAt, updatedAt,cvFile)
 	VALUES
-	('$txtUserName', '$passmd5Re', 'employee', '$txtName', '$txtSurName', '$txtBorn', '$txtAddress', '$txtPhone', '$txtEmail','3','3',NOW(),NOW())";
+	('$txtUserName', '$passmd5Re', 'employee', '$txtName', '$txtSurName', '$txtBorn', '$txtAddress', '$txtPhone', '$txtEmail','3','3',NOW(),NOW(),'$fileNameCV')";
 
 
   if ($mysqli->query($sql) === TRUE) {
@@ -77,7 +88,7 @@ if (isset($_POST['btnLoginEmp'])) {
       $_SESSION['name'] = $row[4];
       $_SESSION['surname'] = $row[5];
       $_SESSION['address'] = $row[7];
-
+      $_SESSION['phone'] = $row[8];
 
       if ($_SESSION['role'] == "employer") {
         header("Location: ../register/employer.php");
@@ -135,8 +146,9 @@ if (isset($_POST['btnLoginEmp'])) {
 
       <a href="index.php" class="logo d-flex align-items-center me-auto me-lg-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
+
+
         <img src="assets/img/logo_jobjao.png" alt="">
-        <h1 style="color: whitesmoke;">JOB<span>.</span></h1>
       </a>
 
       <nav id="navbar" class="navbar" style="color: whitesmoke;">
@@ -144,12 +156,13 @@ if (isset($_POST['btnLoginEmp'])) {
           <li><a href="#home" class="nav-item nav-link active" style="color: whitesmoke;">ໜ້າຫຼັກ</a></li>
           <li><a href="search.php " style="color: whitesmoke;">ຄົ້ນຫາວຽກ</a></li>
           <li><a href="company.php" style="color: whitesmoke;">ບໍລິສັດ</a></li>
-          <li><a href="survey.php" class="nav-item nav-link" style="color: whitesmoke;">ປະເມີນ</a></li>
+
 
           <?php
 
           if ($_SESSION['role'] == "employee") {
             ?>
+            <li><a href="survey.php" class="nav-item nav-link" style="color: whitesmoke;">ປະເມີນ</a></li>
             <li class="dropdown"><a href="#"><span style="color: whitesmoke;">ຜູ້ໃຊ້</span> <i
                   class="bi bi-chevron-down dropdown-indicator"></i></a>
               <ul>
@@ -177,10 +190,15 @@ if (isset($_POST['btnLoginEmp'])) {
 
         </ul>
       </nav><!-- .navbar -->
-      <a type="button" class="btn-employ-add" data-bs-toggle="modal" data-bs-target="#myModal">
-        ຜູ້ຈ້າງງານ
-      </a>
+      <?php
 
+      if ($_SESSION['role'] <> "employee") {
+        ?>
+        <a type="button" class="btn-employ-add" data-bs-toggle="modal" data-bs-target="#myModal">
+          ຜູ້ຈ້າງງານ
+        </a>
+        <?php
+      } ?>
       <!-- <a class="btn-book-a-table" href="#"><i class="fas fa-edit" data-toggle="modal"
           data-target="#modal-lg-login"></i>ຜູ້ຈ້າງງານ</a> -->
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
@@ -291,11 +309,27 @@ if (isset($_POST['btnLoginEmp'])) {
 
                 </div>
               </div>
-            </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>ແນບໄຟລ CV</label>
+                  <input type="file" name="cvFile" class="form-control" required>
 
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-sm-12">
+                ຖ້າທ່ານຍັງບໍ່ມີ cv ໃຫ້ຕິດຕໍ່ Email:
+                <a href="#">jobassistoffice@gmail.com</a>
+                ພວກເຮົາເຮັດໃຫ້ຟຣີ
+              </div>
+
+            </div>
           </div>
           <!-- Modal footer -->
           <div class="modal-footer">
+
             <button type="submit" name="btnRegister" class="btn btn-primary">ລົງທະບຽນ</button>
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ປິດ</button>
           </div>
@@ -326,6 +360,7 @@ if (isset($_POST['btnLoginEmp'])) {
           </div>
           <!-- Modal footer -->
           <div class="modal-footer">
+            <a class="btn btn-success" href="#" data-bs-toggle="modal" data-bs-target="#myModalRegister"> ລົງທະບຽນ</a>
             <button type="submit" name="btnLoginEmp" class="btn btn-primary">ເຂົ້າສູ່ລະບົບ</button>
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ປິດ</button>
           </div>
@@ -430,7 +465,7 @@ if (isset($_POST['btnLoginEmp'])) {
               $comName = $row['companyName'];
               $comId = $row['companyId'];
               $comLogo = $row['companyLogo'];
-              $name = $row['name'];
+              $name = $row['jobPositionLao'] . ' (' . $row['jobPositionEn'] . ')';
               $address = $row['address'];
               $strDate = $row['strDate'];
               $endDate = $row['endDate'];
@@ -526,13 +561,13 @@ if (isset($_POST['btnLoginEmp'])) {
                               <div class="card-body">
 
                                 <?php
-                                $employList = "SELECT * FROM employ WHERE companyId = '$comId' AND status='open'";
+                                $employList = "SELECT * FROM v_employ WHERE companyId = '$comId' AND status='open'  GROUP BY id ASC";
                                 if ($result3 = $mysqli->query($employList)) {
-                                  while ($row1 = $result3->fetch_row()) {
-                                    $employName = $row1[2];
-                                    $location = $row1[7];
-                                    $strDate = $row1[14];
-                                    $endDate = $row1[15];
+                                  while ($row1 = $result3->fetch_assoc()) {
+                                    $employName = $row1['jobPositionLao'];
+                                    $location = $row1['address'];
+                                    $strDate = $row1['strDate'];
+                                    $endDate = $row1['endDate'];
 
                                     ?>
                                     <div class="row">
@@ -578,7 +613,7 @@ if (isset($_POST['btnLoginEmp'])) {
                       <h4 class="modal-title">ສະໝັກຕຳແໜ່ງ <b><?= $name ?></b></h4>
 
                     </div>
-                    <form method="post" action="#" role="form" enctype="multipart/form-data">
+                    <form method="post" action="#" role="form" enctype="multipart/form-data" class="was-validated">
                       <!-- Modal body -->
                       <div class="modal-body">
                         <div class="row">
@@ -596,6 +631,26 @@ if (isset($_POST['btnLoginEmp'])) {
                             <div class="form-group">
                               <label>ຄຳອະທິບາຍ</label>
                               <input type="text" name="txtTitle" class="form-control" required>
+                              <div class="valid-feedback">ກອກຂໍ້ມູນສຳເລັດ.</div>
+                              <div class="invalid-feedback">ກະລຸນາກອກຂໍ້ມູນ...</div>
+                            </div>
+                          </div>
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              <label>ເບີໂທ</label>
+
+                              <input type="text" name="txtPhone" disabled class="form-control"
+                                value="<?= $_SESSION['phone'] ?>">
+
+                            </div>
+                          </div>
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              <label>ທີ່ຢູ່</label>
+
+                              <input type="text" name="txtaCom" disabled class="form-control"
+                                value="<?= $_SESSION['address'] ?>">
+
                             </div>
                           </div>
                           <!-- <div class="col-sm-12">
@@ -610,6 +665,8 @@ if (isset($_POST['btnLoginEmp'])) {
                             <div class="form-group">
                               <label>ແນບໄຟລ CV</label>
                               <input name="file" class="form-control" type="file" required>
+                              <div class="valid-feedback">ສຳເລັດ.</div>
+                              <div class="invalid-feedback">ກະລຸນາແນບໄຟລ...</div>
                             </div>
                           </div>
                         </div>
@@ -674,7 +731,7 @@ if (isset($_POST['btnLoginEmp'])) {
             <h4>Reservations</h4>
             <p>
               <strong>Phone:</strong> 020 56 945 946<br>
-              <strong>Email:</strong> obassistoffice@gmail.com<br>
+              <strong>Email:</strong> jobassistoffice@gmail.com<br>
             </p>
           </div>
         </div>
@@ -769,21 +826,21 @@ if (isset($_POST['btnLoginEmp'])) {
 </html>
 
 <script>
-$('#select').select2({
+  $('#select').select2({
     theme: "bootstrap-5",
     placeholder: $(this).data('placeholder'),
-});
+  });
 
-$('#single-select-field2').select2({
+  $('#single-select-field2').select2({
     theme: "bootstrap-5",
     width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
     placeholder: $(this).data('placeholder'),
-});
+  });
 </script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript">
 </script>
 <script>
-   var numClicks = 0;
+  var numClicks = 0;
   var x = 5;
 
   function action() {
@@ -797,61 +854,61 @@ $('#single-select-field2').select2({
 
     }
   }
-function openMyModal2(i, userId) {
+  function openMyModal2(i, userId) {
     var para = i;
     var id = userId;
     // alert(id);
     if (id === undefined) {
-        let myModal = new
+      let myModal = new
         bootstrap.Modal(document.getElementById('myModalLogin'), {});
-        myModal.show();
+      myModal.show();
 
-        $('#myModalInfo' + para).modal('hide');
+      $('#myModalInfo' + para).modal('hide');
     } else {
 
-        let myModal = new
+      let myModal = new
         bootstrap.Modal(document.getElementById('myModalApply' + para), {});
-        myModal.show();
+      myModal.show();
     }
 
-}
+  }
 
-function search() {
+  function search() {
 
     var str = '';
     var val = document.getElementById('select');
     for (i = 0; i < val.length; i++) {
-        if (val[i].selected) {
-            str += val[i].value + ',';
-        }
+      if (val[i].selected) {
+        str += val[i].value + ',';
+      }
     }
     var str = str.slice(0, str.length - 1);
     // alert(str);
     $.ajax({
-        type: "GET",
-        url: "getJob.php",
-        data: 'jobId=' + str,
-        success: function(data) {
-            $("#contact").html(data);
-            // alert(data);
-        }
+      type: "GET",
+      url: "getJob.php",
+      data: 'jobId=' + str,
+      success: function (data) {
+        $("#contact").html(data);
+        // alert(data);
+      }
     });
-}
+  }
 
-function searchInput() {
+  function searchInput() {
 
 
     var val = document.getElementById('txtSearch').value;
 
 
     $.ajax({
-        type: "GET",
-        url: "getJobByInput.php",
-        data: 'jobName=' + val,
-        success: function(data) {
-            $("#contact").html(data);
-            // alert(data);
-        }
+      type: "GET",
+      url: "getJobByInput.php",
+      data: 'jobName=' + val,
+      success: function (data) {
+        $("#contact").html(data);
+        // alert(data);
+      }
     });
-}
+  }
 </script>
